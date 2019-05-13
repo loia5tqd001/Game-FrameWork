@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{c211fdac-2b18-4784-bf77-270bec639b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development">
+      <UniqueIdentifier>{e552e2e3-ef9f-4ec3-b2e0-d32668f39cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Header">
+      <UniqueIdentifier>{0e80a15f-cafe-4123-b301-48c8f04954da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Source">
+      <UniqueIdentifier>{c4bffbd0-d6eb-41c8-91f6-dae3b812ff13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development\Header">
+      <UniqueIdentifier>{a66e785f-bc20-456c-9b94-37e174bc24da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development\Source">
+      <UniqueIdentifier>{90152314-ebb9-43c7-b976-871719dc9e69}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDevelopment.cpp">
+      <Filter>Development\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MyException.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameTimer.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ISingleton.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDevelopment.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
+  </ItemGroup>
+</Project>
