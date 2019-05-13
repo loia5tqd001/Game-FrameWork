@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 #include "MyException.h"
-#include "GameDevelopment.h"
+#include "GameDev.h"
 
 
 LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

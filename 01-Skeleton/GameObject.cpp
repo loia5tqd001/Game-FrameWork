@@ -1,6 +1,6 @@
 #include "MyException.h"
 #include "GameObject.h"
-#include "Game.h"
+#include "GameInit.h"
 
 
 

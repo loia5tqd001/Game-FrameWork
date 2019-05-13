@@ -1,89 +1,26 @@
 #pragma once
-#include <Windows.h>
-#include <d3dx9.h>
-#include <unordered_map>
-
-using namespace std;
+#include "GameDev.h"
 
 class Sprite
 {
-	int id;				// Sprite ID in the sprite database
-
-	int left;
-	int top;
-	int right;
-	int bottom;
-
+private:
 	LPDIRECT3DTEXTURE9 texture;
-public:
-	Sprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	LPD3DXSPRITE spriteHandler = GameDev::Instance().GetSpriteHandler();
 
-	void Draw(float x, float y);
+public:
+	void Draw(POINTFLOAT pos, LPDIRECT3DTEXTURE9 pTexture, RECT portion); // move to sprite class
+	void Draw(POINTFLOAT pos, bool isFlipX);
 };
 
-using LPSPRITE = Sprite*;
-
-class CSprites
+void Sprite::Draw(POINTFLOAT pos, LPDIRECT3DTEXTURE9 pTexture, RECT portion)
 {
-	static CSprites * __instance;
-
-	unordered_map<int, LPSPRITE> sprites;
-
-public:
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-	LPSPRITE Get(int id);
-
-	static CSprites * GetInstance();
-};
-
-/*
-	Sprite animation
-*/
-class CAnimationFrame
-{
-	LPSPRITE sprite;
-	DWORD time;
-
-public:
-	CAnimationFrame(LPSPRITE sprite, int time) {
-		this->sprite = sprite; this->time = time;
-	}
-	DWORD GetTime() {
-		return time;
-	}
-	LPSPRITE GetSprite() {
-		return sprite;
-	}
-};
-
-typedef CAnimationFrame *LPANIMATION_FRAME;
-
-class CAnimation
-{
-	DWORD lastFrameTime;
-	int defaultTime;
-	int currentFrame;
-	vector<LPANIMATION_FRAME> frames;
-public:
-	CAnimation(int defaultTime) {
-		this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1;
-	}
-	void Add(int spriteId, DWORD time = 0);
-	void Render(float x, float y);
-};
-
-typedef CAnimation *LPANIMATION;
-
-class CAnimations
-{
-	static CAnimations * __instance;
-
-	unordered_map<int, LPANIMATION> animations;
-
-public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
-
-	static CAnimations * GetInstance();
-};
+	// 'pos' is the position of sprite, which anchors to the center of that sprite.
+	// we want to draw from the position at the top left of that sprite (not the center),
+	// so we calculate draw position by translate haft the size of the sprite to the top left direction from that sprite position
+	float xDraw = pos.x - float(portion.right - portion.left) / 2;
+	float yDraw = pos.y - float(portion.bottom - portion.top) / 2;
+	D3DXVECTOR3 drawPos(xDraw, yDraw, 0.0f);
+	spriteHandler->Draw(pTexture, &portion, NULL, &drawPos, D3DCOLOR_XRGB(255, 255, 255));
+	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
+}
 

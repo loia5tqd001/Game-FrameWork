@@ -1,7 +1,7 @@
 #pragma once
-#include "Game.h"
+#include "GameInit.h"
 
-class GameDev : public Game, public ISingleton
+class GameDev : public GameInit, public ISingleton
 {
 private:
 	static constexpr char* MARIO_TEXTURE_PATH = "mario.png";

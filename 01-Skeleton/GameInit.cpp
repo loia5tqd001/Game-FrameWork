@@ -1,9 +1,9 @@
-#include "Game.h"
+#include "GameInit.h"
 #include "MyException.h"
 #include "FrameTimer.h"
 
 
-Game::~Game()
+GameInit::~GameInit()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
@@ -11,14 +11,14 @@ Game::~Game()
 	if (d3d != NULL) d3d->Release();
 }
 
-void Game::InitGame()
+void GameInit::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
 	LoadResources();
 }
 
-void Game::InitDirectDevice()
+void GameInit::InitDirectDevice()
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -44,7 +44,7 @@ void Game::InitDirectDevice()
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 }
 
-void Game::Render()
+void GameInit::Render()
 {
 	if (d3ddv->BeginScene())	
 	{
@@ -58,7 +58,7 @@ void Game::Render()
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void Game::Run()
+void GameInit::Run()
 {
 	while (wnd.ProcessMessage())
 	{
@@ -68,12 +68,7 @@ void Game::Run()
 	}
 }
 
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 pTexture, RECT portion)
-{
-	D3DXVECTOR3 position(x, y, 0.0f);
-	spriteHandler->Draw(pTexture, &portion, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
-	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
-}
+
 
 
 

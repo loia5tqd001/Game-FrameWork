@@ -24,21 +24,21 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDevelopment.cpp">
-      <Filter>Development\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInit.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDev.cpp">
+      <Filter>Development\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="MyException.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
@@ -51,11 +51,17 @@
     <ClInclude Include="MainWindow.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameDevelopment.h">
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Sprites.h" />
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInit.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDev.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Texture.h" />
   </ItemGroup>
 </Project>

@@ -123,22 +123,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameDevelopment.cpp" />
+    <ClCompile Include="GameInit.cpp" />
+    <ClCompile Include="GameDev.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameDevelopment.h" />
+    <ClInclude Include="GameDev.h" />
     <ClInclude Include="MyException.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameInit.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprites.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="FrameTimer.h" />
   </ItemGroup>
