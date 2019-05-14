@@ -24,18 +24,22 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameInit.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="GameDev.cpp">
       <Filter>Development\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,8 +56,6 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Sprites.h" />
     <ClInclude Include="Sprite.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
@@ -62,6 +64,21 @@
     </ClInclude>
     <ClInclude Include="GameDev.h">
       <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="States.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureType.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

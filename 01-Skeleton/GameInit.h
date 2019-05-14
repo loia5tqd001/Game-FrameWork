@@ -1,6 +1,6 @@
 #pragma once
 #include "MainWindow.h"
-#include "GameObject.h"
+#include <d3dx9.h>
 
 class GameInit
 {

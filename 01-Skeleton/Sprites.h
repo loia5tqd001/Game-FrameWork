@@ -1,89 +1,40 @@
 #pragma once
-#include <Windows.h>
-#include <d3dx9.h>
+#include "Sprite.h"
+#include "States.h"
+#include "ISingleton.h"
+#include <cassert>
 #include <unordered_map>
 
-using namespace std;
 
-class CSprite
+class Sprites : ISingleton
 {
-	int id;				// Sprite ID in the sprite database
-
-	int left;
-	int top;
-	int right;
-	int bottom;
-
-	LPDIRECT3DTEXTURE9 texture;
-public:
-	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-
-	void Draw(POINTFLOAT pos);
-};
-
-using LPSPRITE = CSprite*;
-
-class CSprites
-{
-	static CSprites * __instance;
-
-	unordered_map<int, LPSPRITE> sprites;
+private:
+	std::unordered_map<States, Sprite> spriteDictionary;
 
 public:
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-	LPSPRITE Get(int id);
-
-	static CSprites * GetInstance();
-};
-
-/*
-	Sprite animation
-*/
-class CAnimationFrame
-{
-	LPSPRITE sprite;
-	DWORD time;
-
-public:
-	CAnimationFrame(LPSPRITE sprite, int time) {
-		this->sprite = sprite; this->time = time;
+	void AddSprite(States id, LPDIRECT3DTEXTURE9 texture, RECT portion, bool isFlipX)
+	{
+		assert(texture != nullptr);
+		assert(spriteDictionary.count(id) == 0);
+		spriteDictionary.emplace(id, Sprite(texture, portion, isFlipX));
 	}
-	DWORD GetTime() {
-		return time;
+
+	Sprite& GetSprite(States id)
+	{
+		assert(spriteDictionary.count(id) == 1);
+		return spriteDictionary.at(id);
 	}
-	LPSPRITE GetSprite() {
-		return sprite;
+
+private:
+	Sprites() : ISingleton(NULL) {}
+
+public:
+	static Sprites& Instance()
+	{
+		static Sprites instance;
+		return instance;
 	}
 };
 
-typedef CAnimationFrame *LPANIMATION_FRAME;
 
-class CAnimation
-{
-	DWORD lastFrameTime;
-	int defaultTime;
-	int currentFrame;
-	vector<LPANIMATION_FRAME> frames;
-public:
-	CAnimation(int defaultTime) {
-		this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1;
-	}
-	void Add(int spriteId, DWORD time = 0);
-	void Render(float x, float y);
-};
-
-typedef CAnimation *LPANIMATION;
-
-class CAnimations
-{
-	static CAnimations * __instance;
-
-	unordered_map<int, LPANIMATION> animations;
-
-public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
-
-	static CAnimations * GetInstance();
-};
 
