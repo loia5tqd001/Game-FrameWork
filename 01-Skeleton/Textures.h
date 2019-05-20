@@ -1,6 +1,6 @@
 #pragma once
+#include "define.h"
 #include "ISingleton.h"
-#include "TextureType.h"
 #include <d3dx9.h>
 #include <unordered_map>
 
@@ -11,7 +11,7 @@ private:
 
 public:
 	void AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor);
-	CONST LPDIRECT3DTEXTURE9 GetTexture(TextureType id);
+	CONST LPDIRECT3DTEXTURE9 GetTexture(TextureType id) const;
 
 private:
 	Textures() : ISingleton(NULL) {}

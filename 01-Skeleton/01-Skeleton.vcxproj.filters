@@ -46,6 +46,7 @@
     <ClCompile Include="GameBase.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -60,26 +61,8 @@
     <ClInclude Include="MainWindow.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameDev.h">
       <Filter>Development\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="States.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureType.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Framework\Header</Filter>
@@ -89,6 +72,18 @@
     </ClInclude>
     <ClInclude Include="GameBase.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationFrame.h" />
+    <ClInclude Include="define.h" />
+    <ClInclude Include="Textures.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\Source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

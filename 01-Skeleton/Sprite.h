@@ -1,6 +1,7 @@
 #pragma once
-#include <d3dx9.h>
 #include "MyException.h"
+#include "define.h"
+#include <d3dx9.h>
 
 
 class Sprite
@@ -11,14 +12,12 @@ private:
 	RECT portion;
 	bool isFlipX;
 
-
 public:
-	Sprite(Sprite&&) noexcept {DebugOut("Moved\n");}//TODO: debug
-	Sprite(const Sprite&)     {DebugOut("Copied\n"); }
-	Sprite& operator=(const Sprite&) = default;
+	Sprite(Sprite&&) noexcept = default;
+	Sprite(const Sprite&) = delete;
 
 	Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion, bool isFlipX);
-	void Draw(POINTFLOAT pos);
+	void Draw(D3DXVECTOR3 pos);
 };
 
 

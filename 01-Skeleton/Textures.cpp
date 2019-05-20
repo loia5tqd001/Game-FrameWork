@@ -33,7 +33,7 @@ void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentC
 	textureDictionary.emplace(id, texture);
 }
 
-CONST LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id)
+CONST LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const
 {
 	assert(textureDictionary.count(id) == 1);
 	return textureDictionary.at(id);

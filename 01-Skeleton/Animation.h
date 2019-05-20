@@ -7,7 +7,7 @@
 class Animation
 {
 private:
-	std::vector<States> allStates        ;
+	std::vector<State> allStates        ;
 	unsigned int        curId      = 0u  ; 
 	const float         holdTime         ;
 	float		        holdedTime = 0.0f;

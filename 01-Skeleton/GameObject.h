@@ -14,7 +14,7 @@ protected:
 	UINT        width   ;
 	UINT        height  ;
 	D3DXVECTOR2 velocity;
-	States      curState;
+	State      curState;
 
 	std::vector<Animation> animations;
 

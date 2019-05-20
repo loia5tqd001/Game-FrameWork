@@ -1,14 +1,10 @@
-#include "Sprite.h"
-#include "GameDev.h"
+#include "AnimationFrame.h"
 
-Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion, bool isFlipX) :
-	spriteHandler(GameDev::Instance().GetSpriteHandler()),
-	pTexture(texture),
-	portion(portion),
-	isFlipX(isFlipX)
-{}
+AnimationFrame::AnimationFrame(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& portions)
+{
+}
 
-void Sprite::Draw(D3DXVECTOR3 pos)
+void AnimationFrame::Draw(D3DXVECTOR3 pos)
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);

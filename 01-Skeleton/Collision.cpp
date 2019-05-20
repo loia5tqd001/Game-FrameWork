@@ -52,7 +52,6 @@ std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & 
 
 	float txEntry, tyEntry;
 	float txExit, tyExit;
-
 	if (dx == 0.0f) {
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit = std::numeric_limits<float>::infinity();
@@ -74,25 +73,12 @@ std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & 
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
 
 	float nx, ny;
-	if (txEntry > tyEntry) 
-	{
-		if (dxEntry < 0.0f) {
-			nx = 1.0f;
-			ny = 0.0f;
-		} else {
-			nx = -1.0f;
-			ny = 0.0f;
-		}
-	}
-	else
-	{
-		if (dyEntry < 0.0f) {
-			nx = 0.0f;
-			ny = 1.0f;
-		} else {
-			nx = 0.0f;
-			ny = -1.0f;
-		}
+	if (txEntry > tyEntry) {
+		ny = 0.0f;
+		nx = dxEntry < 0.0f ? 1.0f : -1.0f;
+	} else {
+		nx = 0.0f;
+		ny = dyEntry < 0.0f ? 1.0f : -1.0f;
 	}
 
 	return {{ entryTime, nx, ny, obj2 }};	

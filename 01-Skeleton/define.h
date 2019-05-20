@@ -1,6 +1,22 @@
 #pragma once
+enum Direction
+{
+	LeftToRight,
+	RightToLeft,
+};
 
-enum States
+enum TextureType
+{
+	Mario,
+	Boomba
+};
+
+enum SpriteType
+{
+
+};
+
+enum State
 {
 	Mario_Begin,
 	Mario_Running,
