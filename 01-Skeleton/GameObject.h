@@ -10,7 +10,7 @@ enum Direction { LEFT, RIGHT };
 class GameObject
 {
 protected: 
-	POINTFLOAT  pos     ;
+	D3DXVECTOR3 pos     ;
 	UINT        width   ;
 	UINT        height  ;
 	D3DXVECTOR2 velocity;
@@ -39,6 +39,6 @@ public:
 };
 
 // capital pointers: only point to objects, do not call new or delete
-//using LPCGAMEOBJECT = const GameObject*;
+using LPCGAMEOBJECT = const GameObject*;
 //using LPGAMEOBJECT  =       GameObject*;
 

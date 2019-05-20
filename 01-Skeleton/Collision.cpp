@@ -4,131 +4,108 @@
 
 RECT CollisionDetector::GetBroadPhaseBox(const RECT & rect, float dx, float dy)
 {
-	RECT broadPhaseRect;
-	broadPhaseRect.left   = min(rect.left  , rect.left   + dx);
-	broadPhaseRect.top    = min(rect.top   , rect.top    + dy);
-	broadPhaseRect.right  = max(rect.right , rect.right  + dx);
-	broadPhaseRect.bottom = max(rect.bottom, rect.bottom + dy);
-	return broadPhaseRect;
+	RECT broadPhaseBox;
+	broadPhaseBox.left   = min(rect.left  , rect.left   + dx);
+	broadPhaseBox.top    = min(rect.top   , rect.top    + dy);
+	broadPhaseBox.right  = max(rect.right , rect.right  + dx);
+	broadPhaseBox.bottom = max(rect.bottom, rect.bottom + dy);
+	return broadPhaseBox;
 }
 
 /// Resource: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
 /// Note: it's reported to have bugs in cases, but we'll fine so who cares
-CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
+std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
 {
 	const auto v1 = obj1.GetVelocity();
 	const auto v2 = obj2.GetVelocity();
 
-	// relative motion distance this frame = relative velocity times dt(denta-time this frame)
+	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
 
 	// if two objects are moving relatively along together, obviously no collisions
-	if (dx == 0.0f && dy == 0.0f) return CollisionEvent(); 
+	if (dx == 0.0f && dy == 0.0f) return {}; 
 
 	const RECT rect1 = obj1.GetBoundingBox();
 	const RECT rect2 = obj2.GetBoundingBox();
 
 	// board phasing
-	if (IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return CollisionEvent(); 
+	if (IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
 
-	float xInvEntry, yInvEntry;
-	float xInvExit, yInvExit;
-	if (dx > 0.0f)
-	{
-		xInvEntry = rect2.left - rect1.right;
-		xInvExit = rect2.right - rect1.left;
-	}
-	else
-	{
-		xInvEntry = rect2.right - rect1.left;
-		xInvExit = rect2.left - rect1.right;
-	}
-	if (dy > 0.0f)
-	{
-		yInvEntry = rect2.top - rect1.bottom;
-		yInvExit = rect2.bottom - rect1.top;
-	}
-	else
-	{
-		yInvEntry = rect2.bottom - rect1.top;
-		yInvExit = rect2.top - rect1.bottom;
+	float dxEntry, dyEntry;
+	float dxExit, dyExit;
+	if (dx > 0.0f) {
+		dxEntry = rect2.left - rect1.right;
+		dxExit = rect2.right - rect1.left;
+	} else {
+		dxEntry = rect2.right - rect1.left;
+		dxExit = rect2.left - rect1.right;
 	}
 
-
-	float xEntry, yEntry;
-	float xExit, yExit;
-	if (dx == 0.0f)
-	{
-		xEntry = -std::numeric_limits<float>::infinity();
-		xExit = std::numeric_limits<float>::infinity();
-	}
-	else
-	{
-		xEntry = xInvEntry / dx;
-		xExit = xInvExit / dx;
+	if (dy > 0.0f) {
+		dyEntry = rect2.top - rect1.bottom;
+		dyExit = rect2.bottom - rect1.top;
+	} else {
+		dyEntry = rect2.bottom - rect1.top;
+		dyExit = rect2.top - rect1.bottom;
 	}
 
-	if (dy == 0.0f)
-	{
-		yEntry = -std::numeric_limits<float>::infinity();
-		yExit = std::numeric_limits<float>::infinity();
-	}
-	else
-	{
-		yEntry = yInvEntry / dy;
-		yExit = yInvExit / dy;
-	}
+	float txEntry, tyEntry;
+	float txExit, tyExit;
 
-	float entryTime = max(xEntry, yEntry);
-	float exitTime = min(xExit, yExit);
-	float normalx;
-	float normaly;
-
-	if (entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f)
-	{
-		return CollisionEvent();
+	if (dx == 0.0f) {
+		txEntry = -std::numeric_limits<float>::infinity();
+		txExit = std::numeric_limits<float>::infinity();
+	} else {
+		txEntry = dxEntry / dx;
+		txExit = dxExit / dx;
 	}
 
-	if (xEntry > yEntry)
+	if (dy == 0.0f) {
+		tyEntry = -std::numeric_limits<float>::infinity();
+		tyExit = std::numeric_limits<float>::infinity();
+	} else {
+		tyEntry = dyEntry / dy;
+		tyExit = dyExit / dy;
+	}
+
+	float entryTime = max(txEntry, tyEntry);
+	float exitTime = min(txExit, tyExit);
+	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
+
+	float nx, ny;
+	if (txEntry > tyEntry) 
 	{
-		if (xInvEntry < 0.0f)
-		{
-			normalx = 1.0f;
-			normaly = 0.0f;
-		}
-		else
-		{
-			normalx = -1.0f;
-			normaly = 0.0f;
+		if (dxEntry < 0.0f) {
+			nx = 1.0f;
+			ny = 0.0f;
+		} else {
+			nx = -1.0f;
+			ny = 0.0f;
 		}
 	}
 	else
 	{
-		if (yInvEntry < 0.0f)
-		{
-			normalx = 0.0f;
-			normaly = 1.0f;
-		}
-		else
-		{
-			normalx = 0.0f;
-			normaly = -1.0f;
+		if (dyEntry < 0.0f) {
+			nx = 0.0f;
+			ny = 1.0f;
+		} else {
+			nx = 0.0f;
+			ny = -1.0f;
 		}
 	}
 
-	return { entryTime, normalx, normaly, &obj2 };
-	
+	return {{ entryTime, nx, ny, obj2 }};	
 }
 
-std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const GameObject & obj, const std::vector<LPGAMEOBJECT>& coObjs, float dt)
+std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const GameObject & obj, const std::vector<LPCGAMEOBJECT>& coObjs, float dt)
 {
 	std::vector<CollisionEvent> potentialCollisions;
 
 	for (int i = 0; i < coObjs.size(); i++)
 	{
-		CollisionEvent e = SweptAABBEx(obj, *coObjs.at(i), dt);
-		if (e) potentialCollisions.emplace_back(std::move(e));
+		auto e = SweptAABBEx(obj, *coObjs.at(i), dt);
+		if (e) potentialCollisions.emplace_back(*e);
 	}
 	return potentialCollisions;
 }
@@ -168,7 +145,7 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 
 		if (usefulEventThisLoop)
 		{
-			afterFilter.emplace_back(std::move(event)); // move semantics (rvalue casting)
+			afterFilter.emplace_back(event);
 		}
 
 		// if min time collisions in two axis are both collected, move on
