@@ -46,13 +46,18 @@
     <ClCompile Include="GameBase.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationFrame.cpp" />
+    <ClCompile Include="Frames.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MyException.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameTimer.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="ISingleton.h">
@@ -73,17 +78,23 @@
     <ClInclude Include="GameBase.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="AnimationFrame.h" />
-    <ClInclude Include="define.h" />
     <ClInclude Include="Textures.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Framework\Source</Filter>
+    <ClInclude Include="Frames.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Development\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

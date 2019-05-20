@@ -1,20 +1,25 @@
 #pragma once
-#include "States.h"
-#include <vector>
+
+#include "define.h"
 #include <d3dx9.h>
+#include <vector>
 
 
 class Animation
 {
 private:
-	std::vector<State> allStates        ;
-	unsigned int        curId      = 0u  ; 
-	const float         holdTime         ;
-	float		        holdedTime = 0.0f;
+	static const LPD3DXSPRITE spriteHandler;
+
+	const LPDIRECT3DTEXTURE9 pTexture   ;
+	const std::vector<RECT>& frames     ;
+	const float              holdTime   ;
+	      float              holdingTime;
+	      unsigned int       curFrame   ;
 
 public:
-	Animation(States begin, States end, float holdTime);
-	void SetState(States state  );
-	void Update  (float dt      );
-	void Render  (POINTFLOAT pos);
+	Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime);
+	void Update(float dt);
+	void Render(D3DXVECTOR3 pos, Direction dir) const;
+
 };
+

@@ -2,9 +2,10 @@
 #include "Textures.h"
 #include "GameDev.h"
 
-
-void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor)
+CONST LPDIRECT3DTEXTURE9 Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor)
 {
+	assert(textureDictionary.count(id) == 0);
+
 	D3DXIMAGE_INFO info;
 	if (D3DXGetImageInfoFromFile(filePath, &info) != D3D_OK)
 	{
@@ -15,9 +16,9 @@ void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentC
 	LPDIRECT3DTEXTURE9 texture;
 	HRESULT result = D3DXCreateTextureFromFileEx(
 					 GameDev::Instance().GetDirect3DDevice(),
-					 filePath,							
-					 info.Width,							
-					 info.Height,						
+					 filePath,
+					 info.Width,
+					 info.Height,
 					 D3DX_DEFAULT,
 					 D3DUSAGE_DYNAMIC,
 					 D3DFMT_UNKNOWN,
@@ -27,10 +28,11 @@ void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentC
 					 transparentColor,
 					 &info,
 					 NULL,
-					 &texture);							
+					 &texture);
 
 	if (result != D3D_OK) ThrowMyException("Create texture from file failed");
 	textureDictionary.emplace(id, texture);
+	return GetTexture(id);
 }
 
 CONST LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const

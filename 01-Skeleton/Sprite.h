@@ -1,23 +1,18 @@
 #pragma once
-#include "MyException.h"
-#include "define.h"
 #include <d3dx9.h>
 
-
+// to draw static sprite
 class Sprite
 {
 private:
-	LPD3DXSPRITE spriteHandler; 
-	LPDIRECT3DTEXTURE9 pTexture;
-	RECT portion;
-	bool isFlipX;
+	static const LPD3DXSPRITE spriteHandler;
+	const LPDIRECT3DTEXTURE9 pTexture;
+	const RECT portion;
 
 public:
-	Sprite(Sprite&&) noexcept = default;
-	Sprite(const Sprite&) = delete;
-
-	Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion, bool isFlipX);
-	void Draw(D3DXVECTOR3 pos);
+	Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion) : pTexture(texture), portion(portion) {}
+	void Draw(D3DXVECTOR3 pos, bool isFlipX) const;
 };
+
 
 

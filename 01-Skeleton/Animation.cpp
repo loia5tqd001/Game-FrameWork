@@ -1,49 +1,49 @@
 #include "Animation.h"
 #include "Sprites.h"
-#include <cassert>
-#include <algorithm>
+#include "GameDev.h"
 
+const LPD3DXSPRITE Animation::spriteHandler = GameDev::Instance().GetSpriteHandler();
 
-Animation::Animation(States begin, States end, float holdTime)
-	: holdTime(holdTime)
-{
-	assert(begin > States(0) && end < States::Count);
-	assert(holdTime > 0.0f);
-
-	// reserve number of states will be pushed to std::vector
-	allStates.reserve(int(end) - int(begin) - 1); 
-
-	// useful states are on range of after 'begin' to near 'end'
-	for (int i = (int)begin + 1; i < (int)end; i++)
-	{
-		allStates.emplace_back((States)i);
-	}
-}
-
-void Animation::SetState(States state)
-{
-	auto it = std::find(allStates.begin(), allStates.end(), state);
-	assert(it != allStates.end());
-	curId = it - allStates.begin();
-}
+Animation::Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime) :
+	pTexture(texture),
+	frames(frames),
+	holdTime(holdTime),
+	holdingTime(0.0f),
+	curFrame(0u)
+{}
 
 void Animation::Update(float dt)
 {
-	// declare inner function: advance to the next state
-	static auto Advance = [this]() { if (++curId >= allStates.size()) curId = 0; }; 
-
-	holdedTime += dt;
-	while (holdedTime >= holdTime)
+	holdingTime += dt;
+	while (holdingTime >= holdTime)
 	{
-		Advance();
-		holdedTime -= holdTime;
+		if (++curFrame >= frames.size()) curFrame = 0;
+		holdingTime -= holdTime;
 	}
 }
 
-void Animation::Render(POINTFLOAT pos)
+void Animation::Render(D3DXVECTOR3 pos, Direction dir) const
 {
-	States curState = allStates[curId];
-	Sprites::Instance().GetSprite(curState).Draw(pos);
+	D3DXMATRIX oldMt;
+	spriteHandler->GetTransform(&oldMt);
+
+	if (dir == RightToLeft)
+	{
+		D3DXVECTOR2 vtScaleFlipX = D3DXVECTOR2(-1.0f, 1.0f);
+		D3DXVECTOR2 centerScale = D3DXVECTOR2(pos.x, pos.y);
+		D3DXMATRIX newMt;
+		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScaleFlipX, NULL, 0.0f, NULL);
+		D3DXMATRIX finalMt = newMt * oldMt;
+		spriteHandler->SetTransform(&finalMt);
+	}
+
+	const RECT& rect = frames[curFrame];
+	float xDraw = pos.x - float(rect.right - rect.left) / 2;
+	float yDraw = pos.y - float(rect.bottom - rect.top) / 2;
+
+	D3DXVECTOR3 drawPos(xDraw, yDraw, 0.0f);
+	spriteHandler->Draw(pTexture, &rect, NULL, &drawPos, D3DCOLOR_XRGB(255, 255, 255));
+	spriteHandler->SetTransform(&oldMt);
 }
 
 

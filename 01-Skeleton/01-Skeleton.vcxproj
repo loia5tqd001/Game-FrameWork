@@ -124,11 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Frames.cpp" />
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="GameDev.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="MyException.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -136,8 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Frames.h" />
     <ClInclude Include="GameDev.h" />
     <ClInclude Include="MyException.h" />
     <ClInclude Include="GameBase.h" />
@@ -145,8 +147,7 @@
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Sprites.h" />
-    <ClInclude Include="FrameTimer.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="define.h" />
   </ItemGroup>

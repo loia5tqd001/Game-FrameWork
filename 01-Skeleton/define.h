@@ -1,4 +1,5 @@
 #pragma once
+
 enum Direction
 {
 	LeftToRight,
@@ -11,7 +12,7 @@ enum TextureType
 	Boomba
 };
 
-enum SpriteType
+enum AnimationType
 {
 
 };

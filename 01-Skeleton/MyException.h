@@ -20,28 +20,14 @@ class MyException : public std::exception
 private:
 	std::string msgOut;
 
-	MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file) noexcept
-	{
-		std::ostringstream ss;
-		ss << "[Exception]: " << msg << "\n";
-		ss << "[Line]: " << line << "\n";
-		ss << "[Func]: " << func << "\n";
-		ss << "[File]: " << file << "\n";
-		msgOut = ss.str();
-	}
+	MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file) noexcept;
 
 public:
 	const char* what() const noexcept override { return msgOut.c_str(); }
 
-	#pragma warning(disable:4566) // disable C4566. kind of unicode ascii converting wanring
-	static void Throw(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file)
-	{
-		MyException ex(msg, line, func, file);
-		DebugOut(ex.what());
-		throw ex;
-	}
+	#pragma warning(disable:4566) // unicode - ascii converting wanring
+	static void Throw(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file);
 
-	#define ThrowMyException(msg)							\
-	MyException::Throw(msg, __LINE__, __func__, __FILE__)
+	#define ThrowMyException(msg) MyException::Throw(msg, __LINE__, __func__, __FILE__)
 };
 

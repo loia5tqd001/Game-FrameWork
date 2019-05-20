@@ -1,14 +1,9 @@
 #include "Sprite.h"
 #include "GameDev.h"
 
-Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion, bool isFlipX) :
-	spriteHandler(GameDev::Instance().GetSpriteHandler()),
-	pTexture(texture),
-	portion(portion),
-	isFlipX(isFlipX)
-{}
+const LPD3DXSPRITE Sprite::spriteHandler = GameDev::Instance().GetSpriteHandler();
 
-void Sprite::Draw(D3DXVECTOR3 pos)
+void Sprite::Draw(D3DXVECTOR3 pos, bool isFlipX) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);

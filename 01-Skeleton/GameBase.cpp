@@ -1,6 +1,6 @@
 #include "GameBase.h"
 #include "MyException.h"
-#include "FrameTimer.h"
+#include "GameTimer.h"
 
 
 GameBase::~GameBase()
@@ -62,8 +62,8 @@ void GameBase::Run()
 {
 	while (wnd.ProcessMessage())
 	{
-		FrameTimer::BeginFrame();
-		Update(FrameTimer::DeltaTime());
+		GameTimer::BeginFrame();
+		Update(GameTimer::DeltaTime());
 		Render();
 	}
 }

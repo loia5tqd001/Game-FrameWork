@@ -10,7 +10,7 @@ private:
 	std::unordered_map<TextureType, LPDIRECT3DTEXTURE9> textureDictionary;
 
 public:
-	void AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor);
+	CONST LPDIRECT3DTEXTURE9 AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor);
 	CONST LPDIRECT3DTEXTURE9 GetTexture(TextureType id) const;
 
 private:
