@@ -2,30 +2,43 @@
 
 
 #include <vector>
+#include "Animation.h"
+#include "Textures.h"
 
+enum Direction { LEFT, RIGHT };
 
-//
-//class GameObject
-//{
-//protected: 
-//	float x = 0.0f; 
-//	float y = 0.0f;
-//	float vx = 0.1f;
-//	int currentState;
-//
-//	vector<LPANIMATION> animations;
-//public: 
-//	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-//	void SetState(int state) { this->currentState = state; }
-//	void AddAnimation(int aniId);
-//	void Update(DWORD dt);
-//	void Render();
-//};
+class GameObject
+{
+protected: 
+	POINTFLOAT  pos     ;
+	UINT        width   ;
+	UINT        height  ;
+	D3DXVECTOR2 velocity;
+	States      curState;
 
-//class Mario : public GameObject
-//{
-//public: 
-//	Mario(LPCSTR texturePath) : GameObject(texturePath) {};
-//
-//	void Update(DWORD dt, UINT dir);
-//};
+	std::vector<Animation> animations;
+
+	GameObject(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
+	{
+		Textures::Instance().AddTexture(id, texturePath, transparentColor);
+	}
+
+public: 
+	RECT GetBoundingBox() const
+	{
+		RECT boxCollider;
+		boxCollider.left   = (UINT)pos.x - (width  / 2);
+		boxCollider.top    = (UINT)pos.y - (height / 2);
+		boxCollider.right  = (UINT)pos.x + (width  / 2);
+		boxCollider.bottom = (UINT)pos.y + (height / 2);
+	}
+	D3DXVECTOR2 GetVelocity() const { return velocity; }
+	void RenderBoundingBox() const; // for debug;
+	virtual void Update(float dt) = 0;
+	virtual void Render() = 0;
+};
+
+// capital pointers: only point to objects, do not call new or delete
+//using LPCGAMEOBJECT = const GameObject*;
+//using LPGAMEOBJECT  =       GameObject*;
+

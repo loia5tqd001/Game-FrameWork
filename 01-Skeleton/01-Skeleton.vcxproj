@@ -124,7 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="GameInit.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="GameDev.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -134,9 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="GameDev.h" />
     <ClInclude Include="MyException.h" />
-    <ClInclude Include="GameInit.h" />
+    <ClInclude Include="GameBase.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />

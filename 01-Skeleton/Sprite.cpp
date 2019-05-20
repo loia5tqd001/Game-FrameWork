@@ -25,7 +25,7 @@ void Sprite::Draw(POINTFLOAT pos)
 
 	// 'pos' is the position of the entity owns the sprite, which anchors to the center of that enity.
 	// by default we will draw from the position at the top left of the sprite, not the center.
-	// so we calculate starting drawing position by translate to the top left direction from 'pos'
+	// so we calculate starting drawing position by offsetting to the top left direction from 'pos'
 
 	float xDraw = pos.x - float(portion.right - portion.left) / 2;
 	float yDraw = pos.y - float(portion.bottom - portion.top) / 2;

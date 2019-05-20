@@ -24,11 +24,7 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="GameInit.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameDev.cpp">
       <Filter>Development\Source</Filter>
     </ClCompile>
@@ -39,6 +35,15 @@
       <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBase.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -55,11 +60,7 @@
     <ClInclude Include="MainWindow.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Sprite.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameInit.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="GameDev.h">
@@ -78,6 +79,15 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBase.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>

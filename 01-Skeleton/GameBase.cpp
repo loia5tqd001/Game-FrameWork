@@ -1,9 +1,9 @@
-#include "GameInit.h"
+#include "GameBase.h"
 #include "MyException.h"
 #include "FrameTimer.h"
 
 
-GameInit::~GameInit()
+GameBase::~GameBase()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
@@ -11,14 +11,14 @@ GameInit::~GameInit()
 	if (d3d != NULL) d3d->Release();
 }
 
-void GameInit::InitGame()
+void GameBase::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
 	LoadResources();
 }
 
-void GameInit::InitDirectDevice()
+void GameBase::InitDirectDevice()
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -44,7 +44,7 @@ void GameInit::InitDirectDevice()
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 }
 
-void GameInit::Render()
+void GameBase::Render()
 {
 	if (d3ddv->BeginScene())	
 	{
@@ -58,7 +58,7 @@ void GameInit::Render()
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void GameInit::Run()
+void GameBase::Run()
 {
 	while (wnd.ProcessMessage())
 	{

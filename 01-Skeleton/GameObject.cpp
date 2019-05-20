@@ -1,6 +1,9 @@
-#include "MyException.h"
 #include "GameObject.h"
-#include "GameInit.h"
 
+void GameObject::Update(float dt)
+{
+}
 
-
+void GameObject::Render()
+{
+}

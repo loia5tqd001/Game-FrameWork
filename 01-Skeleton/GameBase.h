@@ -2,7 +2,7 @@
 #include "MainWindow.h"
 #include <d3dx9.h>
 
-class GameInit
+class GameBase
 {
 private:
 	LPDIRECT3D9		   d3d			 = NULL;						
@@ -22,7 +22,7 @@ protected:
 public:
 	void InitGame();
 	void Run     ();
-	virtual ~GameInit(); 
+	virtual ~GameBase(); 
 
 	virtual void OnKeyDown(BYTE keyCode){}
 	virtual void OnKeyUp  (BYTE keyCode){}
