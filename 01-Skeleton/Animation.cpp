@@ -5,12 +5,14 @@
 
 
 Animation::Animation(TextureType textureType, AnimationType animationType, float holdTime) :
+	spriteHandler(GameDev::Instance().GetSpriteHandler()),
 	pTexture(Textures::Instance().GetTexture(textureType)),
 	frames(Frames::Instance().GetFrames(animationType)),
 	holdTime(holdTime)
 {}
 
 Animation::Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime) :
+	spriteHandler(GameDev::Instance().GetSpriteHandler()),
 	pTexture(texture),
 	frames(frames),
 	holdTime(holdTime)

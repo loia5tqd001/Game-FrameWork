@@ -1,7 +1,7 @@
 #include "Sprite.h"
 #include "GameDev.h"
 
-const LPD3DXSPRITE Sprite::spriteHandler = GameDev::Instance().GetSpriteHandler();
+Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion) : pTexture(texture), portion(portion), spriteHandler(GameDev::Instance().GetSpriteHandler()) {}
 
 void Sprite::Draw(D3DXVECTOR3 pos, bool isFlipX) const
 {
