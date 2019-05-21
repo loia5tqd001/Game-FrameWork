@@ -1,20 +1,19 @@
 #pragma once
 #include "GameBase.h"
 #include "ISingleton.h"
+#include "Mario.h"
 
 class GameDev : public GameBase, ISingleton
 {
 private:
-	static constexpr char* MARIO_TEXTURE_PATH = "mario.png";
-	static constexpr int   ID_TEX_MARIO       = 0          ;
-
-
 	void LoadResources () override;
 	void Update(float dt) override;
 	void ComposeFrame  () override;
 
+	//Mario mario;
+
 private:
-	GameDev() : ISingleton(NULL) {}
+	GameDev() : GameBase(), ISingleton(NULL) {}
 
 public:
 	static GameDev& Instance()

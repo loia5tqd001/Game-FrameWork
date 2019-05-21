@@ -8,16 +8,17 @@
 class Animation
 {
 private:
-	static const LPD3DXSPRITE spriteHandler;
+	const LPD3DXSPRITE spriteHandler = GameDev::Instance().GetSpriteHandler();
 
-	const LPDIRECT3DTEXTURE9 pTexture   ;
-	const std::vector<RECT>& frames     ;
-	const float              holdTime   ;
-	      float              holdingTime;
-	      unsigned int       curFrame   ;
+	const LPDIRECT3DTEXTURE9 pTexture          ;
+	const std::vector<RECT>& frames            ;
+	const float              holdTime          ;
+	      float              holdingTime = 0.0f;
+	      unsigned int       curFrame    = 0u  ;
 
 public:
 	Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime);
+	Animation(TextureType textureType, AnimationType animationType, float holdTime);
 	void Update(float dt);
 	void Render(D3DXVECTOR3 pos, Direction dir) const;
 

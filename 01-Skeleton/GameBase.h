@@ -22,6 +22,7 @@ protected:
 public:
 	void InitGame();
 	void Run     ();
+	GameBase() { InitGame(); }
 	virtual ~GameBase(); 
 
 	virtual void OnKeyDown(BYTE keyCode){}

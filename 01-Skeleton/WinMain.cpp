@@ -6,8 +6,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
 	try
 	{	
-		GameDev::Instance().InitGame();
-		GameDev::Instance().Run();
+		//GameDev::Instance().InitGame();
+		GameDev& game = GameDev::Instance();
+		game.Run();
 	}
 	catch (const std::exception& ex)
 	{

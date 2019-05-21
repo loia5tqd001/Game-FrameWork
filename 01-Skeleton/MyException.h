@@ -20,7 +20,7 @@ class MyException : public std::exception
 private:
 	std::string msgOut;
 
-	MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file) noexcept;
+	MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file);
 
 public:
 	const char* what() const noexcept override { return msgOut.c_str(); }

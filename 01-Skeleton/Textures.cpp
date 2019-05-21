@@ -2,7 +2,7 @@
 #include "Textures.h"
 #include "GameDev.h"
 
-CONST LPDIRECT3DTEXTURE9 Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor)
+void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor)
 {
 	assert(textureDictionary.count(id) == 0);
 
@@ -32,7 +32,6 @@ CONST LPDIRECT3DTEXTURE9 Textures::AddTexture(TextureType id, LPCSTR filePath, D
 
 	if (result != D3D_OK) ThrowMyException("Create texture from file failed");
 	textureDictionary.emplace(id, texture);
-	return GetTexture(id);
 }
 
 CONST LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const

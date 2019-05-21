@@ -21,7 +21,7 @@ private:
 public:
 	void InitWindow();
 	bool ProcessMessage() const;
-	bool IsKeyPressed(BYTE keyCode) const { return keyStates[keyCode];  }
+	bool IsKeyPressed(BYTE keyCode) const { return keyStates[keyCode]; }
 	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) { MessageBox(nullptr, message, title, type); }
 
 	int	       GetWidth () const { return SCREEN_WIDTH ;}

@@ -1,44 +1,45 @@
 #pragma once
 
-
+#include "define.h"
 #include <vector>
-#include "Animation.h"
-#include "Textures.h"
+#include <d3dx9.h>
 
-enum Direction { LEFT, RIGHT };
+// capital pointers: only point to objects, do not call new or delete
+using LPCGAMEOBJECT = const class GameObject*;
 
 class GameObject
 {
 protected: 
-	D3DXVECTOR3 pos     ;
-	UINT        width   ;
-	UINT        height  ;
-	D3DXVECTOR2 velocity;
-	State      curState;
+	D3DXVECTOR3 pos     ; // center of bounding box
+	D3DXVECTOR2 vel     ;
+	State       curState;
 
-	std::vector<Animation> animations;
-
-	GameObject(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
-	{
-		Textures::Instance().AddTexture(id, texturePath, transparentColor);
-	}
+	inline virtual UINT GetWidth  () const = 0;
+	inline virtual UINT GetHeight () const = 0;
 
 public: 
-	RECT GetBoundingBox() const
-	{
-		RECT boxCollider;
-		boxCollider.left   = (UINT)pos.x - (width  / 2);
-		boxCollider.top    = (UINT)pos.y - (height / 2);
-		boxCollider.right  = (UINT)pos.x + (width  / 2);
-		boxCollider.bottom = (UINT)pos.y + (height / 2);
-	}
-	D3DXVECTOR2 GetVelocity() const { return velocity; }
-	void RenderBoundingBox() const; // for debug;
-	virtual void Update(float dt) = 0;
-	virtual void Render() = 0;
+	const D3DXVECTOR3& GetPosition   () const { return pos     ; }
+	const D3DXVECTOR2& GetVelocity   () const { return vel     ; }
+	State              GetState      () const { return curState; }
+	RECT               GetBoundingBox() const;
+
+	virtual void SetPosition(const D3DXVECTOR3& pos) { this->pos  = pos; }
+	virtual void SetVelocity(const D3DXVECTOR2& vel) { this->vel  = vel; }
+	virtual void SetState   (State            state) { curState = state; }
+
+	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) = 0;
+	virtual void Render(                                                     ) = 0;
+
+	GameObject(const D3DXVECTOR3& pos, const D3DXVECTOR2& vel, State state) : pos(pos), vel(vel), curState(state) {}
+	GameObject(State initState, const D3DXVECTOR3& pos = {0.0f, 0.0f, 0.0f}, const D3DXVECTOR2& vel = {0.0f, 0.0f})
+		: GameObject(pos, vel, initState) {}
+	virtual ~GameObject() = default;
+
+	// == for debuging == //
+	void RenderBoundingBox() const; 
 };
 
-// capital pointers: only point to objects, do not call new or delete
-using LPCGAMEOBJECT = const GameObject*;
-//using LPGAMEOBJECT  =       GameObject*;
 
+
+
+ 

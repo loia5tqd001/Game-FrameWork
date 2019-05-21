@@ -1,14 +1,15 @@
 #include "Collision.h"
 #include <algorithm>
 #include <limits.h>
+#include <assert.h>
 
 RECT CollisionDetector::GetBroadPhaseBox(const RECT & rect, float dx, float dy)
 {
 	RECT broadPhaseBox;
-	broadPhaseBox.left   = min(rect.left  , rect.left   + dx);
-	broadPhaseBox.top    = min(rect.top   , rect.top    + dy);
-	broadPhaseBox.right  = max(rect.right , rect.right  + dx);
-	broadPhaseBox.bottom = max(rect.bottom, rect.bottom + dy);
+	broadPhaseBox.left   = min(rect.left  , rect.left   + (LONG)dx);
+	broadPhaseBox.top    = min(rect.top   , rect.top    + (LONG)dy);
+	broadPhaseBox.right  = max(rect.right , rect.right  + (LONG)dx);
+	broadPhaseBox.bottom = max(rect.bottom, rect.bottom + (LONG)dy);
 	return broadPhaseBox;
 }
 
@@ -32,8 +33,8 @@ std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & 
 	// board phasing
 	if (IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
 
-	float dxEntry, dyEntry;
-	float dxExit, dyExit;
+	LONG dxEntry, dyEntry;
+	LONG dxExit, dyExit;
 	if (dx > 0.0f) {
 		dxEntry = rect2.left - rect1.right;
 		dxExit = rect2.right - rect1.left;
@@ -56,8 +57,8 @@ std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & 
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit = std::numeric_limits<float>::infinity();
 	} else {
-		txEntry = dxEntry / dx;
-		txExit = dxExit / dx;
+		txEntry = (float)dxEntry / dx;
+		txExit = (float)dxExit / dx;
 	}
 
 	if (dy == 0.0f) {
@@ -88,17 +89,17 @@ std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const Gam
 {
 	std::vector<CollisionEvent> potentialCollisions;
 
-	for (int i = 0; i < coObjs.size(); i++)
+	for (UINT i = 0; i < coObjs.size(); i++)
 	{
 		auto e = SweptAABBEx(obj, *coObjs.at(i), dt);
-		if (e) potentialCollisions.emplace_back(*e);
+		if (e) potentialCollisions.emplace_back(std::move(*e));
 	}
 	return potentialCollisions;
 }
 
-std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<CollisionEvent>&& preFilter, float & min_tx, float & min_ty, float & nx, float & ny)
+std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<CollisionEvent> preFilter, float & min_tx, float & min_ty, float & nx, float & ny)
 {
-	// This function is being called tremendously, so there will be optimization, and yet be hard to understand //
+	// This function is being called tremendously, so there will be optimization, and yet to be hard to understand //
 
 	assert(preFilter.size() > 0);
 
@@ -106,9 +107,9 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 	min_tx = min_ty = 1.0f;
 	nx     = ny     = 0.0f;
 
-	std::sort(preFilter.begin(), preFilter.end(), [](auto a, auto b) { return a->t < b->t; });
+	std::sort(preFilter.begin(), preFilter.end(), [](auto a, auto b) { return a.t < b.t; });
 	bool usefulEventThisLoop; // declare here to avoid constantly initializing inside the loop
-	for (int i = 0; i < preFilter.size(); i++)
+	for (UINT i = 0; i < preFilter.size(); i++)
 	{
 		CollisionEvent& event = preFilter[i];
 		usefulEventThisLoop = false;
@@ -131,7 +132,7 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 
 		if (usefulEventThisLoop)
 		{
-			afterFilter.emplace_back(event);
+			afterFilter.emplace_back(std::move(event));
 		}
 
 		// if min time collisions in two axis are both collected, move on

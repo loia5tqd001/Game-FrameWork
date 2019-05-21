@@ -1,33 +1,35 @@
 #pragma once
 
-enum Direction
+enum class Direction
 {
-	LeftToRight,
-	RightToLeft,
+	Right,
+	Left
 };
 
-enum TextureType
+enum class TextureType
 {
 	Mario,
-	Boomba
+	Misc,
+	Enemy,
+	Bbox
 };
 
-enum AnimationType
+enum class AnimationType
 {
-
+	Mario_Die,
+	Mario_BigIdle,
+	Mario_BigWalking,
+	Mario_SmallIdle,
+	Mario_SmallWalking,
 };
 
-enum State
+enum class State
 {
-	Mario_Begin,
-	Mario_Running,
+	Mario_Idle,
 	Mario_Walking,
-	Mario_End,
-
-	Boomba_Begin,
-	Boomba_Running,
-	Boomba_Thiking,
-	Boomba_End,
-
-	Count
+	Mario_Jump,
+	Mario_Die
 };
+
+
+

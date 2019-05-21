@@ -2,10 +2,10 @@
 #include "MyException.h"
 #include <fstream>
 
-const std::vector<RECT>& Frames::AddFrames(AnimationType id, LPCSTR filePath)
+void Frames::AddFrames(AnimationType id, LPCSTR filePath)
 {
 	assert(frameDictionary.count(id) == 0);
-
+	
 	std::ifstream frameFile(filePath, std::ifstream::in);
 	if (!frameFile.is_open()) ThrowMyException("Add frames from file failed");
 
@@ -15,14 +15,13 @@ const std::vector<RECT>& Frames::AddFrames(AnimationType id, LPCSTR filePath)
 	frames.reserve(nFrames);
 
 	RECT buffer;
-	for (int i = 0; i < nFrames; i++)
+	for (UINT i = 0; i < nFrames; i++)
 	{
 		frameFile >> buffer.left >> buffer.top >> buffer.right >> buffer.bottom;
 		frames.emplace_back(std::move(buffer));
 	}
 
 	frameDictionary.emplace(id, std::move(frames));
-	return GetFrames(id);
 }
 
 const std::vector<RECT>& Frames::GetFrames(AnimationType id) const
