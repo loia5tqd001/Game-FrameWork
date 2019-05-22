@@ -8,7 +8,7 @@
 class Animation
 {
 private:
-	const LPD3DXSPRITE         spriteHandler;
+	//const LPD3DXSPRITE         spriteHandler;
 
 	const LPDIRECT3DTEXTURE9 pTexture          ;
 	const std::vector<RECT>& frames            ;

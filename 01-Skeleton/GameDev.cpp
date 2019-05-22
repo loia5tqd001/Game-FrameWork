@@ -21,10 +21,12 @@ void GameDev::LoadResources()
 
 void GameDev::Update(float dt)
 {
-	//mario.Update(dt, std::vector<LPCGAMEOBJECT>());
+	if (mario == nullptr)
+		mario = new Mario();
+	mario->Update(dt, std::vector<LPCGAMEOBJECT>());
 }
 void GameDev::ComposeFrame()
 {
-	//mario.Render();
+	mario->Render();
 }
 

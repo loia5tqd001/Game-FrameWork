@@ -52,7 +52,7 @@ private:
 		aniSmallIdle    { TextureType::Mario, AnimationType::Mario_SmallIdle   , 0.1f },
 		aniSmallWalking { TextureType::Mario, AnimationType::Mario_SmallWalking, 0.1f };
 
-	Level level = Level::Small;
+	Level level = Level::Big;
 	Direction dir = Direction::Right;
 
 	inline UINT GetWidth () const override { return level == Level::Small ? 13 : 15; }

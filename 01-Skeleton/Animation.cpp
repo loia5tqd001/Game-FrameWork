@@ -5,14 +5,14 @@
 
 
 Animation::Animation(TextureType textureType, AnimationType animationType, float holdTime) :
-	spriteHandler(GameDev::Instance().GetSpriteHandler()),
+	//spriteHandler(GameDev::Instance().GetSpriteHandler()),
 	pTexture(Textures::Instance().GetTexture(textureType)),
 	frames(Frames::Instance().GetFrames(animationType)),
 	holdTime(holdTime)
 {}
 
 Animation::Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime) :
-	spriteHandler(GameDev::Instance().GetSpriteHandler()),
+	//spriteHandler(GameDev::Instance().GetSpriteHandler()),
 	pTexture(texture),
 	frames(frames),
 	holdTime(holdTime)
@@ -30,6 +30,7 @@ void Animation::Update(float dt)
 
 void Animation::Render(D3DXVECTOR3 pos, Direction dir) const
 {
+	LPD3DXSPRITE spriteHandler = GameDev::Instance().GetSpriteHandler();
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
 

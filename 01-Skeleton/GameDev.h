@@ -10,7 +10,7 @@ private:
 	void Update(float dt) override;
 	void ComposeFrame  () override;
 
-	//Mario mario;
+	Mario* mario;
 
 private:
 	GameDev() : GameBase(), ISingleton(NULL) {}
