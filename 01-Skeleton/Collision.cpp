@@ -15,62 +15,61 @@ RECT CollisionDetector::GetBroadPhaseBox(const RECT & rect, float dx, float dy)
 
 /// Resource: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
 /// Note: it's reported to have bugs in cases, but we'll fine so who cares
-std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
+CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
 {
 	const auto v1 = obj1.GetVelocity();
 	const auto v2 = obj2.GetVelocity();
+
+	// if two objects moving relatively along together, obviously no collisions
+	if (v1 == v2) return {};
 
 	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
 
-	// if two objects are moving relatively along together, obviously no collisions
-	if (dx == 0.0f && dy == 0.0f) return {}; 
-
 	const RECT rect1 = obj1.GetBoundingBox();
 	const RECT rect2 = obj2.GetBoundingBox();
-
 	// board phasing
 	if (IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
 
-	LONG dxEntry, dyEntry;
-	LONG dxExit, dyExit;
+	LONG dxEntry, dxExit;
+	LONG dyEntry, dyExit;
 	if (dx > 0.0f) {
-		dxEntry = rect2.left - rect1.right;
-		dxExit = rect2.right - rect1.left;
+		dxEntry = rect2.left  - rect1.right;
+		dxExit  = rect2.right - rect1.left ;
 	} else {
-		dxEntry = rect2.right - rect1.left;
-		dxExit = rect2.left - rect1.right;
+		dxEntry = rect2.right - rect1.left ;
+		dxExit  = rect2.left  - rect1.right;
 	}
 
 	if (dy > 0.0f) {
-		dyEntry = rect2.top - rect1.bottom;
-		dyExit = rect2.bottom - rect1.top;
+		dyEntry = rect2.top    - rect1.bottom;
+		dyExit  = rect2.bottom - rect1.top   ;
 	} else {
-		dyEntry = rect2.bottom - rect1.top;
-		dyExit = rect2.top - rect1.bottom;
+		dyEntry = rect2.bottom - rect1.top   ;
+		dyExit  = rect2.top    - rect1.bottom;
 	}
 
-	float txEntry, tyEntry;
-	float txExit, tyExit;
+	float txEntry, txExit;
+	float tyEntry, tyExit;
 	if (dx == 0.0f) {
 		txEntry = -std::numeric_limits<float>::infinity();
-		txExit = std::numeric_limits<float>::infinity();
+		txExit  =  std::numeric_limits<float>::infinity();
 	} else {
 		txEntry = (float)dxEntry / dx;
-		txExit = (float)dxExit / dx;
+		txExit  = (float)dxExit  / dx;
 	}
 
 	if (dy == 0.0f) {
 		tyEntry = -std::numeric_limits<float>::infinity();
-		tyExit = std::numeric_limits<float>::infinity();
+		tyExit  =  std::numeric_limits<float>::infinity();
 	} else {
 		tyEntry = dyEntry / dy;
-		tyExit = dyExit / dy;
+		tyExit  = dyExit  / dy;
 	}
 
 	float entryTime = max(txEntry, tyEntry);
-	float exitTime = min(txExit, tyExit);
+	float exitTime  = min(txExit , tyExit );
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
 
 	float nx, ny;
@@ -82,7 +81,7 @@ std::optional<CollisionEvent> CollisionDetector::SweptAABBEx(const GameObject & 
 		ny = dyEntry < 0.0f ? 1.0f : -1.0f;
 	}
 
-	return {{ entryTime, nx, ny, obj2 }};	
+	return { entryTime, nx, ny, obj2 };	
 }
 
 std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const GameObject & obj, const std::vector<LPCGAMEOBJECT>& coObjs, float dt)
@@ -92,7 +91,7 @@ std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const Gam
 	for (UINT i = 0; i < coObjs.size(); i++)
 	{
 		auto e = SweptAABBEx(obj, *coObjs.at(i), dt);
-		if (e) potentialCollisions.emplace_back(std::move(*e));
+		if (e) potentialCollisions.emplace_back(std::move(e));
 	}
 	return potentialCollisions;
 }
@@ -117,16 +116,16 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 		// if afterFilter hasn't got min_tx yet, and this event is fit
 		if (nx != 0.0f && event.nx != 0.0f) 
 		{
-			nx = event.nx;
-			min_tx = event.t;
+			nx     = event.nx;
+			min_tx = event.t ;
 			usefulEventThisLoop = true;
 		}
 
 		// if afterFilter hasn't got min_ty yet, and this event is fit
 		if (ny != 0.0f && event.ny != 0.0f)
 		{
-			ny = event.ny;
-			min_ty = event.t;
+			ny     = event.ny;
+			min_ty = event.t ;
 			usefulEventThisLoop = true;
 		}
 
