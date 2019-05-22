@@ -55,7 +55,9 @@
     <ClCompile Include="MyException.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="Mario.cpp">
+      <Filter>Development\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -97,6 +99,8 @@
     <ClInclude Include="define.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h" />
+    <ClInclude Include="Mario.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

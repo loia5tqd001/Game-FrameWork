@@ -30,7 +30,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	const RECT rect1 = obj1.GetBoundingBox();
 	const RECT rect2 = obj2.GetBoundingBox();
 	// board phasing
-	if (IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
+	if (!IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
 
 	LONG dxEntry, dxExit;
 	LONG dyEntry, dyExit;
@@ -41,7 +41,6 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		dxEntry = rect2.right - rect1.left ;
 		dxExit  = rect2.left  - rect1.right;
 	}
-
 	if (dy > 0.0f) {
 		dyEntry = rect2.top    - rect1.bottom;
 		dyExit  = rect2.bottom - rect1.top   ;
@@ -59,7 +58,6 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		txEntry = (float)dxEntry / dx;
 		txExit  = (float)dxExit  / dx;
 	}
-
 	if (dy == 0.0f) {
 		tyEntry = -std::numeric_limits<float>::infinity();
 		tyExit  =  std::numeric_limits<float>::infinity();
@@ -90,7 +88,7 @@ std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const Gam
 
 	for (UINT i = 0; i < coObjs.size(); i++)
 	{
-		auto e = SweptAABBEx(obj, *coObjs.at(i), dt);
+		CollisionEvent e = SweptAABBEx(obj, *coObjs.at(i), dt);
 		if (e) potentialCollisions.emplace_back(std::move(e));
 	}
 	return potentialCollisions;

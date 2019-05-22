@@ -4,7 +4,7 @@
 #include <vector>
 #include <d3dx9.h>
 
-// capital pointers: only point to objects, do not call new or delete
+// CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
 using LPCGAMEOBJECT = const class GameObject*;
 
 class GameObject
@@ -16,6 +16,8 @@ protected:
 
 	inline virtual UINT GetWidth  () const = 0;
 	inline virtual UINT GetHeight () const = 0;
+
+	virtual ~GameObject() = default;
 
 public: 
 	const D3DXVECTOR3& GetPosition   () const { return pos     ; }
@@ -31,9 +33,8 @@ public:
 	virtual void Render(                                                     ) = 0;
 
 	GameObject(const D3DXVECTOR3& pos, const D3DXVECTOR2& vel, State state) : pos(pos), vel(vel), curState(state) {}
-	GameObject(State initState, const D3DXVECTOR3& pos = {0.0f, 0.0f, 0.0f}, const D3DXVECTOR2& vel = {0.0f, 0.0f})
+	GameObject(State initState, const D3DXVECTOR3& pos = {0.0f, 0.0f, 0.0f}, const D3DXVECTOR2& vel = {0.0f, 0.0f}) 
 		: GameObject(pos, vel, initState) {}
-	virtual ~GameObject() = default;
 
 	// == for debuging == //
 	void RenderBoundingBox() const; 

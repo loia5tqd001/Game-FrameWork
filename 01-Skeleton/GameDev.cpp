@@ -19,11 +19,14 @@ void GameDev::LoadResources()
 	frames.AddFrames(AnimationType::Mario_SmallWalking, "textures\\ani_mario_smallwalking.txt");
 }
 
+void GameDev::InitObjects()
+{
+	mario = std::make_unique<Mario>();
+}
+
 void GameDev::Update(float dt)
 {
-	if (mario == nullptr)
-		mario = new Mario();
-	mario->Update(dt, std::vector<LPCGAMEOBJECT>());
+	mario->Update(dt, {});
 }
 void GameDev::ComposeFrame()
 {

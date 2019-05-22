@@ -10,14 +10,17 @@ LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
+
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
 			MainWindow::Instance().OnKeyDown((BYTE)wParam);
 			break;
+
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
 			MainWindow::Instance().OnKeyUp((BYTE)wParam);
 			break;
+
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 	}

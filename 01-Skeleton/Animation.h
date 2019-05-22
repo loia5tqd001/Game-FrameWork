@@ -8,8 +8,6 @@
 class Animation
 {
 private:
-	//const LPD3DXSPRITE         spriteHandler;
-
 	const LPDIRECT3DTEXTURE9 pTexture          ;
 	const std::vector<RECT>& frames            ;
 	const float              holdTime          ;
@@ -20,7 +18,7 @@ public:
 	Animation(LPDIRECT3DTEXTURE9 texture, const std::vector<RECT>& frames, float holdTime);
 	Animation(TextureType textureType, AnimationType animationType, float holdTime);
 	void Update(float dt);
-	void Render(D3DXVECTOR3 pos, Direction dir) const;
+	void Render(const D3DXVECTOR3& pos, Direction dir = Direction::Right, int alpha = 255) const;
 
 };
 

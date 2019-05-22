@@ -5,13 +5,12 @@
 class Sprite
 {
 private:
-	const LPD3DXSPRITE spriteHandler;
 	const LPDIRECT3DTEXTURE9 pTexture;
-	const RECT portion;
+	const RECT               portion ;
 
 public:
 	Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion); 
-	void Draw(D3DXVECTOR3 pos, bool isFlipX) const;
+	void Draw(const D3DXVECTOR3& pos, bool isFlipX = false, int alpha = 255) const;
 };
 
 

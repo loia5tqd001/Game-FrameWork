@@ -11,7 +11,7 @@ private:
 
 public:
 	void AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor);
-	CONST LPDIRECT3DTEXTURE9 GetTexture(TextureType id) const;
+	const LPDIRECT3DTEXTURE9 GetTexture(TextureType id) const;
 
 private:
 	Textures() : ISingleton(NULL) {}

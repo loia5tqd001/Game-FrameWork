@@ -46,11 +46,11 @@ private:
 
 private:
 	Animation 	
-		aniDie          { TextureType::Mario, AnimationType::Mario_Die         , 0.1f },
-		aniBigIdle      { TextureType::Mario, AnimationType::Mario_BigIdle     , 0.1f },
-		aniBigWalking   { TextureType::Mario, AnimationType::Mario_BigWalking  , 0.1f },
-		aniSmallIdle    { TextureType::Mario, AnimationType::Mario_SmallIdle   , 0.1f },
-		aniSmallWalking { TextureType::Mario, AnimationType::Mario_SmallWalking, 0.1f };
+		aniDie          { TextureType::Mario, AnimationType::Mario_Die         , 0.001f },
+		aniBigIdle      { TextureType::Mario, AnimationType::Mario_BigIdle     , 0.001f },
+		aniBigWalking   { TextureType::Mario, AnimationType::Mario_BigWalking  , 0.001f },
+		aniSmallIdle    { TextureType::Mario, AnimationType::Mario_SmallIdle   , 0.001f },
+		aniSmallWalking { TextureType::Mario, AnimationType::Mario_SmallWalking, 0.001f };
 
 	Level level = Level::Big;
 	Direction dir = Direction::Right;
@@ -60,18 +60,13 @@ private:
 
 public:
 	Mario() : GameObject(State::Mario_Walking) {}
+	Mario(const Mario&) = delete;
 
 	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;
 	void Render(                                                     ) override;
 
 	void SetState(State state) override;
 	void SetLevel(Level l) { level = l; }
-
-	static Mario& Instance()
-	{
-		static Mario instance;
-		return instance;
-	}
 
 };
 

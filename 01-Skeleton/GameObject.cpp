@@ -1,4 +1,7 @@
 #include "GameObject.h"
+#include "Sprite.h"
+#include "Textures.h"
+#include "GameDev.h"
 
 
 
@@ -14,15 +17,8 @@ RECT GameObject::GetBoundingBox() const
 
 void GameObject::RenderBoundingBox() const
 {
-	// TODO: after create window successfully
-	////D3DXVECTOR3 p(x, y, 0);
-	//RECT rect;
-
-	//LPDIRECT3DTEXTURE9 bbox = Textures::GetInstance().GetTexture(TextureType::Bbox);
-
-	//
-
-	//Game::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+	LPDIRECT3DTEXTURE9 bbox = Textures::Instance().GetTexture(TextureType::Bbox);
+	GameDev::Instance().Draw(pos, bbox, GetBoundingBox(), false, 32);
 }
 
 
