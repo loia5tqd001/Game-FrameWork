@@ -46,11 +46,12 @@ private:
 
 private:
 	Animation 	
-		aniDie          { SpriteType::MarioDie         , 0.001f },
-		aniBigIdle      { SpriteType::MarioBigIdle     , 0.001f },
-		aniBigWalking   { SpriteType::MarioBigWalking  , 0.001f },
-		aniSmallIdle    { SpriteType::MarioSmallIdle   , 0.001f },
-		aniSmallWalking { SpriteType::MarioSmallWalking, 0.001f };
+		aniDie          { SpriteType::MarioDie         , 0.1f },
+		aniBigIdle      { SpriteType::MarioBigIdle     , 0.1f },
+		aniBigWalking   { SpriteType::MarioBigWalking  , 0.1f },
+		aniSmallIdle    { SpriteType::MarioSmallIdle   , 0.1f },
+		aniSmallWalking { SpriteType::MarioSmallWalking, 0.1f };
+	Animation* curAnimation = &aniBigWalking;
 
 	Level level = Level::Big;
 	Direction dir = Direction::Right;
@@ -65,7 +66,7 @@ public:
 	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;
 	void Render(                                                     ) override;
 
-	void SetState(State state, float dt) override;
+	void SetState(State state) override;
 	void SetLevel(Level l) { level = l; }
 
 };

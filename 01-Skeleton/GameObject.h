@@ -27,7 +27,7 @@ public:
 
 	virtual void SetPosition(const D3DXVECTOR3& pos) { this->pos  = pos; }
 	virtual void SetVelocity(const D3DXVECTOR2& vel) { this->vel  = vel; }
-	virtual void SetState   (State state,  float dt) { curState = state; }
+	virtual void SetState   (State            state) { curState = state; }
 
 	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) = 0;
 	virtual void Render(                                                     ) = 0;

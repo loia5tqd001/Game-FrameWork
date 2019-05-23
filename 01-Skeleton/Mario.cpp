@@ -69,6 +69,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 			//}
 		}
 	}
+	curAnimation->Update(dt);
 }
 
 void Mario::Render()
@@ -93,16 +94,16 @@ void Mario::Render()
 	}
 }
 
-void Mario::SetState(State state, float dt)
+void Mario::SetState(State state)
 {
-	GameObject::SetState(state, dt);
+	GameObject::SetState(state);
 
 	switch (state)
 	{
 		case State::MarioWalking:
+			curAnimation = (level == Level::Big) ? &aniBigWalking : &aniSmallWalking;
 			if (dir == Direction::Right) vel.x = WALKING_SPEED;
 			else                       vel.x = - WALKING_SPEED;
-			aniBigWalking.Update(dt);
 			break;
 
 		case State::MarioJump:
