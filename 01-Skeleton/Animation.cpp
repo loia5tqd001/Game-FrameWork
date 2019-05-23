@@ -25,9 +25,9 @@ void Animation::Update(float dt)
 	}
 }
 
-void Animation::Render(const D3DXVECTOR3& pos, Direction dir, int alpha) const
+void Animation::Render(const D3DXVECTOR3& pos, const D3DXVECTOR2& vtScale, int alpha) const
 {
-	sprite.Draw(pos, curFrame, dir == Direction::Left, alpha);
+	sprite.Draw(pos, curFrame, vtScale, alpha);
 }
 
 bool Animation::IsDoneCycle()

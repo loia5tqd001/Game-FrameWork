@@ -149,7 +149,6 @@
     <ClCompile Include="GameDev.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTimer.cpp" />
-    <ClCompile Include="ICollidable.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MyException.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -163,8 +162,6 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="GameDev.h" />
-    <ClInclude Include="IAnimatable.h" />
-    <ClInclude Include="ICollidable.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MyException.h" />
     <ClInclude Include="GameBase.h" />

@@ -3,6 +3,13 @@
 
 
 
+Mario::Mario() :
+	GameObject(State::MarioIdle, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
+{
+	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
+	animations.emplace(State::MarioWalking, Animation(SpriteType::MarioBigWalking, 0.1f));
+}
+
 void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
 	vel.y += GRAVITY * dt;
@@ -69,29 +76,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 			//}
 		}
 	}
-	curAnimation->Update(dt);
-}
-
-void Mario::Render()
-{
-	RenderBoundingBox();
-
-	switch (curState)
-	{
-		case State::MarioDie:
-			aniDie.Render(pos, dir);
-			break;
-
-		case State::MarioIdle:
-			if (level == Level::Big) aniBigIdle.Render(pos, dir);
-			else                   aniSmallIdle.Render(pos, dir);
-			break;
-
-		case State::MarioWalking:
-			if (level == Level::Big) aniBigWalking.Render(pos, dir); 
-			else                   aniSmallWalking.Render(pos, dir);
-			break;
-	}
+	animations.at(curState).Update(dt);
 }
 
 void Mario::SetState(State state)
@@ -101,9 +86,8 @@ void Mario::SetState(State state)
 	switch (state)
 	{
 		case State::MarioWalking:
-			curAnimation = (level == Level::Big) ? &aniBigWalking : &aniSmallWalking;
-			if (dir == Direction::Right) vel.x = WALKING_SPEED;
-			else                       vel.x = - WALKING_SPEED;
+			if (scale.x > 0.1f) vel.x = WALKING_SPEED;
+			else              vel.x = - WALKING_SPEED;
 			break;
 
 		case State::MarioJump:

@@ -24,5 +24,5 @@ private:
 public:
 	static void BeginFrame();	
 	static float DeltaTime() /*secs*/{ return Instance().deltaTime; }
-	static void DebugFps () { DebugOut("Fps is ", GetFps(), "\n"); }
+	static void DebugFps  () { DebugOut("Fps is ", GetFps(), "\n"); }
 };

@@ -11,32 +11,24 @@ GameBase::~GameBase()
 	if (d3d != NULL) d3d->Release();
 }
 
-void GameBase::Draw(const D3DXVECTOR3& pos, LPDIRECT3DTEXTURE9 texture, const RECT& portion, bool isFlipX, int alpha) const
+void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
 
-	if (isFlipX)
+	if (vtScale != D3DXVECTOR2(1.0f, 1.0f))
 	{
-		D3DXVECTOR2 vtScaleFlipX = D3DXVECTOR2(-1.0f, 1.0f);
-		D3DXVECTOR2 centerScale = D3DXVECTOR2(pos.x, pos.y);
+		const float bboxWidth  = float(portion.right - portion.left) * vtScale.x;
+		const float bboxHeight = float(portion.bottom - portion.top) * vtScale.y;
+		D3DXVECTOR2 centerScale = D3DXVECTOR2(pos.x + bboxWidth / 2, pos.y + bboxHeight / 2);
 		D3DXMATRIX newMt;
-		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScaleFlipX, NULL, 0.0f, NULL);
+		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScale, NULL, 0.0f, NULL);
 		D3DXMATRIX finalMt = newMt * oldMt;
 		spriteHandler->SetTransform(&finalMt);
 	}
 
-	// 'pos' is the position of the entity owns the sprite, which anchors to the center of that enity.
-	// by default we will draw from the position at the top left of the sprite, not the center.
-	// so we calculate starting drawing position by offsetting to the top left direction from 'pos'
-
-	float xDraw = pos.x - float(portion.right - portion.left) / 2;
-	float yDraw = pos.y - float(portion.bottom - portion.top) / 2;
-	D3DXVECTOR3 drawPos(xDraw, yDraw, 0.0f);
-	spriteHandler->Draw(texture, &portion, NULL, &drawPos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-
 	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
-
+	spriteHandler->Draw(texture, &portion, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMt);
 }
 

@@ -42,29 +42,17 @@ private:
 	static constexpr float WALKING_SPEED = 1.0f;
 	static constexpr float JUMP_SPEED = 5.0f;
 	static constexpr float DIE_DEFLECT_SPEED = 5.0f;
-	static constexpr float GRAVITY = 2.0f;
+	static constexpr float GRAVITY = 0.2f;
 
 private:
-	Animation 	
-		aniDie          { SpriteType::MarioDie         , 0.1f },
-		aniBigIdle      { SpriteType::MarioBigIdle     , 0.1f },
-		aniBigWalking   { SpriteType::MarioBigWalking  , 0.1f },
-		aniSmallIdle    { SpriteType::MarioSmallIdle   , 0.1f },
-		aniSmallWalking { SpriteType::MarioSmallWalking, 0.1f };
-	Animation* curAnimation = &aniBigWalking;
-
 	Level level = Level::Big;
-	Direction dir = Direction::Right;
-
-	inline UINT GetWidth () const override { return level == Level::Small ? 13 : 15; }
-	inline UINT GetHeight() const override { return level == Level::Small ? 15 : 27; }
+	bool IsActive () const override { return true; }
 
 public:
-	Mario() : GameObject(State::MarioWalking) {}
+	Mario(); 
 	Mario(const Mario&) = delete;
 
 	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;
-	void Render(                                                     ) override;
 
 	void SetState(State state) override;
 	void SetLevel(Level l) { level = l; }
