@@ -2,7 +2,7 @@
 #include "MyException.h"
 #include <fstream>
 
-void Frames::AddFrames(AnimationType id, LPCSTR filePath)
+void Frames::AddFrames(SpriteType id, LPCSTR filePath)
 {
 	assert(frameDictionary.count(id) == 0);
 	
@@ -24,7 +24,7 @@ void Frames::AddFrames(AnimationType id, LPCSTR filePath)
 	frameDictionary.emplace(id, std::move(frames));
 }
 
-const std::vector<RECT>& Frames::GetFrames(AnimationType id) const
+const std::vector<RECT>& Frames::GetFrames(SpriteType id) const
 {
 	assert(frameDictionary.count(id) == 1);
 	return frameDictionary.at(id);

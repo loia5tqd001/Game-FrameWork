@@ -8,11 +8,11 @@
 class Frames : ISingleton
 {
 private:
-	std::unordered_map<AnimationType, std::vector<RECT>> frameDictionary;
+	std::unordered_map<SpriteType, std::vector<RECT>> frameDictionary;
 
 public:
-	void AddFrames(AnimationType id, LPCSTR filePath); 
-	const std::vector<RECT>& GetFrames(AnimationType id) const;
+	void AddFrames(SpriteType id, LPCSTR filePath); 
+	const std::vector<RECT>& GetFrames(SpriteType id) const;
 
 private:
 	Frames() : ISingleton(NULL) {}

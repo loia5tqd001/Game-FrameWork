@@ -1,12 +1,13 @@
 #include "Sprite.h"
 #include "GameDev.h"
 
-Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, RECT portion) : 
-	pTexture(texture), 
-	portion(portion) 
+Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, std::vector<RECT> frames) : 
+	texture(texture), 
+	frames(frames) 
 {}
 
-void Sprite::Draw(const D3DXVECTOR3& pos, bool isFlipX, int alpha) const
+void Sprite::Draw(const D3DXVECTOR3& pos, UINT frameIndex, bool isFlipX, int alpha) const
 {
-	GameDev::Instance().Draw(pos, pTexture, portion, isFlipX, alpha);
+	assert(frameIndex <= frames.size());
+	GameDev::Instance().Draw(pos, texture, frames[frameIndex], isFlipX, alpha);
 }

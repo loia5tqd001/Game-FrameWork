@@ -12,11 +12,11 @@ void GameDev::LoadResources()
 	textures.AddTexture(TextureType::Bbox, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	Frames& frames = Frames::Instance();
-	frames.AddFrames(AnimationType::Mario_Die         , "textures\\ani_mario_die.txt");
-	frames.AddFrames(AnimationType::Mario_BigIdle     , "textures\\ani_mario_bigidle.txt");
-	frames.AddFrames(AnimationType::Mario_BigWalking  , "textures\\ani_mario_bigwalking.txt");
-	frames.AddFrames(AnimationType::Mario_SmallIdle   , "textures\\ani_mario_smallidle.txt");
-	frames.AddFrames(AnimationType::Mario_SmallWalking, "textures\\ani_mario_smallwalking.txt");
+	frames.AddFrames(SpriteType::Mario_Die         , "textures\\ani_mario_die.txt");
+	frames.AddFrames(SpriteType::Mario_BigIdle     , "textures\\ani_mario_bigidle.txt");
+	frames.AddFrames(SpriteType::Mario_BigWalking  , "textures\\ani_mario_bigwalking.txt");
+	frames.AddFrames(SpriteType::Mario_SmallIdle   , "textures\\ani_mario_smallidle.txt");
+	frames.AddFrames(SpriteType::Mario_SmallWalking, "textures\\ani_mario_smallwalking.txt");
 }
 
 void GameDev::InitObjects()

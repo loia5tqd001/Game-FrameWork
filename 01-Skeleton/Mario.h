@@ -46,11 +46,11 @@ private:
 
 private:
 	Animation 	
-		aniDie          { TextureType::Mario, AnimationType::Mario_Die         , 0.001f },
-		aniBigIdle      { TextureType::Mario, AnimationType::Mario_BigIdle     , 0.001f },
-		aniBigWalking   { TextureType::Mario, AnimationType::Mario_BigWalking  , 0.001f },
-		aniSmallIdle    { TextureType::Mario, AnimationType::Mario_SmallIdle   , 0.001f },
-		aniSmallWalking { TextureType::Mario, AnimationType::Mario_SmallWalking, 0.001f };
+		aniDie          { TextureType::Mario, SpriteType::Mario_Die         , 0.001f },
+		aniBigIdle      { TextureType::Mario, SpriteType::Mario_BigIdle     , 0.001f },
+		aniBigWalking   { TextureType::Mario, SpriteType::Mario_BigWalking  , 0.001f },
+		aniSmallIdle    { TextureType::Mario, SpriteType::Mario_SmallIdle   , 0.001f },
+		aniSmallWalking { TextureType::Mario, SpriteType::Mario_SmallWalking, 0.001f };
 
 	Level level = Level::Big;
 	Direction dir = Direction::Right;
@@ -59,7 +59,7 @@ private:
 	inline UINT GetHeight() const override { return level == Level::Small ? 15 : 27; }
 
 public:
-	Mario() : GameObject(State::Mario_Walking) {}
+	Mario() : GameObject(State::MarioWalking) {}
 	Mario(const Mario&) = delete;
 
 	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;

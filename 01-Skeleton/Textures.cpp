@@ -1,22 +1,26 @@
 #include "MyException.h"
 #include "Textures.h"
 #include "GameDev.h"
+#include <algorithm>
+#include <fstream>
+#include <json/json.h>
 
-void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor)
+
+void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
 {
 	assert(textureDictionary.count(id) == 0);
 
 	D3DXIMAGE_INFO info;
-	if (D3DXGetImageInfoFromFile(filePath, &info) != D3D_OK)
+	if (D3DXGetImageInfoFromFile(texturePath, &info) != D3D_OK)
 	{
-		DebugOut("[ERROR] Get image info from file failed: ", filePath, "\n");
+		DebugOut("[ERROR] Get image info from file failed: ", texturePath, "\n");
 		ThrowMyException("Get image info from file failed");
 	}
 
 	LPDIRECT3DTEXTURE9 texture;
 	HRESULT result = D3DXCreateTextureFromFileEx(
 					 GameDev::Instance().GetDirect3DDevice(),
-					 filePath,
+					 texturePath,
 					 info.Width,
 					 info.Height,
 					 D3DX_DEFAULT,
@@ -32,6 +36,47 @@ void Textures::AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentC
 
 	if (result != D3D_OK) ThrowMyException("Create texture from file failed");
 	textureDictionary.emplace(id, texture);
+}
+
+// Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
+void Textures::AddTexture(TextureType id, LPCSTR jsonPath)
+{
+	assert(textureDictionary.count(id) == 0);
+
+	std::ifstream jsonFile(jsonPath);
+	if (!jsonFile.is_open())
+	{
+		DebugOut("Can't open json file to add texture: ", jsonPath, "\n");
+		ThrowMyException("Can't open json file to add texture");
+	}
+
+	Json::Reader reader;
+	Json::Value  root;
+	if (!reader.parse(jsonFile, root))
+	{
+		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
+		DebugOut("Parse json file failed: ", msg, "\n");
+		ThrowMyException(msg);
+	}
+
+	static auto getTextureInfo = [&]()
+	{
+		const Json::Value& textures = root["textures"];
+		static auto matchTextureIdPred = [id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
+		auto found = std::find_if(textures.begin(), textures.end(), matchTextureIdPred);
+		if (found == textures.end())
+		{
+			DebugOut("Can't find texture match with id of: ", id, "\n");
+			ThrowMyException("Can't find any texture match with particular id");
+		}
+		return *found;
+	};
+
+	const Json::Value& textureInfo = getTextureInfo();
+	LPCSTR   texturePath      = textureInfo[1].asCString();
+	D3DCOLOR transparentColor = textureInfo[2].asUInt();
+
+	AddTexture(id, texturePath, transparentColor);
 }
 
 const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const

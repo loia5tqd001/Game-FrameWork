@@ -2,8 +2,7 @@
 
 enum class Direction
 {
-	Right,
-	Left
+	Right, Left
 };
 
 enum class TextureType
@@ -14,21 +13,22 @@ enum class TextureType
 	Bbox
 };
 
-enum class AnimationType
+enum class SpriteType
 {
-	Mario_Die,
-	Mario_BigIdle,
-	Mario_BigWalking,
-	Mario_SmallIdle,
-	Mario_SmallWalking,
+	Bbox,
+	MarioDie,
+	MarioBigIdle,
+	MarioBigWalking,
+	MarioSmallIdle,
+	MarioSmallWalking,
 };
 
 enum class State
 {
-	Mario_Idle,
-	Mario_Walking,
-	Mario_Jump,
-	Mario_Die
+	MarioIdle,
+	MarioWalking,
+	MarioJump,
+	MarioDie
 };
 
 

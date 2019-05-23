@@ -8,7 +8,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	vel.y += GRAVITY * dt;
 
 	std::vector<CollisionEvent> coEvents;
-	if (curState != State::Mario_Die) {
+	if (curState != State::MarioDie) {
 		coEvents = CollisionDetector::CalcPotentialCollisions(*this, coObjects, dt);
 	}
 
@@ -75,16 +75,16 @@ void Mario::Render()
 {
 	switch (curState)
 	{
-		case State::Mario_Die:
+		case State::MarioDie:
 			aniDie.Render(pos, dir);
 			break;
 
-		case State::Mario_Idle:
+		case State::MarioIdle:
 			if (level == Level::Big) aniBigIdle.Render(pos, dir);
 			else                   aniSmallIdle.Render(pos, dir);
 			break;
 
-		case State::Mario_Walking:
+		case State::MarioWalking:
 			float dt = GameTimer::DeltaTime();
 			if (level == Level::Big) { aniBigWalking.Update(dt);aniBigWalking.Render(pos, dir); }
 			else                   aniSmallWalking.Render(pos, dir);
@@ -100,20 +100,20 @@ void Mario::SetState(State state)
 
 	switch (state)
 	{
-		case State::Mario_Walking:
+		case State::MarioWalking:
 			if (dir == Direction::Right) vel.x = WALKING_SPEED;
 			else                       vel.x = - WALKING_SPEED;
 			break;
 
-		case State::Mario_Jump:
+		case State::MarioJump:
 			vel.y = - JUMP_SPEED;
 			break;
 
-		case State::Mario_Idle:
+		case State::MarioIdle:
 			vel.x = 0.0f;
 			break;
 
-		case State::Mario_Die:
+		case State::MarioDie:
 			vel.y = - DIE_DEFLECT_SPEED;
 			break;
 	}
