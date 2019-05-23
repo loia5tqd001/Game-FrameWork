@@ -18,7 +18,7 @@ RECT GameObject::GetBoundingBox() const
 void GameObject::RenderBoundingBox() const
 {
 	LPDIRECT3DTEXTURE9 bbox = Textures::Instance().GetTexture(TextureType::Bbox);
-	GameDev::Instance().Draw(pos, bbox, GetBoundingBox(), false, 32);
+	GameDev::Instance().Draw(pos, bbox, GetBoundingBox());
 }
 
 

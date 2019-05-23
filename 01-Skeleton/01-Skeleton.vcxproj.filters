@@ -67,6 +67,9 @@
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="ICollidable.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -116,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="enums.h">
       <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollidable.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IAnimatable.h">
+      <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

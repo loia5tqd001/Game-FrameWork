@@ -74,7 +74,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 
 void Mario::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 	switch (curState)
 	{

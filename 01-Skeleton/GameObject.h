@@ -14,8 +14,8 @@ protected:
 	D3DXVECTOR2 vel     ;
 	State       curState;
 
-	inline virtual UINT GetWidth  () const = 0;
-	inline virtual UINT GetHeight () const = 0;
+	virtual UINT GetWidth  () const = 0;
+	virtual UINT GetHeight () const = 0;
 
 	virtual ~GameObject() = default;
 
