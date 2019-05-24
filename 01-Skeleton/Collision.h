@@ -17,7 +17,6 @@ struct CollisionEvent
 
 struct CollisionDetector
 {
-	static RECT GetBroadPhaseBox(const RECT& rect, float dx, float dy);
 	static CollisionEvent SweptAABBEx(const GameObject& obj1, const GameObject& obj2, float dt);
 	static std::vector<CollisionEvent> CalcPotentialCollisions(const GameObject& obj, const std::vector<LPCGAMEOBJECT>& coObjs, float dt);
 	static std::vector<CollisionEvent> FilterCollisions(std::vector<CollisionEvent> preFilter, float& min_tx, float& min_ty, float& nx, float&ny);

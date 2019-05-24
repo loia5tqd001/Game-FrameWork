@@ -6,7 +6,7 @@
 
 
 Animation::Animation(SpriteType spriteId, float holdTime) :
-	sprite(Sprites::GetSprite(spriteId)),
+	sprite(Sprites::Get(spriteId)),
 	holdTime(holdTime)
 {}
 

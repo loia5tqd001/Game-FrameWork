@@ -3,15 +3,6 @@
 #include <limits.h>
 #include <assert.h>
 
-RECT CollisionDetector::GetBroadPhaseBox(const RECT & rect, float dx, float dy)
-{
-	RECT broadPhaseBox;
-	broadPhaseBox.left   = min(rect.left  , rect.left   + (LONG)dx);
-	broadPhaseBox.top    = min(rect.top   , rect.top    + (LONG)dy);
-	broadPhaseBox.right  = max(rect.right , rect.right  + (LONG)dx);
-	broadPhaseBox.bottom = max(rect.bottom, rect.bottom + (LONG)dy);
-	return broadPhaseBox;
-}
 
 /// Resource: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
 /// Note: it's reported to have bugs in cases, but we'll fine so who cares
@@ -21,33 +12,32 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	const auto v2 = obj2.GetVelocity();	
 	if (v1 == v2) return {}; // if two objects moving relatively along together, obviously no collisions
 
-	const RECT rect1 = obj1.GetBoundingBox();
-	const RECT rect2 = obj2.GetBoundingBox();
+	const RectF rect1 = obj1.GetBoundingBox();
+	const RectF rect2 = obj2.GetBoundingBox();
+
 	if (false)
 	{ 
-		// NormalSweptAABB
-		RECT intersect;
-		if (IntersectRect(&intersect, &rect1, &rect2))
-		{
-			const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
-			const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
-			const float nx = (v1.x == 0.0f) ?  0.0f :
-				             (v1.x > 0.0f)  ? -1.0f : 1.0f;
-			const float ny = (v1.y == 0.0f) ?  0.0f :
-				             (v1.y > 0.0f)  ? -1.0f : 1.0f;
-			return { min(min_tx, min_ty), nx, ny };
-		}
+		//// NormalSweptAABB
+		//RectF intersect;
+		//if (IntersectRect(&intersect, &rect1, &rect2))
+		//{
+		//	const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
+		//	const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
+		//	const float nx = (v1.x == 0.0f) ?  0.0f :
+		//		             (v1.x > 0.0f)  ? -1.0f : 1.0f;
+		//	const float ny = (v1.y == 0.0f) ?  0.0f :
+		//		             (v1.y > 0.0f)  ? -1.0f : 1.0f;
+		//	return { min(min_tx, min_ty), nx, ny };
+		//}
 	}
 
 	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
+	if (rect1.GetBroadPhase(dx, dy).IsIntersect(rect2)) return {}; // board phasing
 
-	if (!IntersectRect(&RECT(), &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 	// board phasing
-    // IntersectRect function: https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-intersectrect
-
-	LONG dxEntry, dxExit;
-	LONG dyEntry, dyExit;
+	float dxEntry, dxExit;
+	float dyEntry, dyExit;
 	if (dx > 0.0f) {
 		dxEntry = rect2.left   - rect1.right;
 		dxExit  = rect2.right  - rect1.left ;
@@ -69,8 +59,8 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit  =  std::numeric_limits<float>::infinity();
 	} else {
-		txEntry = (float)dxEntry / dx;
-		txExit  = (float)dxExit  / dx;
+		txEntry = dxEntry / dx;
+		txExit  = dxExit  / dx;
 	}
 	if (dy == 0.0f) {
 		tyEntry = -std::numeric_limits<float>::infinity();
@@ -83,7 +73,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	float entryTime = max(txEntry, tyEntry);
 	float exitTime  = min(txExit , tyExit );
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
-
+	
 	float nx, ny;
 	if (txEntry > tyEntry) {
 		ny = 0.0f;

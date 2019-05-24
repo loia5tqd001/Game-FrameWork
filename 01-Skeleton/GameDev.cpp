@@ -11,12 +11,12 @@ void GameDev::LoadResources()
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
 	{
-		Textures::AddTexture(TextureType(i), jsonPath);
+		Textures::Add(TextureType(i), jsonPath);
 	}
 
 	for (UINT i = 0; i < (UINT)SpriteType::Count; i++)
 	{
-		Sprites::AddSprite(SpriteType(i), jsonPath);
+		Sprites::Add(SpriteType(i), jsonPath);
 	}
 }
 

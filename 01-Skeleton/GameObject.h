@@ -33,7 +33,7 @@ public:
 	const D3DXVECTOR2& GetVelocity      () const { return vel                   ; }
 	const State        GetState         () const { return curState              ; }
 	const D3DXVECTOR2& GetScale         () const { return scale                 ; }
-	const RECT         GetBoundingBox   () const;
+	const RectF        GetBoundingBox   () const;
 	void               RenderBoundingBox() const;
 
 	virtual void SetPosition(const D3DXVECTOR3& pos  ) { this->pos   = pos  ; }

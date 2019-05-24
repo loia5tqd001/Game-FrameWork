@@ -1,6 +1,7 @@
 #include "Sprites.h"
 #include "MyException.h"
 #include "Textures.h"
+#include "RectF.h"
 #include <assert.h>
 #include <fstream>
 #include <algorithm>
@@ -24,33 +25,32 @@ const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteType id, const Json
 const LPDIRECT3DTEXTURE9 Sprites::GetTextureFromSpriteInfo(const Json::Value & spriteInfo) const
 {
 	TextureType textureId = (TextureType)spriteInfo[1].asUInt();
-	return Textures::GetTexture(textureId);
+	return Textures::Get(textureId);
 }
 
-const std::vector<RECT> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
+const std::vector<RectF> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
 {
 	const Json::Value& arrOfRects = spriteInfo[2];
 	const UINT         nRects = arrOfRects.size();
 
-	std::vector<RECT> frames;
+	std::vector<RectF> frames;
 	frames.reserve(nRects);
 
 	for (UINT i = 0; i < nRects; i++)
 	{
-		const Json::Value& Rect = arrOfRects[i];
+		const Json::Value& rectJson = arrOfRects[i];
 
-		RECT tmp;
-		tmp.left   = Rect[0].asInt();
-		tmp.top    = Rect[1].asInt();
-		tmp.right  = Rect[2].asInt();
-		tmp.bottom = Rect[3].asInt();
+		const float left   = (float)rectJson[0].asUInt();
+		const float top    = (float)rectJson[1].asUInt();
+		const float right  = (float)rectJson[2].asUInt();
+		const float bottom = (float)rectJson[3].asUInt();
 
-		frames.emplace_back(std::move(tmp));
+		frames.emplace_back(left, top, right, bottom);
 	}
 	return frames;
 }
 
-void Sprites::Add(SpriteType id, LPCSTR jsonPath)
+void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
 {
 	assert(spriteDictionary.count(id) == 0);
 
@@ -72,13 +72,13 @@ void Sprites::Add(SpriteType id, LPCSTR jsonPath)
 	
 	const Json::Value&       spriteInfo = GetSpriteInfoFromSpriteId(id, root);
 	const LPDIRECT3DTEXTURE9 texture    = GetTextureFromSpriteInfo(spriteInfo);
-	const std::vector<RECT>  frames     = GetFramesFromSpriteInfo(spriteInfo);
+	const std::vector<RectF> frames     = GetFramesFromSpriteInfo(spriteInfo);
 
 	Sprite sprite(texture, std::move(frames));
 	spriteDictionary.emplace(id, std::move(sprite));
 }
 
-const Sprite & Sprites::Get(SpriteType id) const
+const Sprite & Sprites::GetSprite(SpriteType id) const
 {
 	assert(spriteDictionary.count(id) == 1);
 	return spriteDictionary.at(id);

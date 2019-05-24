@@ -171,6 +171,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="RectF.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Sprites.h" />

@@ -51,8 +51,8 @@ void Mario::HandleCollisions(float dt, std::vector<CollisionEvent> coEvents)
 	auto afterFilter = CollisionDetector::FilterCollisions(std::move(coEvents), min_tx, min_ty, nx, ny);
 
 	// "+ nx*0.420f": need to push out a bit to avoid overlapping next frame
-	pos.x = UINT(pos.x) + min_tx*vel.x*dt + nx*0.420f;
-	pos.y = UINT(pos.y) + min_ty*vel.y*dt + ny*0.420f;
+	pos.x += min_tx*vel.x*dt + nx*0.420f;
+	pos.y += min_ty*vel.y*dt + ny*0.420f;
 
 	if (nx != 0.0f) vel.x = 0.0f;
 	if (ny != 0.0f) vel.y = 0.0f;

@@ -126,5 +126,8 @@
     <ClInclude Include="Brick.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
+    <ClInclude Include="RectF.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
