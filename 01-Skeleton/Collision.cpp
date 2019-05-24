@@ -18,28 +18,42 @@ RECT CollisionDetector::GetBroadPhaseBox(const RECT & rect, float dx, float dy)
 CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
 {
 	const auto v1 = obj1.GetVelocity();
-	const auto v2 = obj2.GetVelocity();
+	const auto v2 = obj2.GetVelocity();	
+	if (v1 == v2) return {}; // if two objects moving relatively along together, obviously no collisions
 
-	// if two objects moving relatively along together, obviously no collisions
-	if (v1 == v2) return {};
+	const RECT rect1 = obj1.GetBoundingBox();
+	const RECT rect2 = obj2.GetBoundingBox();
+	if (false)
+	{ 
+		// NormalSweptAABB
+		RECT intersect;
+		if (IntersectRect(&intersect, &rect1, &rect2))
+		{
+			const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
+			const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
+			const float nx = (v1.x == 0.0f) ?  0.0f :
+				             (v1.x > 0.0f)  ? -1.0f : 1.0f;
+			const float ny = (v1.y == 0.0f) ?  0.0f :
+				             (v1.y > 0.0f)  ? -1.0f : 1.0f;
+			return { min(min_tx, min_ty), nx, ny };
+		}
+	}
 
 	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
 
-	const RECT rect1 = obj1.GetBoundingBox();
-	const RECT rect2 = obj2.GetBoundingBox();
-	// board phasing
-	if (!IntersectRect(nullptr, &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 
+	if (!IntersectRect(&RECT(), &GetBroadPhaseBox(rect1, dx, dy) , &rect2)) return {}; 	// board phasing
+    // IntersectRect function: https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-intersectrect
 
 	LONG dxEntry, dxExit;
 	LONG dyEntry, dyExit;
 	if (dx > 0.0f) {
-		dxEntry = rect2.left  - rect1.right;
-		dxExit  = rect2.right - rect1.left ;
-	} else {
-		dxEntry = rect2.right - rect1.left ;
-		dxExit  = rect2.left  - rect1.right;
+		dxEntry = rect2.left   - rect1.right;
+		dxExit  = rect2.right  - rect1.left ;
+	} else {				   
+		dxEntry = rect2.right  - rect1.left ;
+		dxExit  = rect2.left   - rect1.right;
 	}
 	if (dy > 0.0f) {
 		dyEntry = rect2.top    - rect1.bottom;
@@ -112,7 +126,7 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 		usefulEventThisLoop = false;
 
 		// if afterFilter hasn't got min_tx yet, and this event is fit
-		if (nx != 0.0f && event.nx != 0.0f) 
+		if (nx == 0.0f && event.nx != 0.0f) 
 		{
 			nx     = event.nx;
 			min_tx = event.t ;
@@ -120,7 +134,7 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 		}
 
 		// if afterFilter hasn't got min_ty yet, and this event is fit
-		if (ny != 0.0f && event.ny != 0.0f)
+		if (ny == 0.0f && event.ny != 0.0f)
 		{
 			ny     = event.ny;
 			min_ty = event.t ;

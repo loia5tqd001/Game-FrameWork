@@ -123,5 +123,8 @@
     <ClInclude Include="Goomba.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

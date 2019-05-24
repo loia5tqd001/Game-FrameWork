@@ -2,7 +2,6 @@
 #include "GameBase.h"
 #include "ISingleton.h"
 #include "Mario.h"
-#include "Goomba.h"
 #include <memory>
 
 class GameDev : public GameBase, ISingleton
@@ -15,7 +14,8 @@ private:
 
 private:
 	std::unique_ptr<Mario> mario;
-	std::vector<std::unique_ptr<Goomba>> goombas;
+	std::vector<std::unique_ptr<GameObject>> goombas;
+	std::vector<std::unique_ptr<GameObject>> bricks;
 
 private:
 	GameDev() : ISingleton(NULL) {}

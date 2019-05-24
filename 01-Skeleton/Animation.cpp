@@ -6,7 +6,7 @@
 
 
 Animation::Animation(SpriteType spriteId, float holdTime) :
-	sprite(Sprites::Instance().GetSprite(spriteId)),
+	sprite(Sprites::GetSprite(spriteId)),
 	holdTime(holdTime)
 {}
 

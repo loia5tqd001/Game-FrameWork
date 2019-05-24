@@ -7,7 +7,8 @@
 #include <unordered_map>
 
 // CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
-using LPCGAMEOBJECT = const class GameObject*;
+using LPGAMEOBJECT  = class GameObject*;
+using LPCGAMEOBJECT = const GameObject*;
 
 class GameObject
 {
@@ -20,10 +21,12 @@ protected:
 	std::unordered_map<State, Animation> animations;
 	D3DXVECTOR2                          scale     ; // direction and how much scale
 
-	virtual ~GameObject()  = default; 
-	virtual bool IsActive() const = 0;
+	virtual bool IsCollidable() const { return true; } 
+	GameObject(const GameObject&) = delete;
 
 public: 
+	bool is_debugging = false;
+
 	const D3DXVECTOR3& GetPosition      () const { return pos                   ; }
 	const UINT         GetWidth         () const { return UINT(width  * scale.x); }
 	const UINT         GetHeight        () const { return UINT(height * scale.y); }
@@ -38,9 +41,10 @@ public:
 	virtual void SetState   (State              state) { curState    = state; }
 	virtual void SetScale   (const D3DXVECTOR2& scale) { this->scale = scale; }
 
-	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) = 0;
+	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) {}
 	virtual void Render() const;
 
+	virtual ~GameObject()  = default; 
 	GameObject(State initState, 
 		const D3DXVECTOR3& pos, 
 		const UINT width,
@@ -54,6 +58,13 @@ public:
 		height(height),
 		vel(vel),
 		scale(scale) {}
+
+	template<typename T>
+	void Clamp(T& toClamp, T min, T max)
+	{
+		     if (toClamp < min) toClamp = min;
+		else if (toClamp > max) toClamp = max;
+	}
 };
 
 
