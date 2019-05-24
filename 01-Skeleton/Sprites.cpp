@@ -24,7 +24,7 @@ const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteType id, const Json
 const LPDIRECT3DTEXTURE9 Sprites::GetTextureFromSpriteInfo(const Json::Value & spriteInfo) const
 {
 	TextureType textureId = (TextureType)spriteInfo[1].asUInt();
-	return Textures::Instance().GetTexture(textureId);
+	return Textures::GetTexture(textureId);
 }
 
 const std::vector<RECT> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
@@ -50,7 +50,7 @@ const std::vector<RECT> Sprites::GetFramesFromSpriteInfo(const Json::Value & spr
 	return frames;
 }
 
-void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
+void Sprites::Add(SpriteType id, LPCSTR jsonPath)
 {
 	assert(spriteDictionary.count(id) == 0);
 
@@ -78,7 +78,7 @@ void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
 	spriteDictionary.emplace(id, std::move(sprite));
 }
 
-const Sprite & Sprites::GetSprite(SpriteType id) const
+const Sprite & Sprites::Get(SpriteType id) const
 {
 	assert(spriteDictionary.count(id) == 1);
 	return spriteDictionary.at(id);

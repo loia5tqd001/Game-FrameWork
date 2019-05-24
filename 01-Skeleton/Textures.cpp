@@ -6,7 +6,7 @@
 #include <json/json.h>
 
 
-void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
+void Textures::Add(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
 {
 	assert(textureDictionary.count(id) == 0);
 
@@ -39,7 +39,7 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 }
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
-void Textures::AddTexture(TextureType id, LPCSTR jsonPath)
+void Textures::Add(TextureType id, LPCSTR jsonPath)
 {
 	assert(textureDictionary.count(id) == 0);
 
@@ -85,10 +85,10 @@ void Textures::AddTexture(TextureType id, LPCSTR jsonPath)
 		transparentColor = D3DCOLOR_XRGB(r, g, b);
 	}
 
-	AddTexture(id, texturePath, transparentColor);
+	Add(id, texturePath, transparentColor);
 }
 
-const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const
+const LPDIRECT3DTEXTURE9 Textures::Get(TextureType id) const
 {
 	assert(textureDictionary.count(id) == 1);
 	return textureDictionary.at(id);
