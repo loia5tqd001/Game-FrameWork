@@ -67,6 +67,9 @@
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Development\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -115,6 +118,9 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="enums.h">
+      <Filter>Development\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,12 +23,12 @@ void GameObject::RenderBoundingBox() const
 	const LONG top    = (LONG)pos.y;
 	const LONG right  = left + width;
 	const LONG bottom = top + height;
-	GameDev::Instance().Draw(pos, bboxTexture, { left, top, right, bottom }, scale);
+	GameDev::Instance().Draw(pos, bboxTexture, { 0, 0, right - left, bottom - top }, scale);
 }
 
 void GameObject::Render() const
 {
-	RenderBoundingBox();
+	if (IsActive()) RenderBoundingBox();
 	animations.at(curState).Render(pos, scale);
 }
 

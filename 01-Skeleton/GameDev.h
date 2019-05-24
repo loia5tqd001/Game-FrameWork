@@ -2,6 +2,7 @@
 #include "GameBase.h"
 #include "ISingleton.h"
 #include "Mario.h"
+#include "Goomba.h"
 #include <memory>
 
 class GameDev : public GameBase, ISingleton
@@ -14,6 +15,7 @@ private:
 
 private:
 	std::unique_ptr<Mario> mario;
+	std::vector<std::unique_ptr<Goomba>> goombas;
 
 private:
 	GameDev() : ISingleton(NULL) {}

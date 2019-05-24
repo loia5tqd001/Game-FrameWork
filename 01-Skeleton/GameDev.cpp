@@ -21,14 +21,26 @@ void GameDev::LoadResources()
 void GameDev::InitObjects()
 {
 	mario = std::make_unique<Mario>();
+	goombas.reserve(3);
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(200.0f, 135.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(260.0f, 135.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(320.0f, 135.0f, 0.0f)));
 }
 
 void GameDev::Update(float dt)
 {
 	mario->Update(dt, {});
+	for (const auto& goomba : goombas)
+	{
+		goomba->Update(dt, {});
+	}
 }
 void GameDev::ComposeFrame()
 {
 	mario->Render();
+	for (const auto& goomba : goombas)
+	{
+		goomba->Render();
+	}
 }
 

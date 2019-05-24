@@ -1,17 +1,22 @@
 {  
-  "textures": [ // texture-id == texture-path == transparent-color
+  "textures": [ 
+    // texture-id == texture-path == transparent-color
     [ 0, "textures\\bbox.png"   , 0             ],
     [ 1, "textures\\mario.png"  , [255,255,255] ],
     [ 2, "textures\\misc.png"   , [176,224,248] ],
     [ 3, "textures\\enemies.png", [3  ,26 ,110] ]
   ],  
   
-  "sprites": [ // sprite-id == texture-id == frames
+  "sprites": [ 
+    // sprite-id == texture-id == frames
     [ 0, 0, [[  0,  0,  0,  0]] ],                       					// invisible
     [ 1, 1, [[246,154,260,181]] ],                       					// mario-big-idle
 	[ 2, 1, [[246,154,260,181],[275,154,290,181],[304,154,321,181]] ],      // mario-big-walking
     [ 3, 1, [[247,  0,259, 15]] ],                       					// mario-small-idle
     [ 4, 1, [[275,  0,291, 15],[306,  0,320, 15]] ],     					// mario-small-walking
-	[ 5, 1, [[215,120,231,135]] ]                        					// mario-die
+	[ 5, 1, [[215,120,231,135]] ],                        					// mario-die
+	[ 6, 2, [[408,225,424,241]] ],                                          // brick-idle
+	[ 7, 3, [[  5, 14, 21, 30],[ 25, 14, 41, 30]] ],                        // goomba-moving
+	[ 8, 3, [[ 45, 21, 61, 30]] ]                                           // goomba-die
   ]
 }	

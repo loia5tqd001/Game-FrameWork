@@ -13,8 +13,8 @@ class GameObject
 {
 protected: 
 	D3DXVECTOR3                          pos       ; // top-left
-	CONST UINT                           width     ;
-	CONST UINT                           height    ;
+	UINT                                 width     ;
+	UINT                                 height    ;
 	D3DXVECTOR2                          vel       ;
 	State                                curState  ;
 	std::unordered_map<State, Animation> animations;

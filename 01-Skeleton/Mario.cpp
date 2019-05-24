@@ -70,36 +70,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 		{
 			CollisionEvent& e = coEventsResult[i];
 
-			//if (dynamic_cast<CGoomba *>(e->obj))
-			//{
-			//	CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
 
-			//	// jump on top >> kill Goomba and deflect a bit 
-			//	if (e->ny < 0)
-			//	{
-			//		if (goomba->GetState() != GOOMBA_STATE_DIE)
-			//		{
-			//			goomba->SetState(GOOMBA_STATE_DIE);
-			//			vy = -MARIO_JUMP_DEFLECT_SPEED;
-			//		}
-			//	}
-			//	else if (e->nx != 0)
-			//	{
-			//		/*if (untouchable==0)
-			//		{
-			//			if (goomba->GetState()!=GOOMBA_STATE_DIE)
-			//			{
-			//				if (level > MARIO_LEVEL_SMALL)
-			//				{
-			//					level = MARIO_LEVEL_SMALL;
-			//					StartUntouchable();
-			//				}
-			//				else
-			//					SetState(MARIO_STATE_DIE);
-			//			}
-			//		}*/
-			//	}
-			//}
 		}
 	}
 	animations.at(curState).Update(dt);

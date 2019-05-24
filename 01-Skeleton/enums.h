@@ -17,18 +17,28 @@ enum class SpriteType
 	Invisible         = 0,
 	MarioBigIdle      = 1,
 	MarioBigWalking   = 2,
-	//MarioSmallIdle    = 3,
-	//MarioSmallWalking = 4,
-	//MarioDie          = 5,
+	MarioSmallIdle    = 3,
+	MarioSmallWalking = 4,
+	MarioDie          = 5,
+	BrickIdle         = 6,
+	GoombaMoving      = 7,
+	GoombaDie         = 8,
 	Count
 };
 
 enum class State
 {
+	Invisible,
 	MarioIdle,
 	MarioWalking,
 	MarioJump,
-	MarioDie
+	MarioDie,
+	BrickIdle,
+	GoombaMoving,
+	GoombaDie,
+	Count
+
+
 };
 
 
