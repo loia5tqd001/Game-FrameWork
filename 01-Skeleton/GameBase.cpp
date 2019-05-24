@@ -18,13 +18,13 @@ void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, co
 
 	if (vtScale != D3DXVECTOR2(1.0f, 1.0f))
 	{
-		const float bboxWidth  = float(portion.right - portion.left) * vtScale.x;
-		const float bboxHeight = float(portion.bottom - portion.top) * vtScale.y;
+		const float bboxWidth  = (portion.right - portion.left) * std::abs(vtScale.x);
+		const float bboxHeight = (portion.bottom - portion.top) * std::abs(vtScale.y);
 		D3DXVECTOR2 centerScale = D3DXVECTOR2(pos.x + bboxWidth / 2, pos.y + bboxHeight / 2);
 		D3DXMATRIX newMt;
 		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScale, NULL, 0.0f, NULL);
-		D3DXMATRIX finalMt = newMt * oldMt;
-		spriteHandler->SetTransform(&finalMt);
+		newMt *= oldMt;
+		spriteHandler->SetTransform(&newMt);
 	}
 
 	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw

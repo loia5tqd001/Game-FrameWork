@@ -42,7 +42,7 @@ private:
 	static constexpr float WALKING_SPEED = 1.0f;
 	static constexpr float JUMP_SPEED = 5.0f;
 	static constexpr float DIE_DEFLECT_SPEED = 5.0f;
-	static constexpr float GRAVITY = 0.2f;
+	static constexpr float GRAVITY = 0.9f;
 
 private:
 	Level level = Level::Big;

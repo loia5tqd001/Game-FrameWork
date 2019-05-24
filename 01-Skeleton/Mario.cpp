@@ -1,10 +1,10 @@
 #include "Mario.h"
 #include "Collision.h"
-
+#include "MainWindow.h"
 
 
 Mario::Mario() :
-	GameObject(State::MarioIdle, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
+	GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27, D3DXVECTOR2(50.0f, 0.0f))
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioWalking, Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -23,6 +23,18 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	if (coEvents.size() == 0)
 	{
 		pos.x += vel.x * dt;
+		if (pos.x > MainWindow::Instance().GetWidth() - GetWidth())
+		{
+			pos.x = float(MainWindow::Instance().GetWidth() - GetWidth());
+			vel.x = - vel.x;
+			scale.x = - scale.x;
+		}
+		else if (pos.x < 0.0f)
+		{
+			pos.x = 0.0f;
+			vel.x = -vel.x;
+			scale.x = -scale.x;
+		}
 		pos.y += vel.y * dt;
 	}
 	else
@@ -86,20 +98,15 @@ void Mario::SetState(State state)
 	switch (state)
 	{
 		case State::MarioWalking:
-			if (scale.x > 0.1f) vel.x = WALKING_SPEED;
-			else              vel.x = - WALKING_SPEED;
 			break;
 
 		case State::MarioJump:
-			vel.y = - JUMP_SPEED;
 			break;
 
 		case State::MarioIdle:
-			vel.x = 0.0f;
 			break;
 
 		case State::MarioDie:
-			vel.y = - DIE_DEFLECT_SPEED;
 			break;
 	}
 }
