@@ -8,13 +8,8 @@ struct CollisionEvent
 	float	      ny     = 0.0f   ; 
 	LPCGAMEOBJECT pCoObj = nullptr; // pointer to object collide with
 
-	CollisionEvent() noexcept                        = default;
-	CollisionEvent& operator=(const CollisionEvent&) = default;
-	CollisionEvent(const CollisionEvent&)            = default; 
-	CollisionEvent(CollisionEvent&&) noexcept        = default; // to force move semantics	
-
+	CollisionEvent() noexcept = default;
 	CollisionEvent(float t, float nx, float ny, const GameObject& coObj) : t(t), nx(nx), ny(ny), pCoObj(&coObj) {}
-
 	operator bool() const { return pCoObj != nullptr; }
 };
 

@@ -1,10 +1,11 @@
 #include "Mario.h"
 #include "Collision.h"
 #include "MainWindow.h"
+#include "GameDev.h"
 
 
 Mario::Mario() :
-	GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27, D3DXVECTOR2(50.0f, 0.0f))
+	GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioWalking, Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -12,6 +13,8 @@ Mario::Mario() :
 
 void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
+	static const MainWindow& wnd = MainWindow::Instance();
+
 	vel.y += GRAVITY * dt;
 
 	std::vector<CollisionEvent> coEvents;
@@ -22,20 +25,31 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		pos.x += vel.x * dt;
+		if (wnd.IsKeyPressed(VK_LEFT))
+		{
+			pos.x -= WALKING_SPEED * dt;
+			SetState(State::MarioWalking);
+			scale.x = - std::abs(scale.x);
+		}
+		else if (wnd.IsKeyPressed(VK_RIGHT))
+		{
+			pos.x += WALKING_SPEED * dt;
+			SetState(State::MarioWalking);
+			scale.x = std::abs(scale.x);
+		}
+		else
+		{
+			SetState(State::MarioIdle);
+		}
+
 		if (pos.x > MainWindow::Instance().GetWidth() - GetWidth())
 		{
 			pos.x = float(MainWindow::Instance().GetWidth() - GetWidth());
-			vel.x = - vel.x;
-			scale.x = - scale.x;
 		}
 		else if (pos.x < 0.0f)
 		{
 			pos.x = 0.0f;
-			vel.x = -vel.x;
-			scale.x = -scale.x;
 		}
-		pos.y += vel.y * dt;
 	}
 	else
 	{
