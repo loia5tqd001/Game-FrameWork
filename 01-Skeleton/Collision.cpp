@@ -10,7 +10,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 {
 	const auto v1 = obj1.GetVelocity();
 	const auto v2 = obj2.GetVelocity();	
-	if (v1 == v2) return {}; // if two objects moving relatively along together, obviously no collisions
+	if (v1 == v2) return {}; // if two objects'r moving along together, obviously no collisions
 
 	const RectF rect1 = obj1.GetBoundingBox();
 	const RectF rect2 = obj2.GetBoundingBox();
@@ -18,23 +18,23 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	if (false)
 	{ 
 		//// NormalSweptAABB
-		//RectF intersect;
-		//if (IntersectRect(&intersect, &rect1, &rect2))
-		//{
-		//	const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
-		//	const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
-		//	const float nx = (v1.x == 0.0f) ?  0.0f :
-		//		             (v1.x > 0.0f)  ? -1.0f : 1.0f;
-		//	const float ny = (v1.y == 0.0f) ?  0.0f :
-		//		             (v1.y > 0.0f)  ? -1.0f : 1.0f;
-		//	return { min(min_tx, min_ty), nx, ny };
-		//}
+		RectF intersect;
+		if (rect1.IsIntersect(rect2))
+		{
+			const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
+			const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
+			const float nx = (v1.x == 0.0f) ?  0.0f :
+				             (v1.x > 0.0f)  ? -1.0f : 1.0f;
+			const float ny = (v1.y == 0.0f) ?  0.0f :
+				             (v1.y > 0.0f)  ? -1.0f : 1.0f;
+			return { min(min_tx, min_ty), nx, ny, obj2 };
+		}
 	}
 
 	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
-	if (rect1.GetBroadPhase(dx, dy).IsIntersect(rect2)) return {}; // board phasing
+	if (!rect1.GetBroadPhase(dx, dy).IsIntersect(rect2)) return {}; 
 
 	float dxEntry, dxExit;
 	float dyEntry, dyExit;
@@ -77,10 +77,10 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	float nx, ny;
 	if (txEntry > tyEntry) {
 		ny = 0.0f;
-		nx = dxEntry < 0.0f ? 1.0f : -1.0f;
+		nx = dx < 0.0f ? 1.0f : -1.0f; // gamedev site version: dxEntry < 0.0f ? 1.0f : -1.0f;
 	} else {
 		nx = 0.0f;
-		ny = dyEntry < 0.0f ? 1.0f : -1.0f;
+		ny = dy < 0.0f ? 1.0f : -1.0f;
 	}
 
 	return { entryTime, nx, ny, obj2 };	

@@ -10,7 +10,6 @@ struct CollisionEvent
 
 	CollisionEvent() noexcept = default;
 	CollisionEvent(float t, float nx, float ny, const GameObject& coObj) : t(t), nx(nx), ny(ny), pCoObj(&coObj) {}
-	CollisionEvent(float t, float nx, float ny) : t(t), nx(nx), ny(ny) {}
 	operator bool() const { return pCoObj != nullptr; }
 };
 

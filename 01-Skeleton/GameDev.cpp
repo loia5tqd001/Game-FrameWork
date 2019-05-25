@@ -75,3 +75,16 @@ void GameDev::ComposeFrame()
 	}
 }
 
+void GameDev::OnKeyDown(BYTE keyCode)
+{
+	switch (keyCode)
+	{
+		case VK_SPACE:
+			mario->SetState(State::MarioJump);
+			break;
+
+		default:
+			break;
+	}
+}
+

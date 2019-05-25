@@ -1,9 +1,9 @@
 #pragma once
-
 #include "enums.h"
 #include "Animation.h"
 #include <vector>
 #include <d3dx9.h>
+#include <assert.h>
 #include <unordered_map>
 
 // CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
@@ -25,14 +25,17 @@ protected:
 	GameObject(const GameObject&) = delete;
 
 public: 
-	bool is_debugging = false;
 
-	const D3DXVECTOR3& GetPosition      () const { return pos                   ; }
-	const UINT         GetWidth         () const { return UINT(width  * scale.x); }
-	const UINT         GetHeight        () const { return UINT(height * scale.y); }
-	const D3DXVECTOR2& GetVelocity      () const { return vel                   ; }
-	const State        GetState         () const { return curState              ; }
-	const D3DXVECTOR2& GetScale         () const { return scale                 ; }
+#if DEBUG
+	bool is_debugging = false;
+#endif
+
+	const D3DXVECTOR3& GetPosition      () const { return pos                             ; }
+	const UINT         GetWidth         () const { return UINT(width  * std::abs(scale.x)); }
+	const UINT         GetHeight        () const { return UINT(height * std::abs(scale.y)); }
+	const D3DXVECTOR2& GetVelocity      () const { return vel                             ; }
+	const State        GetState         () const { return curState                        ; }
+	const D3DXVECTOR2& GetScale         () const { return scale                           ; }
 	const RectF        GetBoundingBox   () const;
 	void               RenderBoundingBox() const;
 
@@ -60,10 +63,11 @@ public:
 		scale(scale) {}
 
 	template<typename T>
-	void Clamp(T& toClamp, T min, T max)
+	void Clamp(T& toClamp, T low, T high)
 	{
-		     if (toClamp < min) toClamp = min;
-		else if (toClamp > max) toClamp = max;
+			 assert(low  < high);
+		     if (toClamp < low ) toClamp = low ;
+		else if (toClamp > high) toClamp = high;
 	}
 };
 
