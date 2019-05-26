@@ -13,12 +13,15 @@ LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
-			MainWindow::Instance().OnKeyDown((BYTE)wParam);
+			if (!(lParam & 0x40000000)) // disable autorepeat key
+			GameDev::Instance().OnKeyDown((BYTE)wParam);
+			MainWindow::Instance().keyStates.set((BYTE)wParam);
 			break;
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
-			MainWindow::Instance().OnKeyUp((BYTE)wParam);
+			GameDev::Instance().OnKeyUp((BYTE)wParam);
+			MainWindow::Instance().keyStates.reset((BYTE)wParam);
 			break;
 
 		default:
@@ -62,20 +65,6 @@ void MainWindow::InitWindow()
 
 	ShowWindow(hWnd, SW_SHOWNORMAL);
 	UpdateWindow(hWnd);
-}
-
-void MainWindow::OnKeyDown(BYTE keyCode)
-{
-	preKeyStates[keyCode] = curKeyStates[keyCode];
-	curKeyStates[keyCode] = true;
-	GameDev::Instance().OnKeyDown(keyCode);
-}
-
-void MainWindow::OnKeyUp(BYTE keyCode)
-{
-	preKeyStates[keyCode] = curKeyStates[keyCode];
-	curKeyStates[keyCode] = false;
-	GameDev::Instance().OnKeyUp(keyCode);
 }
 
 bool MainWindow::ProcessMessage() const

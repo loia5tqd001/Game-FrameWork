@@ -20,6 +20,12 @@ void GameObject::RenderBoundingBox() const
 	GameDev::Instance().Draw(pos, bboxTexture, bbox, scale);
 }
 
+void GameObject::SetState(const State state)
+{
+	assert(animations.count(state) == 1); // check if the state's had the corresponding animation yet
+	curState = state;
+}
+
 void GameObject::Render() const
 {
 	if (IsCollidable()) RenderBoundingBox();

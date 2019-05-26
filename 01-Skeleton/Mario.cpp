@@ -11,31 +11,33 @@ Mario::Mario() :
 	GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
+	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
 	animations.emplace(State::MarioWalking, Animation(SpriteType::MarioBigWalking, 0.1f));
+}
+
+void Mario::OnKeyDown(BYTE keyCode)
+{
+	switch (keyCode)
+	{
+		case VK_SPACE:
+			SetState(State::MarioJump);
+			break;
+	}
 }
 
 void Mario::HandleInput(float dt)
 {
 	if (wnd.IsKeyPressed(VK_LEFT)) 
 	{
-		vel.x = -WALKING_SPEED;
-		SetState(State::MarioWalking);
 		scale.x = -std::abs(scale.x);
+		SetState(State::MarioWalking);
 	}
 	else if (wnd.IsKeyPressed(VK_RIGHT)) 
 	{
-		vel.x =  WALKING_SPEED;
-		SetState(State::MarioWalking);
 		scale.x = std::abs(scale.x);
+		SetState(State::MarioWalking);
 	}
 	else {
-		SetState(State::MarioIdle);
-		vel.x = 0.0f;
-	}
-
-	if (wnd.IsKeyHitOnce(VK_SPACE))
-	{
-		vel.y = -JUMP_SPEED;
 		SetState(State::MarioIdle);
 	}
 }
@@ -96,8 +98,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0) {
 		HandleNoCollisions(dt);
-	}
-	else {
+	} else {
 		HandleCollisions(dt, std::move(coEvents));
 	}
 
@@ -112,16 +113,18 @@ void Mario::SetState(State state)
 	switch (state)
 	{
 		case State::MarioWalking:
+			vel.x = scale.x * WALKING_SPEED;
 			break;
 
 		case State::MarioJump:
+			vel.y = -JUMP_SPEED;
 			break;
 
 		case State::MarioIdle:
+			vel.x = 0.0f;
 			break;
 
 		case State::MarioDie:
 			break;
 	}
 }
-

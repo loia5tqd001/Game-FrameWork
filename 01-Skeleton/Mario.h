@@ -22,6 +22,7 @@ private:
 public:
 	Mario(); 
 
+	void OnKeyDown(BYTE keyCode);
 	void HandleInput(float dt);
 	void HandleNoCollisions(float dt);
 	void HandleCollisions(float dt, std::vector<struct CollisionEvent> coEvents);

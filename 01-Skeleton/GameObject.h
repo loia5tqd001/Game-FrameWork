@@ -39,11 +39,11 @@ public:
 	const RectF        GetBoundingBox   () const;
 	void               RenderBoundingBox() const;
 
-	virtual void SetPosition(const D3DXVECTOR3& pos  ) { this->pos   = pos  ; }
-	virtual void SetVelocity(const D3DXVECTOR2& vel  ) { this->vel   = vel  ; }
-	virtual void SetState   (const State        state) { curState    = state; }
-	virtual void SetScale   (const D3DXVECTOR2& scale) { this->scale = scale; }
+	//virtual void SetPosition(const D3DXVECTOR3& pos  ) { this->pos   = pos  ; }
+	//virtual void SetVelocity(const D3DXVECTOR2& vel  ) { this->vel   = vel  ; }
+	//virtual void SetScale   (const D3DXVECTOR2& scale) { this->scale = scale; }
 
+	virtual void SetState(const State state); 
 	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) {}
 	virtual void Render() const;
 
@@ -63,7 +63,7 @@ public:
 		scale(scale) {}
 
 	template<typename T>
-	void Clamp(T& toClamp, T low, T high)
+	static void Clamp(T& toClamp, T low, T high)
 	{
 			 assert(low  < high);
 		     if (toClamp < low ) toClamp = low ;
