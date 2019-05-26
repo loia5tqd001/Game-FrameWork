@@ -1,7 +1,8 @@
 #pragma once
-#include <Windows.h>
 #include "ISingleton.h"
-
+#include <Windows.h>
+#include <bitset>
+#include "MyException.h"
 class MainWindow : ISingleton
 {
 private:
@@ -12,7 +13,8 @@ private:
 
 	HINSTANCE hInstance = nullptr;
 	HWND	  hWnd		= nullptr;
-	BOOL	  keyStates[256]; // 256 is the number of key codes possible
+	std::bitset<256> curKeyStates; // 256 is the number of key codes possible
+	std::bitset<256> preKeyStates;
 
 	static LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void   OnKeyDown(BYTE keyCode);
@@ -21,7 +23,11 @@ private:
 public:
 	void InitWindow();
 	bool ProcessMessage() const;
-	bool IsKeyPressed(BYTE keyCode) const { return keyStates[keyCode]; }
+	bool IsKeyPressed(BYTE keyCode) const { return curKeyStates[keyCode]; }
+	bool IsKeyHitOnce(BYTE keyCode) const { 
+		DebugOut(curKeyStates[keyCode] && !preKeyStates[keyCode]); 
+		return curKeyStates[keyCode] && !preKeyStates[keyCode];
+	}
 	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) { MessageBox(nullptr, message, title, type); }
 
 	int	       GetWidth () const { return SCREEN_WIDTH ;}

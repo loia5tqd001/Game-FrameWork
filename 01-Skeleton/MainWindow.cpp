@@ -66,13 +66,15 @@ void MainWindow::InitWindow()
 
 void MainWindow::OnKeyDown(BYTE keyCode)
 {
-	keyStates[keyCode] = true;
+	preKeyStates[keyCode] = curKeyStates[keyCode];
+	curKeyStates[keyCode] = true;
 	GameDev::Instance().OnKeyDown(keyCode);
 }
 
 void MainWindow::OnKeyUp(BYTE keyCode)
 {
-	keyStates[keyCode] = false;
+	preKeyStates[keyCode] = curKeyStates[keyCode];
+	curKeyStates[keyCode] = false;
 	GameDev::Instance().OnKeyUp(keyCode);
 }
 

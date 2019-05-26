@@ -32,6 +32,12 @@ void Mario::HandleInput(float dt)
 		SetState(State::MarioIdle);
 		vel.x = 0.0f;
 	}
+
+	if (wnd.IsKeyHitOnce(VK_SPACE))
+	{
+		vel.y = -JUMP_SPEED;
+		SetState(State::MarioIdle);
+	}
 }
 
 void Mario::HandleNoCollisions(float dt)
@@ -109,8 +115,6 @@ void Mario::SetState(State state)
 			break;
 
 		case State::MarioJump:
-			curState = State::MarioIdle;
-			vel.y = -JUMP_SPEED;
 			break;
 
 		case State::MarioIdle:

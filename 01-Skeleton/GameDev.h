@@ -17,9 +17,6 @@ private:
 	std::vector<std::unique_ptr<GameObject>> goombas;
 	std::vector<std::unique_ptr<GameObject>> bricks;
 
-public:
-	void OnKeyDown(BYTE keyCode) override;
-
 private:
 	GameDev() : ISingleton(NULL) {}
 
