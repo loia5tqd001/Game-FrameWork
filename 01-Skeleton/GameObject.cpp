@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Textures.h"

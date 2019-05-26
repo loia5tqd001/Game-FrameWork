@@ -1,10 +1,8 @@
+#include "pch.h"
 #include "Sprites.h"
 #include "MyException.h"
 #include "Textures.h"
 #include "RectF.h"
-#include <assert.h>
-#include <fstream>
-#include <algorithm>
 
 
 

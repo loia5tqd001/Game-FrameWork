@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Mario.h"
 #include "Collision.h"
 #include "MainWindow.h"

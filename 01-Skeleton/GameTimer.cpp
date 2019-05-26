@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GameTimer.h"
 
 int GameTimer::GetFps()

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "MainWindow.h"
 #include "MyException.h"
 #include "GameDev.h"

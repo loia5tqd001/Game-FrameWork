@@ -25,12 +25,14 @@
     <Filter Include="thirdpartylib\json">
       <UniqueIdentifier>{80a9e707-6289-467a-a946-f19330b1a5e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{3f3090f4-650c-41ee-937f-6438b1dcb3d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="GameDev.cpp">
       <Filter>Development\Source</Filter>
     </ClCompile>
@@ -70,7 +72,12 @@
     <ClCompile Include="Goomba.cpp">
       <Filter>Development\Source</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -130,6 +137,8 @@
     <ClInclude Include="RectF.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="pch.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

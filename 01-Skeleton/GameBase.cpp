@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GameBase.h"
 #include "MyException.h"
 #include "GameTimer.h"

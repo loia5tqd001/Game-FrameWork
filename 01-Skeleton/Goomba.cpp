@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Goomba.h"
 #include "MainWindow.h"
 

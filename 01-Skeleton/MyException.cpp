@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "MyException.h"
 
 MyException::MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file)

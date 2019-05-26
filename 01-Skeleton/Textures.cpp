@@ -1,9 +1,7 @@
+#include "pch.h"
 #include "MyException.h"
 #include "Textures.h"
 #include "GameDev.h"
-#include <algorithm>
-#include <fstream>
-#include <json/json.h>
 
 
 void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)

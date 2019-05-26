@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "Collision.h"
-#include <algorithm>
-#include <limits.h>
-#include <assert.h>
 
 
 /// Resource: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
