@@ -152,6 +152,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MyException.cpp" />
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="GameTimer.h" />

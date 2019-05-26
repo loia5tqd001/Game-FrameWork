@@ -22,7 +22,7 @@ void GameObject::RenderBoundingBox() const
 
 void GameObject::SetState(const State state)
 {
-	assert(animations.count(state) == 1); // check if the state's had the corresponding animation yet
+	assert(animations.count(state) == 1); // check if the state has had the corresponding animation yet
 	curState = state;
 }
 

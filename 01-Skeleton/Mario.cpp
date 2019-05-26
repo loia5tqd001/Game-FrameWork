@@ -7,8 +7,7 @@
 
 static const MainWindow& wnd = MainWindow::Instance();
 
-Mario::Mario() :
-	GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
+Mario::Mario() : GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -25,7 +24,7 @@ void Mario::OnKeyDown(BYTE keyCode)
 	}
 }
 
-void Mario::HandleInput(float dt)
+void Mario::ProcessInput()
 {
 	if (wnd.IsKeyPressed(VK_LEFT)) 
 	{
@@ -48,28 +47,29 @@ void Mario::HandleNoCollisions(float dt)
 	pos.y += vel.y * dt;
 }
 
-void Mario::HandleCollisions(float dt, std::vector<CollisionEvent> coEvents)
+void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
-	assert(coEvents.size() > 0);
+	auto coEvents = CollisionDetector::CalcPotentialCollisions(*this, coObjects, dt);
+	if (coEvents.size() == 0) 
+	{
+		HandleNoCollisions(dt); return;
+	}
 
-	float min_tx, nx;
-	float min_ty, ny;
-
-	auto afterFilter = CollisionDetector::FilterCollisions(std::move(coEvents), min_tx, min_ty, nx, ny);
-
-	// "+ nx*0.420f": need to push out a bit to avoid overlapping next frame
-	pos.x += min_tx*vel.x*dt;// + nx*0.420f;
-	pos.y += min_ty*vel.y*dt;// + ny*0.420f;
+	float min_tx, min_ty, nx, ny;
+	CollisionDetector::FilterCollisionEvents(coEvents, min_tx, min_ty, nx, ny);
+	
+	pos.x += min_tx * vel.x * dt; // + nx * 0.420f; // "+ nx * 0.420f": need to push out a bit to avoid overlapping next frame
+	pos.y += min_ty * vel.y * dt; // + ny * 0.420f;
 
 	if (nx != 0.0f) vel.x = 0.0f;
 	if (ny != 0.0f) vel.y = 0.0f;
 
 
 
-	// Collision logic with Goombas
-	//for (UINT i = 0; i < afterFilter.size(); i++)
+	////Collision logic with Goombas
+	//for (UINT i = 0; i < coEvents.size(); i++)
 	//{
-	//	const CollisionEvent& e = afterFilter[i];
+	//	const CollisionEvent& e = coEvents[i];
 
 	//	if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
 	//	{
@@ -86,23 +86,22 @@ void Mario::HandleCollisions(float dt, std::vector<CollisionEvent> coEvents)
 
 void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
+	// early checking
+	if (curState == State::MarioDie) return;
+
+	// regular updates
 	vel.y += GRAVITY * dt;
 
-	HandleInput(dt);
+	// process input
+	ProcessInput();
 
-	std::vector<CollisionEvent> coEvents;
-	if (curState != State::MarioDie) {
-		coEvents = CollisionDetector::CalcPotentialCollisions(*this, coObjects, dt);
-	}
+	// handle collisions
+	HandleCollisions(dt, coObjects);
 
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0) {
-		HandleNoCollisions(dt);
-	} else {
-		HandleCollisions(dt, std::move(coEvents));
-	}
-
+	// clamping
 	Clamp(pos.x, 0.0f, float(wnd.GetWidth() - GetWidth()));
+
+	// update animations
 	animations.at(curState).Update(dt);
 }
 

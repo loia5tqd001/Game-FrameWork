@@ -98,21 +98,21 @@ std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const Gam
 	return potentialCollisions;
 }
 
-std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<CollisionEvent> preFilter, float & min_tx, float & min_ty, float & nx, float & ny)
+void CollisionDetector::FilterCollisionEvents(std::vector<CollisionEvent>& coEvents, float & min_tx, float & min_ty, float & nx, float & ny)
 {
 	/// This function is being called tremendously, so there will be optimization, and yet to be hard to understand ///
 
-	assert(preFilter.size() > 0);
+	assert(coEvents.size() > 0);
 
 	std::vector<CollisionEvent> afterFilter;
 	min_tx = min_ty = 1.0f;
 	nx     = ny     = 0.0f;
 
-	std::sort(preFilter.begin(), preFilter.end(), [](auto a, auto b) { return a.t < b.t; });
+	std::sort(coEvents.begin(), coEvents.end(), [](auto a, auto b) { return a.t < b.t; });
 	bool usefulEventThisLoop; // declare here to avoid constantly initializing inside the loop
-	for (UINT i = 0; i < preFilter.size(); i++)
+	for (UINT i = 0; i < coEvents.size(); i++)
 	{
-		CollisionEvent& event = preFilter[i];
+		CollisionEvent& event = coEvents[i];
 		usefulEventThisLoop = false;
 
 		// if afterFilter hasn't got min_tx yet, and this event is fit
@@ -140,7 +140,5 @@ std::vector<CollisionEvent> CollisionDetector::FilterCollisions(std::vector<Coll
 		if (nx != 0.0f && ny != 0.0f) break; 
 	}
 
-	return afterFilter;
-
-	/// DebugOut min_tx, min_ty,.. if weird things happen
+	coEvents = std::move(afterFilter);
 }

@@ -13,9 +13,11 @@ LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
-			if (!(lParam & 0x40000000)) // disable autorepeat key
-			GameDev::Instance().OnKeyDown((BYTE)wParam);
-			MainWindow::Instance().keyStates.set((BYTE)wParam);
+			if (!(lParam & 0x40000000)) // if key is not holding 
+			{
+				GameDev::Instance().OnKeyDown((BYTE)wParam);
+				MainWindow::Instance().keyStates.set((BYTE)wParam);
+			}
 			break;
 
 		case WM_KEYUP:
