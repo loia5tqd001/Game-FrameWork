@@ -3,8 +3,6 @@
 #include "ISingleton.h"
 #include "Sprite.h"
 #include "RectF.h"
-#include <unordered_map>
-#include <json/json.h>
 
 
 class Sprites : ISingleton

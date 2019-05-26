@@ -1,10 +1,6 @@
 #pragma once
 #include "enums.h"
 #include "Animation.h"
-#include <vector>
-#include <d3dx9.h>
-#include <assert.h>
-#include <unordered_map>
 
 // CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
 using LPGAMEOBJECT  = class GameObject*;

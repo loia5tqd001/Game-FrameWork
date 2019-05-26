@@ -1,6 +1,5 @@
 #pragma once
 #include "RectF.h"
-#include <vector>
 
 
 class Sprite

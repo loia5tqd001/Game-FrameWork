@@ -1,8 +1,6 @@
 #pragma once
 #include "enums.h"
 #include "ISingleton.h"
-#include <d3dx9.h>
-#include <unordered_map>
 
 class Textures : ISingleton
 {

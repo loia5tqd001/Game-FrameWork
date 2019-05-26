@@ -2,7 +2,6 @@
 #include "GameBase.h"
 #include "ISingleton.h"
 #include "Mario.h"
-#include <memory>
 
 class GameDev : public GameBase, ISingleton
 {

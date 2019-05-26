@@ -1,8 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <exception>
-#include <sstream>
-#include <string>
 
 // Output to debug window. Using variadic and fold expression (C++17)
 template <typename ...Args>

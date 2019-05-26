@@ -173,7 +173,12 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="thirdpartylib\jsoncpp.cpp" />
+    <ClCompile Include="thirdpartylib\jsoncpp.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
