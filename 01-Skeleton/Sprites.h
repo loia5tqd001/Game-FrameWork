@@ -1,11 +1,12 @@
 #pragma once
-#include "define.h"
+#include "enums.h"
+#include "ISingleton.h"
 #include "Sprite.h"
 #include <unordered_map>
 #include <json/json.h>
 
 
-class Sprites
+class Sprites : ISingleton
 {
 private:
 	std::unordered_map<SpriteType, Sprite> spriteDictionary;
@@ -17,5 +18,15 @@ private:
 public:
 	void AddSprite(SpriteType id, LPCSTR jsonPath);
 	const Sprite& GetSprite(SpriteType id) const;
+
+private:
+	Sprites() : ISingleton(NULL) {}
+
+public:
+	static Sprites& Instance()
+	{
+		static Sprites instance;
+		return instance;
+	}
 
 };

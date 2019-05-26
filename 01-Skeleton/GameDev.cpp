@@ -1,22 +1,21 @@
 #include "GameDev.h"
 #include "Textures.h"
-#include "Frames.h"
+#include "Sprites.h"
 
 
 void GameDev::LoadResources()
 {
-	Textures& textures = Textures::Instance();
-	textures.AddTexture(TextureType::Mario, "textures\\mario.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures.AddTexture(TextureType::Misc, "textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
-	textures.AddTexture(TextureType::Enemy, "textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
-	textures.AddTexture(TextureType::Bbox, "textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	static constexpr char* jsonPath = "textures\\sprites.json";
 
-	Frames& frames = Frames::Instance();
-	frames.AddFrames(SpriteType::Mario_Die         , "textures\\ani_mario_die.txt");
-	frames.AddFrames(SpriteType::Mario_BigIdle     , "textures\\ani_mario_bigidle.txt");
-	frames.AddFrames(SpriteType::Mario_BigWalking  , "textures\\ani_mario_bigwalking.txt");
-	frames.AddFrames(SpriteType::Mario_SmallIdle   , "textures\\ani_mario_smallidle.txt");
-	frames.AddFrames(SpriteType::Mario_SmallWalking, "textures\\ani_mario_smallwalking.txt");
+	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
+	{
+		Textures::Instance().AddTexture(TextureType(i), jsonPath);
+	}
+
+	for (UINT i = 0; i < (UINT)SpriteType::Count; i++)
+	{
+		Sprites::Instance().AddSprite(SpriteType(i), jsonPath);
+	}
 }
 
 void GameDev::InitObjects()

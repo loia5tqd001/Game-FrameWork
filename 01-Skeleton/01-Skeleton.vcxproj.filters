@@ -52,9 +52,6 @@
     <ClCompile Include="GameBase.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Frames.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameTimer.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
@@ -67,7 +64,9 @@
     <ClCompile Include="thirdpartylib\jsoncpp.cpp">
       <Filter>thirdpartylib</Filter>
     </ClCompile>
-    <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -97,17 +96,11 @@
     <ClInclude Include="Sprite.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Frames.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="GameTimer.h">
       <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="define.h">
-      <Filter>Development\Header</Filter>
     </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Development\Header</Filter>
@@ -120,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Development\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

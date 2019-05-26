@@ -1,13 +1,16 @@
 #include "Animation.h"
 #include "GameDev.h"
-#include "Textures.h"
-#include "Frames.h"
+#include "Sprites.h"
 
 
 Animation::Animation(const Sprite& sprite, float holdTime) :
 	sprite(sprite),
 	holdTime(holdTime),
 	nFrames(sprite.GetNumberOfFrames())
+{}
+
+Animation::Animation(SpriteType spriteId, float holdTime) :
+	Animation(Sprites::Instance().GetSprite(spriteId), holdTime)
 {}
 
 void Animation::Update(float dt)

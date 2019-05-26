@@ -78,7 +78,7 @@ void GameBase::Render()
 {
 	if (d3ddv->BeginScene())	
 	{
-		d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(255, 0, 0)); // TODO: When having texture background, color background is needless
+		d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		ComposeFrame(); // actual development render
 		spriteHandler->End();

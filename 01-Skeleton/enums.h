@@ -1,5 +1,6 @@
 #pragma once
 
+
 enum class Direction
 {
 	Right, Left
@@ -7,20 +8,21 @@ enum class Direction
 
 enum class TextureType
 {
-	Mario,
-	Misc,
-	Enemy,
-	Bbox
+	Bbox  = 0,
+	Mario = 1,
+	Misc  = 2,
+	Enemy = 3,
+	Count
 };
 
 enum class SpriteType
 {
-	Bbox,
-	MarioDie,
-	MarioBigIdle,
-	MarioBigWalking,
-	MarioSmallIdle,
-	MarioSmallWalking,
+	MarioBigIdle      = 0,
+	MarioBigWalking   = 1,
+	MarioSmallIdle    = 2,
+	MarioSmallWalking = 3,
+	MarioDie          = 4,
+	Count
 };
 
 enum class State

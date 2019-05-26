@@ -70,9 +70,11 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 		}
 	}
 }
-#include "GameTimer.h"
+
 void Mario::Render()
 {
+	//RenderBoundingBox();
+
 	switch (curState)
 	{
 		case State::MarioDie:
@@ -85,24 +87,22 @@ void Mario::Render()
 			break;
 
 		case State::MarioWalking:
-			float dt = GameTimer::DeltaTime();
-			if (level == Level::Big) { aniBigWalking.Update(dt);aniBigWalking.Render(pos, dir); }
+			if (level == Level::Big) aniBigWalking.Render(pos, dir); 
 			else                   aniSmallWalking.Render(pos, dir);
 			break;
 	}
-
-	//RenderBoundingBox();
 }
 
-void Mario::SetState(State state)
+void Mario::SetState(State state, float dt)
 {
-	GameObject::SetState(state);
+	GameObject::SetState(state, dt);
 
 	switch (state)
 	{
 		case State::MarioWalking:
 			if (dir == Direction::Right) vel.x = WALKING_SPEED;
 			else                       vel.x = - WALKING_SPEED;
+			aniBigWalking.Update(dt);
 			break;
 
 		case State::MarioJump:
