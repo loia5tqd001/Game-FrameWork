@@ -7,10 +7,10 @@
 class Mario : public GameObject
 {
 public:
-	static constexpr float WALKING_SPEED      = 100.0f;
-	static constexpr float JUMP_SPEED         = 200.0f;
-	static constexpr float GRAVITY            = 500.0f;
-	static constexpr float JUMP_DEFLECT_SPEED =   0.5f;
+	static constexpr float WALKING_SPEED      =  100.0f;
+	static constexpr float JUMP_SPEED         =  400.0f;
+	static constexpr float GRAVITY            = 1000.0f;
+	static constexpr float JUMP_DEFLECT_SPEED =   50.0f;
 
 private:
 	enum class Level { Small, Big };

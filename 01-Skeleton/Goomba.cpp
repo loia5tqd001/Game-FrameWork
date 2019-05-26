@@ -35,7 +35,9 @@ void Goomba::SetState(State state)
 	switch (state)
 	{
 		case State::GoombaDie:
-			height = 9;
+			const UINT oldHeight = height, height = 9;
+			pos.y += oldHeight - height;
+			vel.x = 0.0f;
 			break;
 
 	}

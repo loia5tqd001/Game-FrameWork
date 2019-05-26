@@ -67,22 +67,21 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 
 
 
-	////Collision logic with Goombas
-	//for (UINT i = 0; i < coEvents.size(); i++)
-	//{
-	//	const CollisionEvent& e = coEvents[i];
+	// Collision logic with Goombas
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		const CollisionEvent& e = coEvents[i];
 
-	//	if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
-	//	{
-	//		// jump on top >> kill Goomba and deflect a bit 
-	//		if (e.ny < 0.0f && goomba->GetState() != State::GoombaDie)
-	//		{
-	//			Goomba* g = (Goomba*)goomba;
-	//			g->SetState(State::GoombaDie);
-	//			vel.y = -JUMP_DEFLECT_SPEED;
-	//		}
-	//	}
-	//}
+		if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
+		{
+			if (e.ny < 0.0f && goomba->GetState() != State::GoombaDie)
+			{
+				Goomba* g = const_cast<Goomba*>(goomba);
+				g->SetState(State::GoombaDie);
+				vel.y = -JUMP_DEFLECT_SPEED;
+			}
+		}
+	}
 }
 
 void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
