@@ -3,7 +3,7 @@
 #include "MainWindow.h"
 
 Goomba::Goomba(const D3DXVECTOR3 & spawnPos) :
-	GameObject(State::GoombaMoving, spawnPos, 16, 15, { -50.0f, 0.0f })
+	GameObject(State::GoombaMoving, spawnPos, { -50.0f, 0.0f })
 {
 	animations.emplace(State::GoombaMoving, Animation(SpriteType::GoombaMoving, 0.1f));
 	animations.emplace(State::GoombaDie   , Animation(SpriteType::GoombaDie   , 0.1f));
@@ -35,7 +35,6 @@ void Goomba::SetState(State state)
 	switch (state)
 	{
 		case State::GoombaDie:
-			height = 9;
 			vel.x = 0.0f;
 			break;
 

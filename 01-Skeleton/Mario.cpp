@@ -9,7 +9,7 @@
 static const MainWindow& wnd = MainWindow::Instance();
 
 Mario::Mario(const D3DXVECTOR3 & spawnPos) : 
-	GameObject(State::MarioWalking, spawnPos, 15, 27)
+	GameObject(State::MarioWalking, spawnPos, { 0.0f, 0.0f }, 16, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -60,8 +60,8 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 	float min_tx, min_ty, nx, ny;
 	CollisionDetector::FilterCollisionEvents(coEvents, min_tx, min_ty, nx, ny);
 	
-	pos.x += min_tx * vel.x * dt; // + nx * 0.420f; // "+ nx * 0.420f": need to push out a bit to avoid overlapping next frame
-	pos.y += min_ty * vel.y * dt; // + ny * 0.420f;
+	pos.x += min_tx * vel.x * dt;
+	pos.y += min_ty * vel.y * dt;
 
 	if (nx != 0.0f) vel.x = 0.0f;
 	if (ny != 0.0f) vel.y = 0.0f;

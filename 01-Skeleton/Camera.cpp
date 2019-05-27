@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Camera.h"
 
-const RectF Camera::GetRect() const
+const RectF Camera::GetBBox() const
 {
 	const float left   = pos.x  ;
 	const float right  = left   + (float)width;
@@ -14,6 +14,6 @@ D3DXVECTOR3 Camera::GetDrawablePosition(const GameObject & obj) const
 {
 	const D3DXVECTOR3& objPos = obj.GetPosition();
 	const float leftInScreen  = objPos.x - pos.x;
-	const float topInScreen   = height - (objPos.y - pos.y) - obj.GetHeight();
+	const float topInScreen   = height - (objPos.y - pos.y + obj.GetHeight());
 	return { leftInScreen, topInScreen, 0.0f };
 }

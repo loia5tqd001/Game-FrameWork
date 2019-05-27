@@ -15,8 +15,8 @@ public:
 	const D3DXVECTOR3& GetPosition()  const  { return pos                       ; }
 	const UINT         GetWidth   ()  const  { return width                     ; }
 	const UINT         GetHeight  ()  const  { return height                    ; }
-	const RectF        GetRect    ()  const  ;
-	bool  IsContain(const RectF& box) const  { return GetRect().IsIntersect(box); }
+	const RectF        GetBBox    ()  const  ;
+	bool  IsContain(const RectF& box) const  { return GetBBox().IsIntersect(box); }
 	D3DXVECTOR3 GetDrawablePosition  (const  GameObject& obj) const;
 
 private:

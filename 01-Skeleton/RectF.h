@@ -5,21 +5,19 @@ struct RectF
 {
 	float left, top, right, bottom;
 
-	RectF() : RectF(0.0f, 0.0f, 0.0f, 0.0f) {}
-	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) {}
+	RectF() : left(0.0f), top(0.0f), right(0.0f), bottom(0.0f) {}
+	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) 
+	{
+		assert(top > bottom);
+	}
 
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return top - bottom; }
 
-	operator RECT() const
-	{
-		return { (LONG)left, (LONG)top, (LONG)right, (LONG)bottom };
-	}
-
 	bool IsIntersect(const RectF& other) const
 	{
-		return left <= other.right && right >= other.left
-			&& bottom <= other.top && top >= other.bottom;
+		return left < other.right && right > other.left
+			&& bottom < other.top && top > other.bottom;
 	}
 
 	RectF& OffSetRect(float dx, float dy)

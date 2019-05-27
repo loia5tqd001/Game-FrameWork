@@ -1,5 +1,6 @@
 #pragma once
 #include "enums.h"
+#include "RectF.h"
 #include "Animation.h"
 
 // CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
@@ -9,13 +10,13 @@ using LPCGAMEOBJECT = const GameObject*;
 class GameObject
 {
 protected: 
-	D3DXVECTOR3                          pos       ; // bototm-left
-	UINT                                 width     ;
-	UINT                                 height    ;
-	D3DXVECTOR2                          vel       ;
-	State                                curState  ;
-	std::unordered_map<State, Animation> animations;
-	D3DXVECTOR2                          scale     ; // direction and how much scale
+	D3DXVECTOR3                          pos           ; // bottom-left
+	D3DXVECTOR2                          vel           ;
+	UINT                                 explicitWidth ; // moving objects should define this,
+	UINT                                 explicitHeight; // or GetWidth will be defined by the width of sprites 
+	State                                curState      ;
+	std::unordered_map<State, Animation> animations    ;
+	D3DXVECTOR2                          scale         ; // direction and how much scale
 
 	virtual bool IsCollidable() const { return true; } 
 	GameObject(const GameObject&) = delete;
@@ -26,12 +27,12 @@ public:
 	bool is_debugging = false;
 #endif
 
-	const D3DXVECTOR3& GetPosition      () const { return pos                             ; }
-	const UINT         GetWidth         () const { return UINT(width  * std::abs(scale.x)); }
-	const UINT         GetHeight        () const { return UINT(height * std::abs(scale.y)); }
-	const D3DXVECTOR2& GetVelocity      () const { return vel                             ; }
-	const State        GetState         () const { return curState                        ; }
-	const D3DXVECTOR2& GetScale         () const { return scale                           ; }
+	const D3DXVECTOR3& GetPosition      () const { return pos     ; }
+	const D3DXVECTOR2& GetVelocity      () const { return vel     ; }
+	const State        GetState         () const { return curState; }
+	const D3DXVECTOR2& GetScale         () const { return scale   ; }
+	const UINT         GetWidth         () const;
+	const UINT         GetHeight        () const;
 	const RectF        GetBoundingBox   () const;
 	const D3DXVECTOR3  GetDrawablePos   () const;
 	void               RenderBoundingBox() const;
@@ -43,16 +44,16 @@ public:
 	virtual ~GameObject()  = default; 
 	GameObject(State initState, 
 		const D3DXVECTOR3& pos, 
-		const UINT width,
-		const UINT height,
 		const D3DXVECTOR2& vel = { 0.0f, 0.0f },
+		const UINT width = 0u,
+		const UINT height = 0u,
 		const D3DXVECTOR2& scale = { 1.0f, 1.0f })
 		:
 		curState(initState),
 		pos(pos),
-		width(width),
-		height(height),
 		vel(vel),
+		explicitWidth(width),
+		explicitHeight(height),
 		scale(scale) {}
 
 	template<typename T>

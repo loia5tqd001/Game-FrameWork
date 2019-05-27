@@ -13,22 +13,6 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	const RectF rect1 = obj1.GetBoundingBox();
 	const RectF rect2 = obj2.GetBoundingBox();
 
-	if (false)
-	{ 
-		//// NormalSweptAABB -- may contains bugs (this's from old topleft coordinate version)
-		RectF intersect;
-		if (rect1.IsIntersect(rect2))
-		{
-			const float min_tx = (v1.x == 0.0f) ? 0.0f : (intersect.right - intersect.left) / v1.x;
-			const float min_ty = (v1.y == 0.0f) ? 0.0f : (intersect.bottom - intersect.top) / v1.y;
-			const float nx = (v1.x == 0.0f) ?  0.0f :
-				             (v1.x > 0.0f)  ? -1.0f : 1.0f;
-			const float ny = (v1.y == 0.0f) ?  0.0f :
-				             (v1.y > 0.0f)  ? -1.0f : 1.0f;
-			return { min(min_tx, min_ty), nx, ny, obj2 };
-		}
-	}
-
 	// relative motion this frame = relative velocity times dt(denta-time this frame)
 	const float dx = (v1.x - v2.x) * dt; 
 	const float dy = (v1.y - v2.y) * dt;
@@ -50,6 +34,9 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		dyEntry = rect2.top - rect1.bottom;
 		dyExit  = rect2.bottom - rect1.top;
 	}
+
+	// add this to avoid standing beside the wall
+	if (dxEntry == 0.0f && dyEntry == 0.0f) return {};
 
 	float txEntry, txExit;
 	float tyEntry, tyExit;

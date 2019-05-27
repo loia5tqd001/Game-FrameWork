@@ -1,6 +1,5 @@
 #pragma once
 #include "MainWindow.h"
-#include "RectF.h"
 
 class GameBase
 {
@@ -33,7 +32,7 @@ public:
 	void Draw(
 		const D3DXVECTOR3& pos, 
 		const LPDIRECT3DTEXTURE9 texture, 
-		const RectF& portion, 
+		const RECT& portion, 
 		const D3DXVECTOR2& vtScale = { 1.0f, 1.0f }, 
 		const int alpha = 255) 
 		const;

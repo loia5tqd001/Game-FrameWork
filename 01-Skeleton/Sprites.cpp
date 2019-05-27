@@ -26,24 +26,25 @@ const LPDIRECT3DTEXTURE9 Sprites::GetTextureFromSpriteInfo(const Json::Value & s
 	return Textures::Get(textureId);
 }
 
-const std::vector<RectF> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
+const std::vector<RECT> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
 {
 	const Json::Value& arrOfRects = spriteInfo[2];
 	const UINT         nRects = arrOfRects.size();
 
-	std::vector<RectF> frames;
+	std::vector<RECT> frames;
 	frames.reserve(nRects);
 
 	for (UINT i = 0; i < nRects; i++)
 	{
 		const Json::Value& rectJson = arrOfRects[i];
 
-		const float left   = (float)rectJson[0].asUInt();
-		const float top    = (float)rectJson[1].asUInt();
-		const float right  = (float)rectJson[2].asUInt();
-		const float bottom = (float)rectJson[3].asUInt();
+		static RECT frame;
+		frame.left   = rectJson[0].asInt();
+		frame.top    = rectJson[1].asInt();
+		frame.right  = rectJson[2].asInt();
+		frame.bottom = rectJson[3].asInt();
 
-		frames.emplace_back(left, top, right, bottom);
+		frames.emplace_back(std::move(frame));
 	}
 	return frames;
 }
@@ -70,7 +71,7 @@ void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
 	
 	const Json::Value&       spriteInfo = GetSpriteInfoFromSpriteId(id, root);
 	const LPDIRECT3DTEXTURE9 texture    = GetTextureFromSpriteInfo(spriteInfo);
-	const std::vector<RectF> frames     = GetFramesFromSpriteInfo(spriteInfo);
+	const std::vector<RECT>  frames     = GetFramesFromSpriteInfo(spriteInfo);
 
 	Sprite sprite(texture, std::move(frames));
 	spriteDictionary.emplace(id, std::move(sprite));
