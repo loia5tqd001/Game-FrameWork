@@ -21,18 +21,18 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	float dxEntry, dxExit;
 	float dyEntry, dyExit;
 	if (dx > 0.0f) {
-		dxEntry = rect2.left   - rect1.right;
-		dxExit  = rect2.right  - rect1.left ;
+		dxEntry = rect2.left   - rect1.right ;
+		dxExit  = rect2.right  - rect1.left  ;
 	} else {				   
-		dxEntry = rect2.right  - rect1.left ;
-		dxExit  = rect2.left   - rect1.right;
+		dxEntry = rect2.right  - rect1.left  ;
+		dxExit  = rect2.left   - rect1.right ;
 	}
 	if (dy > 0.0f) {
-		dyEntry = rect2.bottom - rect1.top;
-		dyExit  = rect2.top - rect1.bottom;
+		dyEntry = rect2.bottom - rect1.top   ;
+		dyExit  = rect2.top    - rect1.bottom;
 	} else {
-		dyEntry = rect2.top - rect1.bottom;
-		dyExit  = rect2.bottom - rect1.top;
+		dyEntry = rect2.top    - rect1.bottom;
+		dyExit  = rect2.bottom - rect1.top   ;
 	}
 
 	// add this to avoid standing beside the wall

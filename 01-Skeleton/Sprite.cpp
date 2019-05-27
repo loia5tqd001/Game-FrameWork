@@ -18,7 +18,7 @@ RECT Sprite::GetFrameSize(UINT frameIndex, const D3DXVECTOR2 & vtScale) const
 	assert(frameIndex <= frames.size());
 	const float xScale = std::abs(vtScale.x);
 	const float yScale = std::abs(vtScale.y);
-	RECT  visibleBox = frames[frameIndex];
+	RECT  visibleBox  = frames[frameIndex];
 	visibleBox.left   = LONG(visibleBox.left   * xScale);
 	visibleBox.top    = LONG(visibleBox.top    * yScale);
 	visibleBox.right  = LONG(visibleBox.right  * xScale);

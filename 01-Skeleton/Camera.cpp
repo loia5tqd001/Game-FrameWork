@@ -17,3 +17,8 @@ D3DXVECTOR3 Camera::GetDrawablePosition(const GameObject & obj) const
 	const float topInScreen   = height - (objPos.y - pos.y + obj.GetHeight());
 	return { leftInScreen, topInScreen, 0.0f };
 }
+
+void Camera::CenterTo(const D3DXVECTOR3 & newPos)
+{
+	MoveTo(newPos - D3DXVECTOR3((float)width / 2, (float)height / 2, 0.0f));
+}

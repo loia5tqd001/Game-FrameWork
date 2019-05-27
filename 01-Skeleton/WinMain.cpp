@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "GameDev.h"
-#include "MyException.h"
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)

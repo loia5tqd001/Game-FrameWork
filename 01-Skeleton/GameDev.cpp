@@ -4,6 +4,7 @@
 #include "Sprites.h"
 #include "Brick.h"
 #include "Goomba.h"
+#include "Camera.h"
 
 
 void GameDev::LoadResources()
@@ -61,6 +62,8 @@ void GameDev::Update(float dt)
 	};
 
 	mario->Update(dt, getCollidableObjects());
+	Camera::Instance().CenterTo(mario->GetPosition());
+
 	for (const auto& goomba : goombas)
 	{
 		goomba->Update(dt, {});
