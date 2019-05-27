@@ -12,7 +12,7 @@ private:
 	      float   holdingTime = 0.0f                      ;
 	const UINT    nFrames     = sprite.GetNumberOfFrames();
 	      UINT    curFrame    = 0u                        ;
-		  bool    doneCycle   = false                     ;
+	      bool    doneCycle   = false                     ;
 
 public:
 	Animation(SpriteType  spriteId, float holdTime);

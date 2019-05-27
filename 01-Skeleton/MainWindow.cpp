@@ -37,7 +37,7 @@ void MainWindow::InitWindow()
 {
 	hInstance = GetModuleHandle(NULL);
 
-	WNDCLASSEX		 wc;
+	WNDCLASSEX       wc;
 	wc.cbSize		 = sizeof(WNDCLASSEX);
 	wc.lpszClassName = WINDOW_CLASS_NAME;
 	wc.hInstance	 = hInstance;
@@ -45,24 +45,24 @@ void MainWindow::InitWindow()
 	wc.cbClsExtra    = 0;
 	wc.cbWndExtra    = 0;
 	wc.hbrBackground = NULL;
-	wc.hIcon		 = NULL;
-	wc.hCursor		 = LoadCursor(NULL, IDC_ARROW);
-	wc.hIconSm		 = NULL;
+	wc.hIcon         = NULL;
+	wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+	wc.hIconSm       = NULL;
 	wc.lpszMenuName	 = NULL;
-	wc.style		 = CS_HREDRAW | CS_VREDRAW;
+	wc.style         = CS_HREDRAW | CS_VREDRAW;
 	RegisterClassEx(&wc);
 
 	hWnd = CreateWindow(WINDOW_CLASS_NAME,
-						WINDOW_TITLE,
-						WS_OVERLAPPEDWINDOW, // Full screen: WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP
-						CW_USEDEFAULT,
-						CW_USEDEFAULT,
-						SCREEN_WIDTH,
-						SCREEN_HEIGHT,
-						NULL,
-						NULL,
-						hInstance,
-						NULL);
+	                    WINDOW_TITLE,
+	                    WS_OVERLAPPEDWINDOW, // Full screen: WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP
+	                    CW_USEDEFAULT,
+	                    CW_USEDEFAULT,
+	                    SCREEN_WIDTH,
+	                    SCREEN_HEIGHT,
+	                    NULL,
+	                    NULL,
+	                    hInstance,
+	                    NULL);
 
 	if (hWnd == nullptr) ThrowMyException("Can't create window!");
 

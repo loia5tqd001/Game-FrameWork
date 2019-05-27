@@ -3,7 +3,6 @@
 
 
 /// Resource: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/swept-aabb-collision-detection-and-response-r3084/
-/// Note: it's reported to have bugs in cases, but we'll fine so who cares
 CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const GameObject & obj2, float dt)
 {
 	const auto v1 = obj1.GetVelocity();
