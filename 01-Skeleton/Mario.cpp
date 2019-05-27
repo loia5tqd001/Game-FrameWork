@@ -1,10 +1,9 @@
 #include "pch.h"
 #include "Mario.h"
 #include "Collision.h"
-#include "MainWindow.h"
 #include "GameDev.h"
 #include "Goomba.h"
-#include "Brick.h"
+
 
 static const MainWindow& wnd = MainWindow::Instance();
 
