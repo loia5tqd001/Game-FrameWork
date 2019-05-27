@@ -7,6 +7,7 @@ Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, std::vector<RectF> frames) :
 	frames(frames) 
 {}
 
+// pos: top-left
 void Sprite::Draw(const D3DXVECTOR3& pos, UINT frameIndex, const D3DXVECTOR2& vtScale, int alpha) const
 {
 	assert(frameIndex <= frames.size());

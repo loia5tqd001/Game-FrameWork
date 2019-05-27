@@ -15,7 +15,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 
 	if (false)
 	{ 
-		//// NormalSweptAABB
+		//// NormalSweptAABB -- may contains bugs (this's from old topleft coordinate version)
 		RectF intersect;
 		if (rect1.IsIntersect(rect2))
 		{
@@ -44,11 +44,11 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		dxExit  = rect2.left   - rect1.right;
 	}
 	if (dy > 0.0f) {
-		dyEntry = rect2.top    - rect1.bottom;
-		dyExit  = rect2.bottom - rect1.top   ;
+		dyEntry = rect2.bottom - rect1.top;
+		dyExit  = rect2.top - rect1.bottom;
 	} else {
-		dyEntry = rect2.bottom - rect1.top   ;
-		dyExit  = rect2.top    - rect1.bottom;
+		dyEntry = rect2.top - rect1.bottom;
+		dyExit  = rect2.bottom - rect1.top;
 	}
 
 	float txEntry, txExit;
@@ -75,7 +75,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	float nx, ny;
 	if (txEntry > tyEntry) {
 		ny = 0.0f;
-		nx = dx < 0.0f ? 1.0f : -1.0f; // gamedev site version: dxEntry < 0.0f ? 1.0f : -1.0f;
+		nx = dx < 0.0f ? 1.0f : -1.0f; // gamedev site version: = dxEntry < 0.0f ? 1.0f : -1.0f;
 	} else {
 		nx = 0.0f;
 		ny = dy < 0.0f ? 1.0f : -1.0f;

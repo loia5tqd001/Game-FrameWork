@@ -9,7 +9,7 @@ using LPCGAMEOBJECT = const GameObject*;
 class GameObject
 {
 protected: 
-	D3DXVECTOR3                          pos       ; // top-left
+	D3DXVECTOR3                          pos       ; // bototm-left
 	UINT                                 width     ;
 	UINT                                 height    ;
 	D3DXVECTOR2                          vel       ;
@@ -33,11 +33,8 @@ public:
 	const State        GetState         () const { return curState                        ; }
 	const D3DXVECTOR2& GetScale         () const { return scale                           ; }
 	const RectF        GetBoundingBox   () const;
+	const D3DXVECTOR3  GetDrawablePos   () const;
 	void               RenderBoundingBox() const;
-
-	//virtual void SetPosition(const D3DXVECTOR3& pos  ) { this->pos   = pos  ; }
-	//virtual void SetVelocity(const D3DXVECTOR2& vel  ) { this->vel   = vel  ; }
-	//virtual void SetScale   (const D3DXVECTOR2& scale) { this->scale = scale; }
 
 	virtual void SetState(const State state); 
 	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) {}

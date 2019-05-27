@@ -23,23 +23,23 @@ void GameDev::LoadResources()
 
 void GameDev::InitObjects()
 {
-	mario = std::make_unique<Mario>();
+	mario = std::make_unique<Mario>(D3DXVECTOR3(10.0f, 230.0f, 0.0f));
 
 	goombas.reserve(3);
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(200.0f, 185.0f, 0.0f)));
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(260.0f, 185.0f, 0.0f)));
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(320.0f, 185.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(200.0f, 40.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(260.0f, 40.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(320.0f, 40.0f, 0.0f)));
 
 	bricks.reserve(35);
 	for (UINT i = 0; i < 20; i++)
 	{
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(16.0f * i, 200.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(16.0f * i, 24.0f, 0.0f)));
 	}
 	for (UINT i = 0; i < 5; i++)
 	{
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 124.0f, 0.0f)));
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 140.0f, 0.0f)));
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(64.0f + i * 48.0f, 140.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 99.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 83.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(64.0f + i * 48.0f, 83.0f, 0.0f)));
 	}
 }
 

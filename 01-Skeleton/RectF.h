@@ -9,7 +9,7 @@ struct RectF
 	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) {}
 
 	float GetWidth () const { return right - left; }
-	float GetHeight() const { return bottom - top; }
+	float GetHeight() const { return top - bottom; }
 
 	operator RECT() const
 	{
@@ -19,7 +19,7 @@ struct RectF
 	bool IsIntersect(const RectF& other) const
 	{
 		return left <= other.right && right >= other.left
-			&& top <= other.bottom && bottom >= other.top;
+			&& bottom <= other.top && top >= other.bottom;
 	}
 
 	RectF& OffSetRect(float dx, float dy)
@@ -36,9 +36,9 @@ struct RectF
 	RectF& BroadPhase(float dx, float dy)
 	{
 		left   = min(left  , left   + dx);
-		top    = min(top   , top    + dy);
 		right  = max(right , right  + dx);
-		bottom = max(bottom, bottom + dy);
+		bottom = min(bottom, bottom + dy);
+		top    = max(top   , top    + dy);
 		return *this;
 	}
 	RectF GetBroadPhase(float dx, float dy) const

@@ -8,7 +8,8 @@
 
 static const MainWindow& wnd = MainWindow::Instance();
 
-Mario::Mario() : GameObject(State::MarioWalking, D3DXVECTOR3(10.0f, 10.0f, 0.0f), 15, 27)
+Mario::Mario(const D3DXVECTOR3 & spawnPos) : 
+	GameObject(State::MarioWalking, spawnPos, 15, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -74,11 +75,11 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 
 		if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
 		{
-			if (e.ny < 0.0f && goomba->GetState() != State::GoombaDie)
+			if (e.ny > 0.0f && goomba->GetState() != State::GoombaDie)
 			{
 				Goomba* g = const_cast<Goomba*>(goomba);
 				g->SetState(State::GoombaDie);
-				vel.y = -JUMP_DEFLECT_SPEED;
+				vel.y = JUMP_DEFLECT_SPEED;
 			}
 		}
 	}
@@ -90,7 +91,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	if (curState == State::MarioDie) return;
 
 	// regular updates
-	vel.y += GRAVITY * dt;
+	vel.y -= GRAVITY * dt;
 
 	// process input
 	ProcessInput();
@@ -116,7 +117,7 @@ void Mario::SetState(State state)
 			break;
 
 		case State::MarioJump:
-			vel.y = -JUMP_SPEED;
+			vel.y = JUMP_SPEED;
 			break;
 
 		case State::MarioIdle:
