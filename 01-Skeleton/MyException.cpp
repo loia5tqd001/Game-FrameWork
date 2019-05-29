@@ -1,6 +1,16 @@
 #include "pch.h"
 #include "MyException.h"
 
+void debug_out(char *fmt, ...)
+{
+	va_list argp;
+	va_start(argp, fmt);
+	char dbg_out[4096];
+	vsprintf_s(dbg_out, fmt, argp);
+	va_end(argp);
+	OutputDebugString(dbg_out);
+}
+
 MyException::MyException(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file)
 {
 	std::ostringstream ss;

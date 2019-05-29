@@ -9,6 +9,7 @@ void DebugOut(Args... args)
 	OutputDebugString(ss.str().c_str());
 }
 
+void debug_out(char *fmt, ...);
 
 // Custom exception class for more information debuging
 class MyException : public std::exception

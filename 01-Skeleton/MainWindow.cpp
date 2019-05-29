@@ -38,9 +38,9 @@ void MainWindow::InitWindow()
 	hInstance = GetModuleHandle(NULL);
 
 	WNDCLASSEX       wc;
-	wc.cbSize		 = sizeof(WNDCLASSEX);
+	wc.cbSize        = sizeof(WNDCLASSEX);
 	wc.lpszClassName = WINDOW_CLASS_NAME;
-	wc.hInstance	 = hInstance;
+	wc.hInstance     = hInstance;
 	wc.lpfnWndProc   = WinProc;
 	wc.cbClsExtra    = 0;
 	wc.cbWndExtra    = 0;

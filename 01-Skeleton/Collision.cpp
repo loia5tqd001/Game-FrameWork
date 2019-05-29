@@ -34,9 +34,6 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		dyExit  = rect2.bottom - rect1.top   ;
 	}
 
-	// add this to avoid standing beside the wall
-	if (dxEntry == 0.0f && dyEntry == 0.0f) return {};
-
 	float txEntry, txExit;
 	float tyEntry, tyExit;
 	if (dx == 0.0f) {
@@ -54,18 +51,15 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		tyExit  = dyExit  / dy;
 	}
 
-	float entryTime = max(txEntry, tyEntry);
-	float exitTime  = min(txExit , tyExit );
+	const float entryTime = max(txEntry, tyEntry);
+	const float exitTime  = min(txExit , tyExit );
 
-	/// Fix bugs reported on gamedev blog:
-	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f)) return {};
-	if (txEntry < 0.0f && (rect1.right < rect2.left || rect1.left > rect2.right)) return {};
-	if (tyEntry < 0.0f && (rect1.top < rect2.bottom || rect1.bottom > rect2.top)) return {};
-	
+	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
+
 	float nx, ny;
 	if (txEntry > tyEntry) {
 		ny = 0.0f;
-		nx = dx < 0.0f ? 1.0f : -1.0f; /// gamedev blog version: = dxEntry < 0.0f ? 1.0f : -1.0f;
+		nx = dx < 0.0f ? 1.0f : -1.0f; 
 	} else {
 		nx = 0.0f;
 		ny = dy < 0.0f ? 1.0f : -1.0f;

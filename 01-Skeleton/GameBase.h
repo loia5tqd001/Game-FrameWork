@@ -4,7 +4,7 @@
 class GameBase
 {
 private:
-	LPDIRECT3D9		   d3d			 = NULL                  ;						
+	LPDIRECT3D9        d3d           = NULL                  ;						
 	LPDIRECT3DDEVICE9  d3ddv		 = NULL                  ;				
 	LPDIRECT3DSURFACE9 backBuffer	 = NULL                  ;		
 	LPD3DXSPRITE	   spriteHandler = NULL                  ;	

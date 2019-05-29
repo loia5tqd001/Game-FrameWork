@@ -19,14 +19,14 @@
     <Filter Include="Development\Source">
       <UniqueIdentifier>{90152314-ebb9-43c7-b976-871719dc9e69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="thirdpartylib">
-      <UniqueIdentifier>{c26cf2e0-a21c-442b-8208-5806a114481f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="thirdpartylib\json">
-      <UniqueIdentifier>{80a9e707-6289-467a-a946-f19330b1a5e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{3f3090f4-650c-41ee-937f-6438b1dcb3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\thirdpartylib">
+      <UniqueIdentifier>{c26cf2e0-a21c-442b-8208-5806a114481f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\thirdpartylib\json">
+      <UniqueIdentifier>{80a9e707-6289-467a-a946-f19330b1a5e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +64,7 @@
       <Filter>Development\Source</Filter>
     </ClCompile>
     <ClCompile Include="thirdpartylib\jsoncpp.cpp">
-      <Filter>thirdpartylib</Filter>
+      <Filter>Framework\thirdpartylib</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Source</Filter>
@@ -120,10 +120,10 @@
       <Filter>Development\Header</Filter>
     </ClInclude>
     <ClInclude Include="thirdpartylib\json\json.h">
-      <Filter>thirdpartylib\json</Filter>
+      <Filter>Framework\thirdpartylib\json</Filter>
     </ClInclude>
     <ClInclude Include="thirdpartylib\json\json-forwards.h">
-      <Filter>thirdpartylib\json</Filter>
+      <Filter>Framework\thirdpartylib\json</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Framework\Header</Filter>
