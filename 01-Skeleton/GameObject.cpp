@@ -28,7 +28,7 @@ const RectF GameObject::GetBoundingBox() const
 
 const D3DXVECTOR3 GameObject::GetDrawablePos() const
 {
-	return Camera::Instance().GetDrawablePosition(*this);
+	return Camera::Instance().WorldRectToDrawablePosition(GetBoundingBox());
 }
 
 void GameObject::RenderBoundingBox() const

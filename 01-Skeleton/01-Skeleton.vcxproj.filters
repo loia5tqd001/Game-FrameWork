@@ -51,9 +51,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameBase.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameTimer.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
@@ -81,6 +78,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -99,9 +102,6 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameBase.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
@@ -144,6 +144,14 @@
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Game.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "GameBase.h"
+#include "Game.h"
 #include "MyException.h"
 #include "GameTimer.h"
 
 
-GameBase::~GameBase()
+Game::~Game()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
@@ -12,7 +12,7 @@ GameBase::~GameBase()
 	if (d3d != NULL) d3d->Release();
 }
 
-void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
+void Game::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
@@ -33,15 +33,14 @@ void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, co
 	spriteHandler->SetTransform(&oldMt);
 }
 
-void GameBase::InitGame()
+void Game::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
-	LoadResources();
-	InitObjects();
+	ChangeScene(SceneType::IntroScene);
 }
 
-void GameBase::InitDirectDevice()
+void Game::InitDirectDevice()
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -67,13 +66,13 @@ void GameBase::InitDirectDevice()
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 }
 
-void GameBase::Render()
+void Game::Render()
 {
 	if (d3ddv->BeginScene())	
 	{
 		d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		ComposeFrame(); // actual development render
+		curScene->ComposeFrame(); // actual development render
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -81,12 +80,26 @@ void GameBase::Render()
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void GameBase::Run()
+void Game::ChangeScene(SceneType sceneId)
+{
+	switch (sceneId)
+	{
+		case SceneType::IntroScene:
+			curScene = std::make_unique<Scene>("textures\\intro_scene.json");
+			break;
+			
+		case SceneType::Stage1Scene:
+			curScene = std::make_unique<Scene>("textures\\stage1_scene.json");
+			break;
+	}
+}
+
+void Game::Run()
 {
 	while (wnd.ProcessMessage())
 	{
 		GameTimer::BeginFrame();
-		Update(GameTimer::DeltaTime());
+		curScene->Update(GameTimer::DeltaTime());
 		Render();
 	}
 }

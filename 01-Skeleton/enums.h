@@ -41,5 +41,11 @@ enum class State
 
 };
 
+enum class SceneType
+{
+	IntroScene,
+	Stage1Scene,
+};
+
 
 
