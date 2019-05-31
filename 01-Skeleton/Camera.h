@@ -12,11 +12,13 @@ private:
 public:
 	void  MoveTo(const D3DXVECTOR3& newPos)  { pos = newPos                     ; }
 	void  MoveBy(float dx, float dy)         { pos += { dx, dy, 0.0f }          ; }
+	void  CenterTo(const D3DXVECTOR3& newPos);
+
 	const D3DXVECTOR3& GetPosition()  const  { return pos                       ; }
 	const RectF        GetBBox    ()  const  ;
 	bool  IsContain(const RectF& box) const  { return GetBBox().IsIntersect(box); }
 	D3DXVECTOR3 GetDrawablePosition  (const  GameObject& obj) const;
-	void  CenterTo(const D3DXVECTOR3& newPos);
+	D3DXVECTOR3 WorldRectToDrawablePosition(const RectF& rect) const;
 
 private:
 	Camera() : ISingleton(NULL) {}

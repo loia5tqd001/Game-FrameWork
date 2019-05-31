@@ -40,4 +40,9 @@ bool Animation::IsDoneCycle()
 	
 }
 
+RECT Animation::GetFrameSize(const D3DXVECTOR2 & vtScale) const
+{
+	return sprite.GetFrameSize(curFrame, vtScale);
+}
+
 
