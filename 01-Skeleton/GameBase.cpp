@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "Game.h"
+#include "GameBase.h"
 #include "MyException.h"
 #include "GameTimer.h"
 
 
-Game::~Game()
+GameBase::~GameBase()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
@@ -12,7 +12,7 @@ Game::~Game()
 	if (d3d != NULL) d3d->Release();
 }
 
-void Game::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
+void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
@@ -33,14 +33,15 @@ void Game::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const 
 	spriteHandler->SetTransform(&oldMt);
 }
 
-void Game::InitGame()
+void GameBase::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
-	ChangeScene(SceneType::IntroScene);
+	LoadResources();
+	InitObjects();
 }
 
-void Game::InitDirectDevice()
+void GameBase::InitDirectDevice()
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -66,13 +67,13 @@ void Game::InitDirectDevice()
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 }
 
-void Game::Render()
+void GameBase::Render()
 {
 	if (d3ddv->BeginScene())	
 	{
 		d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		curScene->ComposeFrame(); // actual development render
+		ComposeFrame(); // actual development render
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -80,26 +81,12 @@ void Game::Render()
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void Game::ChangeScene(SceneType sceneId)
-{
-	switch (sceneId)
-	{
-		case SceneType::IntroScene:
-			curScene = std::make_unique<Scene>("textures\\intro_scene.json");
-			break;
-			
-		case SceneType::Stage1Scene:
-			curScene = std::make_unique<Scene>("textures\\stage1_scene.json");
-			break;
-	}
-}
-
-void Game::Run()
+void GameBase::Run()
 {
 	while (wnd.ProcessMessage())
 	{
 		GameTimer::BeginFrame();
-		curScene->Update(GameTimer::DeltaTime());
+		Update(GameTimer::DeltaTime());
 		Render();
 	}
 }

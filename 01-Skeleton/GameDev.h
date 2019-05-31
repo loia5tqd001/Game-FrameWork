@@ -1,9 +1,9 @@
 #pragma once
-#include "Game.h"
+#include "GameBase.h"
 #include "ISingleton.h"
 #include "Mario.h"
 
-class GameDev : public Game, ISingleton
+class GameDev : public GameBase, ISingleton
 {
 private:
 	void LoadResources () override;

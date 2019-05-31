@@ -7,15 +7,9 @@ struct RectF
 
 	RectF() : left(0.0f), top(0.0f), right(0.0f), bottom(0.0f) {}
 	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) 
-	{ 
+	{
 		assert(top > bottom);
 	}
-	RectF(RECT lRect) : 
-		left  ((float)lRect.left  ),
-		top   ((float)lRect.top   ),
-		right ((float)lRect.right ),
-		bottom((float)lRect.bottom)
-	{}
 
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return top - bottom; }
