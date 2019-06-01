@@ -81,6 +81,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -146,5 +147,6 @@
     <ClInclude Include="Camera.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h" />
   </ItemGroup>
 </Project>

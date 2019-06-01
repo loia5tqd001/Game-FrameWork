@@ -36,41 +36,26 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 	textureDictionary.emplace(id, texture);
 }
 
+const Json::Value & Textures::GetTextureInfoFromTextureId(TextureType id, const Json::Value & root) const
+{
+	static auto matchTextureIdPred = [&id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
+
+	const Json::Value& textures = root["textures"];
+	auto found = std::find_if(textures.begin(), textures.end(), matchTextureIdPred);
+	if (found == textures.end())
+	{
+		DebugOut("Can't find texture match with id of: ", (UINT)id, "\n");
+		ThrowMyException("Can't find any texture match with particular id");
+	}
+	return *found;
+}
+
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
-void Textures::AddTexture(TextureType id, LPCSTR jsonPath)
+void Textures::AddTexture(TextureType id, const Json::Value& root)
 {
 	assert(textureDictionary.count(id) == 0);
 
-	std::ifstream jsonFile(jsonPath);
-	if (!jsonFile.is_open())
-	{
-		DebugOut("Can't open json file to add texture: ", jsonPath, "\n");
-		ThrowMyException("Can't open json file to add texture");
-	}
-
-	Json::Reader reader;
-	Json::Value  root;
-	if (!reader.parse(jsonFile, root))
-	{
-		const std::string msg = reader.getFormattedErrorMessages();
-		DebugOut("Parse json file failed: ", msg, "\n");
-		ThrowMyException(msg.c_str());
-	}
-
-	static auto getTextureInfo = [](const Json::Value& root, TextureType id)
-	{
-		const Json::Value& textures = root["textures"];
-		static auto matchTextureIdPred = [&id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
-		auto found = std::find_if(textures.begin(), textures.end(), matchTextureIdPred);
-		if (found == textures.end())
-		{
-			DebugOut("Can't find texture match with id of: ", (UINT)id, "\n");
-			ThrowMyException("Can't find any texture match with particular id");
-		}
-		return *found;
-	};
-
-	const Json::Value& textureInfo          = getTextureInfo(root, id);
+	const Json::Value& textureInfo          = GetTextureInfoFromTextureId(id, root);
 	LPCSTR             texturePath          = textureInfo[1].asCString();
 	const Json::Value& transparentColorJson = textureInfo[2];
 	D3DCOLOR transparentColor;

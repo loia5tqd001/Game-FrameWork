@@ -9,6 +9,7 @@ enum class TextureType
 	Mario = 1,
 	Misc  = 2,
 	Enemy = 3,
+	Map   = 4,
 	Count
 };
 

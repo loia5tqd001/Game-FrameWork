@@ -5,20 +5,37 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Camera.h"
+#include "MyException.h"
 
 
 void GameDev::LoadResources()
 {
-	static constexpr char* jsonPath = "textures\\sprites.json";
+	static constexpr char* jsonPath = "textures\\db.json";
+
+	std::ifstream jsonFile(jsonPath);
+	if (!jsonFile.is_open())
+	{
+		DebugOut("Can't open json file: ", jsonPath, "\n");
+		ThrowMyException("Can't open json file");
+	}
+
+	Json::Reader reader;
+	Json::Value  root;
+	if (!reader.parse(jsonFile, root))
+	{
+		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
+		DebugOut("Parse json file failed: ", msg, "\n");
+		ThrowMyException(msg);
+	}
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
 	{
-		Textures::Add(TextureType(i), jsonPath);
+		Textures::Add(TextureType(i), root);
 	}
 
 	for (UINT i = 0; i < (UINT)SpriteType::Count; i++)
 	{
-		Sprites::Add(SpriteType(i), jsonPath);
+		Sprites::Add(SpriteType(i), root);
 	}
 }
 

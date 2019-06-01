@@ -49,25 +49,9 @@ const std::vector<RECT> Sprites::GetFramesFromSpriteInfo(const Json::Value & spr
 	return frames;
 }
 
-void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
+void Sprites::AddSprite(SpriteType id, const Json::Value& root)
 {
 	assert(spriteDictionary.count(id) == 0);
-
-	std::ifstream jsonFile(jsonPath);
-	if (!jsonFile.is_open())
-	{
-		DebugOut("Can't open json file to add sprite: ", jsonPath, "\n");
-		ThrowMyException("Can't open json file to add sprite");
-	}
-
-	Json::Reader reader;
-	Json::Value  root;
-	if (!reader.parse(jsonFile, root))
-	{
-		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
-		DebugOut("Parse json file failed: ", msg, "\n");
-		ThrowMyException(msg);
-	}
 	
 	const Json::Value&       spriteInfo = GetSpriteInfoFromSpriteId(id, root);
 	const LPDIRECT3DTEXTURE9 texture    = GetTextureFromSpriteInfo(spriteInfo);
