@@ -23,7 +23,7 @@
   
   "map": {  
        "columns": 6,
-       "tilesize": 32,
+       "tilesize": 16,
        "width": 10,
        "height": 3,
        "data": [1,2,3,13,14,14,15,4,5,6,
