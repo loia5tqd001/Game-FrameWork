@@ -37,6 +37,8 @@ void GameDev::LoadResources()
 	{
 		Sprites::Add(SpriteType(i), root);
 	}
+
+	map = std::make_unique<Map>(root, objects);
 }
 
 void GameDev::InitObjects()
@@ -92,6 +94,7 @@ void GameDev::Update(float dt)
 }
 void GameDev::ComposeFrame()
 {
+	map->Render();
 	mario->Render();
 	for (const auto& goomba : goombas)
 	{

@@ -5,7 +5,7 @@
     [ 1, "textures\\mario.png"  , [255,255,255] ],
     [ 2, "textures\\misc.png"   , [176,224,248] ],
     [ 3, "textures\\enemies.png", [3  ,26 ,110] ],
-	[ 4, "textures\\tileset.png", 0             ],
+	[ 4, "textures\\tileset.png", 0             ]
   ],  
   
   "sprites": [ 
@@ -23,7 +23,6 @@
   
   "map": {  
        "columns": 6,
-       "rows": 17,
        "tilesize": 32,
        "width": 10,
        "height": 3,

@@ -66,3 +66,31 @@ const Sprite & Sprites::GetSprite(SpriteType id) const
 	assert(spriteDictionary.count(id) == 1);
 	return spriteDictionary.at(id);
 }
+
+void Sprites::AddSprite(SpriteType id, LPCSTR jsonPath)
+{
+	assert(spriteDictionary.count(id) == 0);
+
+	std::ifstream jsonFile(jsonPath);
+	if (!jsonFile.is_open())
+	{
+		DebugOut("Can't open json file to add sprite: ", jsonPath, "\n");
+		ThrowMyException("Can't open json file to add sprite");
+	}
+
+	Json::Reader reader;
+	Json::Value  root;
+	if (!reader.parse(jsonFile, root))
+	{
+		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
+		DebugOut("Parse json file failed: ", msg, "\n");
+		ThrowMyException(msg);
+	}
+
+	const Json::Value&       spriteInfo = GetSpriteInfoFromSpriteId(id, root);
+	const LPDIRECT3DTEXTURE9 texture = GetTextureFromSpriteInfo(spriteInfo);
+	const std::vector<RECT>  frames = GetFramesFromSpriteInfo(spriteInfo);
+
+	Sprite sprite(texture, std::move(frames));
+	spriteDictionary.emplace(id, std::move(sprite));
+}
