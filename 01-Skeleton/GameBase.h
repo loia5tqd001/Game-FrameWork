@@ -17,7 +17,6 @@ private:
 protected:
 	virtual ~GameBase(); 
 	virtual void LoadResources () = 0;
-	virtual void InitObjects   () = 0;
 	virtual void Update(float dt) = 0;
 	virtual void ComposeFrame  () = 0;
 

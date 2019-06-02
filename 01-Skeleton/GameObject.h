@@ -18,10 +18,9 @@ protected:
 	std::unordered_map<State, Animation> animations    ;
 	D3DXVECTOR2                          scale         ; // direction and how much scale
 
+public: 
 	virtual bool IsCollidable() const { return true; } 
 	GameObject(const GameObject&) = delete;
-
-public: 
 
 #if DEBUG
 	bool is_debugging = false;
@@ -38,7 +37,7 @@ public:
 	void               RenderBoundingBox() const;
 
 	virtual void SetState(const State state); 
-	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) {}
+	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects = {}) {}
 	virtual void Render() const;
 
 	virtual ~GameObject()  = default; 

@@ -81,7 +81,10 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Map.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h" />
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h" />
   </ItemGroup>
 </Project>

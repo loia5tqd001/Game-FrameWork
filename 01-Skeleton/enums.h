@@ -27,6 +27,14 @@ enum class SpriteType
 	Count
 };
 
+enum class ObjectType
+{
+	Mario,
+	Brick,
+	Boomba,
+	Count
+};
+
 enum class State
 {
 	Invisible,
@@ -37,6 +45,7 @@ enum class State
 	BrickIdle,
 	GoombaMoving,
 	GoombaDie,
+	Destroyed,
 	Count
 
 

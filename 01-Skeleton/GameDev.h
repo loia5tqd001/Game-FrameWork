@@ -8,10 +8,10 @@ class GameDev : public GameBase, ISingleton
 {
 private:
 	void LoadResources () override;
-	void InitObjects   () override;
 	void Update(float dt) override;
 	void ComposeFrame  () override;
 
+	void LoadObjects();
 private:
 	std::unique_ptr<Map> map;
 	std::unique_ptr<Mario> mario;

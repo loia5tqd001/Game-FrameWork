@@ -38,7 +38,6 @@ void GameBase::InitGame()
 	wnd.InitWindow();
 	InitDirectDevice();
 	LoadResources();
-	InitObjects();
 }
 
 void GameBase::InitDirectDevice()
