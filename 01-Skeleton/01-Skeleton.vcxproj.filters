@@ -22,11 +22,8 @@
     <Filter Include="Main">
       <UniqueIdentifier>{3f3090f4-650c-41ee-937f-6438b1dcb3d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\thirdpartylib">
-      <UniqueIdentifier>{c26cf2e0-a21c-442b-8208-5806a114481f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\thirdpartylib\json">
-      <UniqueIdentifier>{80a9e707-6289-467a-a946-f19330b1a5e0}</UniqueIdentifier>
+    <Filter Include="Framework\_ThirdParty">
+      <UniqueIdentifier>{24cb7110-3619-4716-bba6-03607fca019e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +60,6 @@
     <ClCompile Include="Mario.cpp">
       <Filter>Development\Source</Filter>
     </ClCompile>
-    <ClCompile Include="thirdpartylib\jsoncpp.cpp">
-      <Filter>Framework\thirdpartylib</Filter>
-    </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
@@ -84,7 +78,12 @@
     <ClCompile Include="Map.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\JsonCpp\jsoncpp.cpp">
+      <Filter>Framework\_ThirdParty</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyException.h">
@@ -123,12 +122,6 @@
     <ClInclude Include="Mario.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
-    <ClInclude Include="thirdpartylib\json\json.h">
-      <Filter>Framework\thirdpartylib\json</Filter>
-    </ClInclude>
-    <ClInclude Include="thirdpartylib\json\json-forwards.h">
-      <Filter>Framework\thirdpartylib\json</Filter>
-    </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
@@ -153,6 +146,8 @@
     <ClInclude Include="Map.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
