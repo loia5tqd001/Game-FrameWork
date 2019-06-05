@@ -45,7 +45,7 @@ private:
 		cells.resize(width * height);
 		const Json::Value& cellsData = grid["cells"];
 		assert(width*height == cellsData.size());
-		for (int i = 0; i < width * height; i++)
+		for (UINT i = 0; i < width * height; i++)
 		{
 			if (!cellsData[i].isNumeric())
 			{
