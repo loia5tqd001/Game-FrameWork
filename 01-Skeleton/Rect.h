@@ -27,7 +27,7 @@ struct Rect : public RECT
 
 	bool IsNone() const
 	{
-		return right == 0; // left == 0, top == 0, bottom == 0 as well
+		return left == right;
 	}
 
 };

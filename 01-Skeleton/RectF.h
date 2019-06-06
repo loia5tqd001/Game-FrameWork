@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "Rect.h"
 
 
 struct RectF
@@ -14,6 +15,11 @@ struct RectF
 	}
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + (float)width, y + (float)height)
 	{}
+
+	operator Rect() const
+	{
+		return { left + 0.5f, top + 0.5f, right + 0.5f, bottom + 0.5f };
+	}
 
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return bottom - top; }
@@ -31,16 +37,25 @@ struct RectF
 			&& top < other.bottom && bottom > other.top;
 	}
 
-	RectF& OffSetRect(float dx, float dy)
+	RectF& MoveToOrigin()
+	{
+		return OffsetRect(left, top);
+	}
+	Rect GetMovedToOrigin() const
+	{
+		RectF result = *this;
+		return result.MoveToOrigin();
+	}
+	RectF& OffsetRect(float dx, float dy)
 	{
 		left += dx, right  += dx;
 		top  += dy, bottom += dy;
 		return *this;
 	}
-	RectF GetOffSetRect(float dx, float dy) const
+	RectF GetOffsetRect(float dx, float dy) const
 	{
 		RectF result = *this;
-		return result.OffSetRect(dx, dy);
+		return result.OffsetRect(dx, dy);
 	}
 	RectF& BroadPhase(float dx, float dy)
 	{

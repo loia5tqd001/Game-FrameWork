@@ -17,14 +17,7 @@ void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;
 
-	if (pos.x < 0.0f) {
-		pos.x = 0.0f;
-		vel.x = - vel.x;
-	} 
-	else if (pos.x > wnd.GetWidth() - GetWidth()) {
-		pos.x = (float)wnd.GetWidth() - GetWidth();
-		vel.x = - vel.x;
-	}
+	Clamp(pos.x, 0.0f, wnd.GetWidth() - (float)GetWidth(), [this]() {vel.x = -vel.x; });
 
 	animations.at(curState).Update(dt);
 }

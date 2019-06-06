@@ -40,6 +40,7 @@ void GameDev::Update(float dt)
 	{
 		std::vector<LPCGAMEOBJECT> coObjects;
 		coObjects.reserve(goombas.size() + bricks.size());
+
 		for (const auto& goomba : goombas)
 		{
 			coObjects.emplace_back(goomba.get());
@@ -53,15 +54,14 @@ void GameDev::Update(float dt)
 
 	mario->Update(dt, getCollidableObjects());
 	Camera::Instance().CenterTo(mario->GetCenter());
-	Debug::Out(mario->GetPosition().x, mario->GetPosition().y);
 
 	for (const auto& goomba : goombas)
 	{
-		goomba->Update(dt, {});
+		goomba->Update(dt);
 	}
 	for (const auto& brick : bricks)
 	{
-		brick->Update(dt, {});
+		brick->Update(dt);
 	}
 }
 void GameDev::ComposeFrame()

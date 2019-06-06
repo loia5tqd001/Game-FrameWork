@@ -8,7 +8,7 @@ void Camera::MoveTo(const Point & newPos)
 
 void Camera::MoveBy(const Distance & dist)
 {
-	pos += dist;
+	MoveTo(pos + dist);
 }
 
 void Camera::CenterTo(const Point & center)

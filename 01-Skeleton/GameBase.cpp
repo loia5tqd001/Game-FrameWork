@@ -85,6 +85,10 @@ void GameBase::Run()
 		GameTimer::BeginFrame();
 		Update(GameTimer::DeltaTime());
 		Render();
+
+		#ifdef DEBUG
+		GameTimer::DebugFps();
+		#endif
 	}
 }
 

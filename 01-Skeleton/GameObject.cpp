@@ -34,7 +34,7 @@ const RectF GameObject::GetBoundingBox() const
 const Point GameObject::GetDrawablePos() const
 {
 	static auto& cam = Camera::Instance();
-	return cam.GetPositionInViewPort(GetPosition());
+	return cam.GetPositionInViewPort(GetPosition()); 
 }
 
 void GameObject::RenderBoundingBox() const

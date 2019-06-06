@@ -68,6 +68,14 @@ public:
 		     if (toClamp < low ) toClamp = low ;
 		else if (toClamp > high) toClamp = high;
 	}
+
+	template<typename T, typename Functor>
+	static void Clamp(T& toClamp, T low, T high, Functor action)
+	{
+			 assert(low  < high);
+		     if (toClamp < low ) toClamp = low , action();
+		else if (toClamp > high) toClamp = high, action();
+	}
 };
 
 
