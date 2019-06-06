@@ -13,29 +13,21 @@ void GameDev::LoadResources()
 
 	std::ifstream jsonFile(jsonPath);
 	if (!jsonFile.is_open())
-	{
-		Debug::Out("Can't open json file: ", jsonPath, "\n");
-		ThrowMyException("Can't open json file");
-	}
+		ThrowMyException("Can't open json file", jsonPath);
 
 	Json::Reader reader;
 	Json::Value  root;
 	if (!reader.parse(jsonFile, root))
 	{
 		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
-		Debug::Out("Parse json file failed: ", msg, "\n");
-		ThrowMyException(msg);
+		ThrowMyException("Parse json file failed:", msg);
 	}
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
-	{
 		Textures::Add(TextureType(i), root);
-	}
 
 	for (UINT i = 0; i < (UINT)SpriteType::Count; i++)
-	{
 		Sprites::Add(SpriteType(i), root);
-	}
 
 	map = std::make_unique<Map>(root, objects);
 
@@ -61,6 +53,7 @@ void GameDev::Update(float dt)
 
 	mario->Update(dt, getCollidableObjects());
 	Camera::Instance().CenterTo(mario->GetPosition());
+	Debug::Out(mario->GetPosition().x, mario->GetPosition().y);
 
 	for (const auto& goomba : goombas)
 	{

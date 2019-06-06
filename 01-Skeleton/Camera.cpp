@@ -14,7 +14,7 @@ void Camera::MoveBy(const Distance & dist)
 void Camera::CenterTo(const Point & center)
 {
 	MoveTo(center);
-	MoveBy({ -float(width), -float(height) });
+	MoveBy({ -float(width / 2), -float(height / 2) });
 }
 
 const Point & Camera::GetPosition() const

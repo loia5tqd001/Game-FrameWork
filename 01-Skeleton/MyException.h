@@ -15,19 +15,21 @@ private:
 		ss << "[Func]: " << func << "\n";
 		ss << "[File]: " << file << "\n";
 		msgOut = ss.str();
+		Debug::Out(what());
 	}
 
 public:
 	const char* what() const noexcept override { return msgOut.c_str(); }
 
 	#pragma warning(disable:4566) // unicode - ascii converting wanring
-	static void Throw(LPCSTR msg, UINT line, LPCSTR func, LPCSTR file)
+	template <typename ...Args>
+	static void Throw(UINT line, LPCSTR func, LPCSTR file, Args... msgs)
 	{
-		MyException ex(msg, line, func, file);
-		Debug::Out(ex.what());
-		throw ex;
+		std::ostringstream ss;
+		((ss << msgs << " "), ...);
+		throw MyException(ss.str().c_str(), line, func, file);
 	}
 
-	#define ThrowMyException(msg) MyException::Throw(msg, __LINE__, __func__, __FILE__)
+	#define ThrowMyException(...) MyException::Throw(__LINE__, __func__, __FILE__, __VA_ARGS__)
 };
 

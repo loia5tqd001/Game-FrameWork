@@ -7,7 +7,7 @@ struct Debug
 	static void Out(Args... args)
 	{
 		std::ostringstream ss;
-		((ss << args), ...);
+		((ss << args << " "), ...),	ss << "\n";
 		OutputDebugString(ss.str().c_str());
 	}
 

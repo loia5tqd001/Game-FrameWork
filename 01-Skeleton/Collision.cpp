@@ -82,8 +82,6 @@ std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const Gam
 
 void CollisionDetector::FilterCollisionEvents(std::vector<CollisionEvent>& coEvents, float & min_tx, float & min_ty, float & nx, float & ny)
 {
-	/// This function is being called tremendously, so there will be optimization, and yet to be hard to understand ///
-
 	assert(coEvents.size() > 0);
 
 	std::vector<CollisionEvent> afterFilter;

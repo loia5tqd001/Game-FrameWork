@@ -10,8 +10,7 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 	D3DXIMAGE_INFO info;
 	if (D3DXGetImageInfoFromFile(texturePath, &info) != D3D_OK)
 	{
-		Debug::Out("[ERROR] Get image info from file failed: ", texturePath, "\n");
-		ThrowMyException("Get image info from file failed");
+		ThrowMyException("Get image info from file failed", texturePath);
 	}
 
 	LPDIRECT3DTEXTURE9 texture;
@@ -43,8 +42,7 @@ const Json::Value & Textures::GetTextureInfoFromTextureId(TextureType id, const 
 	auto found = std::find_if(textures.begin(), textures.end(), matchTextureIdPred);
 	if (found == textures.end())
 	{
-		Debug::Out("Can't find texture match with id of: ", (UINT)id, "\n");
-		ThrowMyException("Can't find any texture match with particular id");
+		ThrowMyException("Can't find texture match with id of:", (UINT)id);
 	}
 	return *found;
 }

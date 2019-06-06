@@ -20,7 +20,7 @@ struct RectF
 	bool IsIntersect(const RectF& other) const
 	{
 		return left < other.right && right > other.left
-			&& bottom < other.top && top > other.bottom;
+			&& top < other.bottom && bottom > other.top;
 	}
 
 	RectF& OffSetRect(float dx, float dy)

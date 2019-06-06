@@ -12,8 +12,7 @@ const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteType id, const Json
 	const auto& found   = std::find_if(sprites.begin(), sprites.end(), matchSpriteIdPred);
 	if (found == sprites.end())
 	{
-		Debug::Out("Can't find any sprite match with id of: ", (UINT)id, "\n");
-		ThrowMyException("Can't find any sprite match with particular id");
+		ThrowMyException("Can't find any sprite match with id of:", (UINT)id);
 	}
 	return *found;
 }

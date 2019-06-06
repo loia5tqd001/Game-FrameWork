@@ -45,6 +45,6 @@ public:
 		Instance().deltaTime = duration.count();
 	}
 
-	static float DeltaTime() /*secs*/{ return Instance().deltaTime; }
-	static void DebugFps  () { Debug::Out("Fps is ", GetFps(), "\n"); }
+	static float DeltaTime() { return Instance().deltaTime; }
+	static void  DebugFps () { Debug::Out("Fps is", GetFps()); }
 };

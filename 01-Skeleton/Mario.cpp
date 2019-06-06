@@ -74,10 +74,9 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 
 		if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
 		{
-			if (e.ny > 0.0f && goomba->GetState() != State::GoombaDie)
+			if (e.ny < 0.0f && goomba->GetState() != State::GoombaDie)
 			{
-				Goomba* g = const_cast<Goomba*>(goomba);
-				g->SetState(State::GoombaDie);
+				const_cast<Goomba*>(goomba)->SetState(State::GoombaDie);
 				vel.y = -JUMP_DEFLECT_SPEED;
 			}
 		}
