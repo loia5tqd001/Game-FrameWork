@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "MyException.h"
 #include "Textures.h"
 #include "GameDev.h"
 
@@ -11,7 +10,7 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 	D3DXIMAGE_INFO info;
 	if (D3DXGetImageInfoFromFile(texturePath, &info) != D3D_OK)
 	{
-		DebugOut("[ERROR] Get image info from file failed: ", texturePath, "\n");
+		Debug::Out("[ERROR] Get image info from file failed: ", texturePath, "\n");
 		ThrowMyException("Get image info from file failed");
 	}
 
@@ -44,7 +43,7 @@ const Json::Value & Textures::GetTextureInfoFromTextureId(TextureType id, const 
 	auto found = std::find_if(textures.begin(), textures.end(), matchTextureIdPred);
 	if (found == textures.end())
 	{
-		DebugOut("Can't find texture match with id of: ", (UINT)id, "\n");
+		Debug::Out("Can't find texture match with id of: ", (UINT)id, "\n");
 		ThrowMyException("Can't find any texture match with particular id");
 	}
 	return *found;

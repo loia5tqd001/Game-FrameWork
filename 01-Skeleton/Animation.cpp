@@ -4,12 +4,15 @@
 #include "Sprites.h"
 
 
-
-
 Animation::Animation(SpriteType spriteId, float holdTime) :
 	sprite(Sprites::Get(spriteId)),
 	holdTime(holdTime)
-{}
+{
+	if (holdTime == std::numeric_limits<float>::infinity())
+	{
+		assert(nFrames == 1);
+	}
+}
 
 void Animation::Update(float dt)
 {
@@ -26,7 +29,7 @@ void Animation::Update(float dt)
 	}
 }
 
-void Animation::Render(const D3DXVECTOR3& pos, const D3DXVECTOR2& vtScale, int alpha) const
+void Animation::Render(const Point& pos, const Vector2& vtScale, int alpha) const
 {
 	sprite.Draw(pos, curFrame, vtScale, alpha);
 }
@@ -40,7 +43,7 @@ bool Animation::IsDoneCycle()
 	
 }
 
-RECT Animation::GetFrameSize(const D3DXVECTOR2 & vtScale) const
+Rect Animation::GetFrameSize(const Vector2 & vtScale) const
 {
 	return sprite.GetFrameSize(curFrame, vtScale);
 }

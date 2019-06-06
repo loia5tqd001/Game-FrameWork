@@ -1,8 +1,5 @@
 #pragma once
 #include <chrono>
-#include "ISingleton.h"
-#include "MyException.h"
-
 
 class GameTimer : ISingleton
 {
@@ -19,10 +16,35 @@ private:
 		return instance;
 	}
 
-	static int GetFps();
+	static int GetFps()
+	{
+		static float timePassed = 0.0f;
+		static int fps = 0;
+		static int nFrame = 0;
+
+		nFrame++;
+		timePassed += DeltaTime();
+
+		if (timePassed >= 1.0f)
+		{
+			fps = nFrame;
+			nFrame = 0;
+			timePassed -= 1.0f;
+		}
+
+		return fps;
+	}
 
 public:
-	static void BeginFrame();	
+	static void BeginFrame()
+	{
+		Instance().last = Instance().now;
+		Instance().now = std::chrono::steady_clock::now();
+
+		std::chrono::duration<float> duration = Instance().now - Instance().last;
+		Instance().deltaTime = duration.count();
+	}
+
 	static float DeltaTime() /*secs*/{ return Instance().deltaTime; }
-	static void DebugFps  () { DebugOut("Fps is ", GetFps(), "\n"); }
+	static void DebugFps  () { Debug::Out("Fps is ", GetFps(), "\n"); }
 };

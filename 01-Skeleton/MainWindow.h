@@ -1,5 +1,4 @@
 #pragma once
-#include "ISingleton.h"
 
 class MainWindow : ISingleton
 {
@@ -18,7 +17,8 @@ public:
 	bool ProcessMessage() const ;
 	bool IsKeyPressed(BYTE keyCode) const { return keyStates.test(keyCode); }
 	static LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) { 
+	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) 
+	{ 
 		MessageBox(nullptr, message, title, type); 
 	}
 

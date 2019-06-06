@@ -1,6 +1,5 @@
 #pragma once
 #include "GameBase.h"
-#include "ISingleton.h"
 #include "Mario.h"
 #include "Map.h"
 

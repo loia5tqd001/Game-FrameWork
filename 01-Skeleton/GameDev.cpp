@@ -5,7 +5,6 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Camera.h"
-#include "MyException.h"
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
 void GameDev::LoadResources()
@@ -15,7 +14,7 @@ void GameDev::LoadResources()
 	std::ifstream jsonFile(jsonPath);
 	if (!jsonFile.is_open())
 	{
-		DebugOut("Can't open json file: ", jsonPath, "\n");
+		Debug::Out("Can't open json file: ", jsonPath, "\n");
 		ThrowMyException("Can't open json file");
 	}
 
@@ -24,7 +23,7 @@ void GameDev::LoadResources()
 	if (!reader.parse(jsonFile, root))
 	{
 		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
-		DebugOut("Parse json file failed: ", msg, "\n");
+		Debug::Out("Parse json file failed: ", msg, "\n");
 		ThrowMyException(msg);
 	}
 
@@ -88,23 +87,23 @@ void GameDev::ComposeFrame()
 
 void GameDev::LoadObjects()
 {
-	mario = std::make_unique<Mario>(D3DXVECTOR3(10.0f, 230.0f, 0.0f));
+	mario = std::make_unique<Mario>(Point(10.0f, 10.0f, 0.0f));
 
 	goombas.reserve(3);
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(200.0f, 16.0f, 0.0f)));
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(260.0f, 16.0f, 0.0f)));
-	goombas.emplace_back(std::make_unique<Goomba>(D3DXVECTOR3(320.0f, 16.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(Point(200.0f, 209.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(Point(260.0f, 209.0f, 0.0f)));
+	goombas.emplace_back(std::make_unique<Goomba>(Point(320.0f, 209.0f, 0.0f)));
 
 	bricks.reserve(35);
 	for (UINT i = 0; i < 20; i++)
 	{
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(16.0f * i, 0.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(Point(16.0f * i, 224.0f, 0.0f)));
 	}
 	for (UINT i = 0; i < 5; i++)
 	{
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 75.0f, 0.0f)));
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(80.0f + i * 48.0f, 59.0f, 0.0f)));
-		bricks.emplace_back(std::make_unique<Brick>(D3DXVECTOR3(64.0f + i * 48.0f, 59.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(Point(80.0f + i * 48.0f, 149.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(Point(80.0f + i * 48.0f, 165.0f, 0.0f)));
+		bricks.emplace_back(std::make_unique<Brick>(Point(64.0f + i * 48.0f, 165.0f, 0.0f)));
 	}
 }
 

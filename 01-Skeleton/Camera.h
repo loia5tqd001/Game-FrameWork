@@ -5,20 +5,22 @@
 class Camera : ISingleton
 {
 private:
-	D3DXVECTOR3 pos   = { 0.0f, 0.0f, 0.0f }; // bottom-left
+	Point pos; 
 	const UINT width  = MainWindow::Instance().GetWidth (); 
 	const UINT height = MainWindow::Instance().GetHeight();
 
 public:
-	void  MoveTo(const D3DXVECTOR3& newPos)  { pos = newPos                     ; }
-	void  MoveBy(float dx, float dy)         { pos += { dx, dy, 0.0f }          ; }
-	void  CenterTo(const D3DXVECTOR3& newPos);
+	void  MoveTo(const Point& newPos);
+	void  MoveBy(const Distance& dist);
+	void  CenterTo(const Point& center);
 
-	const D3DXVECTOR3& GetPosition()  const  { return pos                       ; }
-	const RectF        GetBBox    ()  const  ;
-	bool  IsContain(const RectF& box) const  { return GetBBox().IsIntersect(box); }
-	D3DXVECTOR3 GetDrawablePosition  (const  GameObject& obj) const;
-	D3DXVECTOR3 WorldRectToDrawablePosition(const RectF& rect) const;
+	const Point& GetPosition() const;
+	const RectF  GetBBox    () const;
+
+	bool  IsIntersect(const RectF& box) const;
+
+	Point GetPositionInViewPort (const GameObject& obj) const;
+	//Point WorldRectToDrawablePosition(const RectF& rect) const;
 
 private:
 	Camera() : ISingleton(NULL) {}

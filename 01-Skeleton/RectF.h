@@ -5,14 +5,17 @@ struct RectF
 {
 	float left, top, right, bottom;
 
-	RectF() : left(0.0f), top(0.0f), right(0.0f), bottom(0.0f) {}
+	RectF() : left(0.0f), top(0.0f), right(0.0f), bottom(0.0f) 
+	{}
 	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) 
 	{
-		assert(top > bottom);
+		assert(top < bottom);
 	}
+	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + (float)width, y + (float)height)
+	{}
 
 	float GetWidth () const { return right - left; }
-	float GetHeight() const { return top - bottom; }
+	float GetHeight() const { return bottom - top; }
 
 	bool IsIntersect(const RectF& other) const
 	{
@@ -34,9 +37,9 @@ struct RectF
 	RectF& BroadPhase(float dx, float dy)
 	{
 		left   = min(left  , left   + dx);
+		top    = min(top   , top    + dy);
 		right  = max(right , right  + dx);
-		bottom = min(bottom, bottom + dy);
-		top    = max(top   , top    + dy);
+		bottom = max(bottom, bottom + dy);
 		return *this;
 	}
 	RectF GetBroadPhase(float dx, float dy) const

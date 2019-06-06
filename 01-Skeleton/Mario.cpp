@@ -7,7 +7,7 @@
 
 static const MainWindow& wnd = MainWindow::Instance();
 
-Mario::Mario(const D3DXVECTOR3 & spawnPos) : 
+Mario::Mario(const Point & spawnPos) : 
 	GameObject(State::MarioWalking, spawnPos, { 0.0f, 0.0f }, 16, 27)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
@@ -78,7 +78,7 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 			{
 				Goomba* g = const_cast<Goomba*>(goomba);
 				g->SetState(State::GoombaDie);
-				vel.y = JUMP_DEFLECT_SPEED;
+				vel.y = -JUMP_DEFLECT_SPEED;
 			}
 		}
 	}
@@ -90,7 +90,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	if (curState == State::MarioDie) return;
 
 	// regular updates
-	vel.y -= GRAVITY * dt;
+	vel.y += GRAVITY * dt;
 
 	// process input
 	ProcessInput();
@@ -116,7 +116,7 @@ void Mario::SetState(State state)
 			break;
 
 		case State::MarioJump:
-			vel.y = JUMP_SPEED;
+			vel.y = -JUMP_SPEED;
 			break;
 
 		case State::MarioIdle:

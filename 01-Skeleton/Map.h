@@ -4,15 +4,15 @@
 
 struct Tile
 {
-	D3DXVECTOR3 position;  // in world map
-	RECT portion = { 0, 0, 0, 0};  // of texture
-	RectF ToRectF() const
+	Point position;  // in world map
+	Rect  portion ;  // of texture
+	RectF GetBBox() const
 	{
-		const float left   = position.x;
-		const float right  = left + (portion.right - portion.left);
-		const float bottom = position.y;
-		const float top    = bottom + (portion.bottom - portion.top);
-		return { left, top, right, bottom };
+		return { position.x, position.y, portion.GetWidth(), portion.GetHeight() };
+	}
+	bool IsInvisible() const
+	{
+		return portion.IsNone();
 	}
 };
 
@@ -26,6 +26,7 @@ private:
 public:
 	Map(const Map&) = delete;
 	Map(const Json::Value& root, std::vector<std::unique_ptr<GameObject>>& objects);
+
 	void LoadResources(const Json::Value& root, std::vector<std::unique_ptr<GameObject>>& objects);
 	void Render() const;
 

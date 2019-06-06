@@ -2,7 +2,7 @@
 #include "Goomba.h"
 #include "MainWindow.h"
 
-Goomba::Goomba(const D3DXVECTOR3 & spawnPos) :
+Goomba::Goomba(const Point & spawnPos) :
 	GameObject(State::GoombaMoving, spawnPos, { -50.0f, 0.0f })
 {
 	animations.emplace(State::GoombaMoving, Animation(SpriteType::GoombaMoving, 0.1f));

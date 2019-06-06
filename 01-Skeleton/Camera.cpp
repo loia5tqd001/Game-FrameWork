@@ -1,34 +1,48 @@
 #include "pch.h"
 #include "Camera.h"
 
-void Camera::CenterTo(const D3DXVECTOR3 & newPos)
+void Camera::MoveTo(const Point & newPos)
 {
-	MoveTo(newPos - D3DXVECTOR3((float)width / 2, (float)height / 2, 0.0f));
+	pos = newPos;
+}
+
+void Camera::MoveBy(const Distance & dist)
+{
+	pos += dist;
+}
+
+void Camera::CenterTo(const Point & center)
+{
+	MoveTo(center);
+	MoveBy({ -float(width), -float(height) });
+}
+
+const Point & Camera::GetPosition() const
+{
+	return pos;
 }
 
 const RectF Camera::GetBBox() const
 {
-	const float left   = pos.x  ;
-	const float right  = left   + (float)width;
-	const float bottom = pos.y  ;
-	const float top    = bottom + (float)height;
-	return { left, top, right, bottom };
+	return { pos.x, pos.y, width, height };
 }
 
-D3DXVECTOR3 Camera::GetDrawablePosition(const GameObject & obj) const
+bool Camera::IsIntersect(const RectF & box) const
 {
-	const D3DXVECTOR3& objPos = obj.GetPosition();
-	const float leftInScreen  = objPos.x - pos.x;
-	const float topInScreen   = height - (objPos.y - pos.y + obj.GetHeight());
-	return { leftInScreen, topInScreen, 0.0f };
+	return GetBBox().IsIntersect(box);
 }
 
-// convert bottom left world coordinate rectangle to drawable top left coordinate position
-D3DXVECTOR3 Camera::WorldRectToDrawablePosition(const RectF & rect) const
+Point Camera::GetPositionInViewPort(const GameObject & obj) const
 {
-	assert(rect.bottom < rect.top);
-	RectF cameraRect = GetBBox();
-	return { rect.left - cameraRect.left, cameraRect.top - rect.top, 0.0f }; // demonstrate pictures on paper for more comprehension imagine
+	return obj.GetPosition() - GetPosition();
 }
+
+//// convert bottom left world coordinate rectangle to drawable top left coordinate position
+//Point Camera::WorldRectToDrawablePosition(const RectF & rect) const
+//{
+//	assert(rect.bottom < rect.top);
+//	RectF cameraRect = GetBBox();
+//	return { rect.left - cameraRect.left, cameraRect.top - rect.top, 0.0f }; // demonstrate pictures on paper for more comprehension imagine
+//}
 
 

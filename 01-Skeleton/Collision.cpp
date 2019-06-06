@@ -27,11 +27,11 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		dxExit  = rect2.left   - rect1.right ;
 	}
 	if (dy > 0.0f) {
-		dyEntry = rect2.bottom - rect1.top   ;
-		dyExit  = rect2.top    - rect1.bottom;
-	} else {
 		dyEntry = rect2.top    - rect1.bottom;
 		dyExit  = rect2.bottom - rect1.top   ;
+	} else {
+		dyEntry = rect2.bottom - rect1.top   ;
+		dyExit  = rect2.top    - rect1.bottom;
 	}
 
 	float txEntry, txExit;

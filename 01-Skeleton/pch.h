@@ -5,7 +5,6 @@
 
 #include <algorithm>
 #include <assert.h>
-#include <exception>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -16,5 +15,12 @@
 #include <bitset>
 
 #include <json/json.h>
+
+#include "ISingleton.h"
+#include "DebugOut.h"
+#include "MyException.h"
+#include "GameTimer.h"
+#include "RectF.h"
+#include "Rect.h"
 
 

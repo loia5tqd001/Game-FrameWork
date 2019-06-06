@@ -159,12 +159,10 @@
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="GameDev.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
-    <ClCompile Include="MyException.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
@@ -186,6 +184,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DebugOut.h" />
     <ClInclude Include="GameDev.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
@@ -197,12 +196,15 @@
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="enums.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,5 @@
 #pragma once
 #include "enums.h"
-#include "ISingleton.h"
 
 class Textures : ISingleton
 {

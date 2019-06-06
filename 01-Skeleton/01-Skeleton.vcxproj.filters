@@ -19,11 +19,14 @@
     <Filter Include="Development\Source">
       <UniqueIdentifier>{90152314-ebb9-43c7-b976-871719dc9e69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\_ThirdParty">
+      <UniqueIdentifier>{24cb7110-3619-4716-bba6-03607fca019e}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{3f3090f4-650c-41ee-937f-6438b1dcb3d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\_ThirdParty">
-      <UniqueIdentifier>{24cb7110-3619-4716-bba6-03607fca019e}</UniqueIdentifier>
+    <Filter Include="Framework\_MyUtils">
+      <UniqueIdentifier>{ee005e60-a311-4fef-a228-f27e3a9e3ac7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,12 +52,6 @@
       <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="GameBase.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTimer.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="MyException.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
@@ -86,12 +83,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyException.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ISingleton.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="MainWindow.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
@@ -116,9 +107,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameTimer.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
@@ -134,9 +122,6 @@
     <ClInclude Include="Brick.h">
       <Filter>Development\Header</Filter>
     </ClInclude>
-    <ClInclude Include="RectF.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -148,6 +133,30 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugOut.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="ISingleton.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="MyException.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="RectF.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

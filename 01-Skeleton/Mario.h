@@ -18,7 +18,7 @@ private:
 	Level level = Level::Big;
 
 public:
-	Mario(const D3DXVECTOR3 & spawnPos);
+	Mario(const Point & spawnPos);
 
 	void OnKeyDown(BYTE keyCode);
 	void ProcessInput();

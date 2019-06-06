@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "GameBase.h"
-#include "MyException.h"
-#include "GameTimer.h"
 
 
 GameBase::~GameBase()
@@ -12,16 +10,16 @@ GameBase::~GameBase()
 	if (d3d != NULL) d3d->Release();
 }
 
-void GameBase::Draw(const D3DXVECTOR3& pos, const LPDIRECT3DTEXTURE9 texture, const RECT& portion, const D3DXVECTOR2& vtScale, int alpha) const
+void GameBase::Draw(const Point& pos, const LPDIRECT3DTEXTURE9 texture, const Rect& portion, const Vector2& vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
 
-	if (vtScale != D3DXVECTOR2(1.0f, 1.0f))
+	if (vtScale != Vector2(1.0f, 1.0f))
 	{
-		const float bboxWidth   = (portion.right - portion.left) * std::abs(vtScale.x);
-		const float bboxHeight  = (portion.bottom - portion.top) * std::abs(vtScale.y);
-		D3DXVECTOR2 centerScale = D3DXVECTOR2(pos.x + bboxWidth / 2, pos.y + bboxHeight / 2);
+		const float bboxWidth   = portion.GetWidth () * std::abs(vtScale.x);
+		const float bboxHeight  = portion.GetHeight() * std::abs(vtScale.y);
+		Vector2 centerScale = { pos.x + bboxWidth / 2, pos.y + bboxHeight / 2 };
 		D3DXMATRIX newMt;
 		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScale, NULL, 0.0f, NULL);
 		newMt *= oldMt;

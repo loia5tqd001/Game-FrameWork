@@ -1,6 +1,5 @@
 #pragma once
 #include "enums.h"
-#include "ISingleton.h"
 #include "Sprite.h"
 
 
@@ -11,9 +10,10 @@ private:
 
 private:
 	void  AddSprite(SpriteType id, const Json::Value& root);
+
 	const Json::Value&       GetSpriteInfoFromSpriteId(SpriteType id, const Json::Value& root) const;
 	const LPDIRECT3DTEXTURE9 GetTextureFromSpriteInfo (const Json::Value& spriteInfo         ) const;
-	const std::vector<RECT>  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo         ) const;
+	const std::vector<Rect>  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo         ) const;
 	const Sprite&            GetSprite                (SpriteType id                         ) const;
 
 public:

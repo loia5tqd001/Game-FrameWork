@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include "Camera.h"
 
+
 class Grid
 {
 private:
@@ -24,7 +25,7 @@ private:
 			const UINT x       = obj[2].asUInt();
 			const UINT y       = obj[3].asUInt();
 			const UINT nx      = obj[4].asUInt();
-			const D3DXVECTOR3 pos = { (float)x, (float)y, 0.0f };
+			const Point pos    = { x, y, 0.0f };
 			switch ((ObjectType)classId)
 			{
 				case ObjectType::Brick:
@@ -34,8 +35,11 @@ private:
 		}
 		return result;
 	}
+
+	// TODO: move to top left coordinate
 	void LoadResources(const Json::Value& root)
 	{
+		
 		auto objectMap = LoadObjects(root);
 
 		const Json::Value& grid = root["grid"];
@@ -57,6 +61,7 @@ private:
 			}
 		}
 	}
+
 	void RemoveDestroyedObjects()
 	{
 		UINT xs, xe, ys, ye; GetViewPort(xs, xe, ys, ye);
@@ -69,6 +74,7 @@ private:
 			objs.erase(newEnd, objs.end());
 		}
 	}
+
 	void GetViewPort(UINT& xs, UINT& xe, UINT& ys, UINT& ye) const
 	{
 		const auto camRect = Camera::Instance().GetBBox();
