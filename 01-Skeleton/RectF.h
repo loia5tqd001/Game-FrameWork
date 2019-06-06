@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector3.h"
 
 
 struct RectF
@@ -16,6 +17,13 @@ struct RectF
 
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return bottom - top; }
+
+	Point GetCenter() const
+	{
+		const float x = (left + right) / 2;
+		const float y = (top + bottom) / 2;
+		return Point{ x, y, 0.0f };
+	}
 
 	bool IsIntersect(const RectF& other) const
 	{

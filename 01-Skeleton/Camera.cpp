@@ -32,17 +32,8 @@ bool Camera::IsIntersect(const RectF & box) const
 	return GetBBox().IsIntersect(box);
 }
 
-Point Camera::GetPositionInViewPort(const GameObject & obj) const
+Point Camera::GetPositionInViewPort(const Point & pos) const
 {
-	return obj.GetPosition() - GetPosition();
+	return pos - GetPosition();
 }
-
-//// convert bottom left world coordinate rectangle to drawable top left coordinate position
-//Point Camera::WorldRectToDrawablePosition(const RectF & rect) const
-//{
-//	assert(rect.bottom < rect.top);
-//	RectF cameraRect = GetBBox();
-//	return { rect.left - cameraRect.left, cameraRect.top - rect.top, 0.0f }; // demonstrate pictures on paper for more comprehension imagine
-//}
-
 

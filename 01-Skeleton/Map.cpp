@@ -38,16 +38,15 @@ void Map::LoadResources(const Json::Value& root, std::vector<std::unique_ptr<Gam
 
 void Map::Render() const
 {
-	const auto camRect = Camera::Instance().GetBBox();
+	const auto& cam = Camera::Instance();
 
 	for (const auto& tile : tiles)
 	{
 		if (tile.IsInvisible()) continue;
 
-		const auto tileBBox = tile.GetBBox();
-		if (camRect.IsIntersect(tileBBox))
+		if (cam.GetBBox().IsIntersect(tile.GetBBox()))
 		{
-			Point drawablePos = { tileBBox.left - camRect.left, camRect.top - tileBBox.top, 0.0f };
+			auto drawablePos = cam.GetPositionInViewPort(tile.position);
 			GameDev::Instance().Draw(drawablePos, texture, tile.portion);
 		}
 	}

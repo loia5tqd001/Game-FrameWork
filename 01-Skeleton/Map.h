@@ -4,8 +4,8 @@
 
 struct Tile
 {
-	Point position;  // in world map
-	Rect  portion ;  // of texture
+	Point position;  // on world map
+	Rect  portion ;  // in texture
 	RectF GetBBox() const
 	{
 		return { position.x, position.y, portion.GetWidth(), portion.GetHeight() };

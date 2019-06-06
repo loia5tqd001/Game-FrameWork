@@ -18,9 +18,7 @@ public:
 	const RectF  GetBBox    () const;
 
 	bool  IsIntersect(const RectF& box) const;
-
-	Point GetPositionInViewPort (const GameObject& obj) const;
-	//Point WorldRectToDrawablePosition(const RectF& rect) const;
+	Point GetPositionInViewPort (const Point& pos) const;
 
 private:
 	Camera() : ISingleton(NULL) {}

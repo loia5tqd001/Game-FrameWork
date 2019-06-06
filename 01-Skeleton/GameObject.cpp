@@ -6,6 +6,11 @@
 #include "Camera.h"
 
 
+const Point GameObject::GetCenter() const
+{
+	return GetBoundingBox().GetCenter();
+}
+
 const UINT GameObject::GetWidth() const
 {
 	const  Rect& frameSize = animations.at(curState).GetFrameSize();
@@ -28,7 +33,8 @@ const RectF GameObject::GetBoundingBox() const
 
 const Point GameObject::GetDrawablePos() const
 {
-	return Camera::Instance().GetPositionInViewPort(*this);
+	static auto& cam = Camera::Instance();
+	return cam.GetPositionInViewPort(GetPosition());
 }
 
 void GameObject::RenderBoundingBox() const

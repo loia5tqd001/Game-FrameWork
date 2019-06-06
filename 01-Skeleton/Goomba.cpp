@@ -31,10 +31,13 @@ void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 
 void Goomba::SetState(State state)
 {
+	auto oldHeight = GetHeight();
+
 	GameObject::SetState(state);
 	switch (state)
 	{
 		case State::GoombaDie:
+			LowDownBody(oldHeight);
 			vel.x = 0.0f;
 			break;
 

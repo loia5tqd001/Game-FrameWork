@@ -29,18 +29,24 @@ public:
 	const Vector2& GetVelocity      () const { return vel     ; }
 	const State    GetState         () const { return curState; }
 	const Vector2& GetScale         () const { return scale   ; }
+	const Point    GetCenter        () const;
 	const UINT     GetWidth         () const;
 	const UINT     GetHeight        () const;
 	const RectF    GetBoundingBox   () const;
 	const Point    GetDrawablePos   () const;
 	void           RenderBoundingBox() const;
 
+	void LowDownBody(UINT oldHeight)
+	{
+		pos.y += oldHeight - GetHeight();
+	}
+
 	virtual void SetState(State state); 
 
 	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects = {}) {}
 	virtual void Render() const;
+	virtual ~GameObject() = default; 
 
-	virtual ~GameObject()  = default; 
 	GameObject(State initState, 
 		const Point& pos, 
 		const Vector2& vel = { 0.0f, 0.0f },

@@ -52,7 +52,7 @@ void GameDev::Update(float dt)
 	};
 
 	mario->Update(dt, getCollidableObjects());
-	Camera::Instance().CenterTo(mario->GetPosition());
+	Camera::Instance().CenterTo(mario->GetCenter());
 	Debug::Out(mario->GetPosition().x, mario->GetPosition().y);
 
 	for (const auto& goomba : goombas)
