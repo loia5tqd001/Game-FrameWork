@@ -25,23 +25,26 @@ const LPDIRECT3DTEXTURE9 Sprites::GetTextureFromSpriteInfo(const Json::Value & s
 
 const std::vector<Rect> Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
 {
-	const auto& arrOfRects = spriteInfo[2];
-	const auto& nRects = arrOfRects.size();
+	const LONG left         = spriteInfo[2].asInt ();
+	const LONG top          = spriteInfo[3].asInt ();
+	const UINT spriteWidth  = spriteInfo[4].asUInt();
+	const UINT spriteHeight = spriteInfo[5].asUInt();
+	const UINT nRects       = spriteInfo[6].asUInt();
+	const UINT margin       = spriteInfo[7].asUInt();
 
 	std::vector<Rect> frames; frames.reserve(nRects);
 
 	for (UINT i = 0; i < nRects; i++)
 	{
-		const auto& rectJson = arrOfRects[i];
-
 		static Rect frame;
-		frame.left   = rectJson[0].asInt();
-		frame.top    = rectJson[1].asInt();
-		frame.right  = rectJson[2].asInt();
-		frame.bottom = rectJson[3].asInt();
+		frame.left   = left + (spriteWidth + margin) * i;
+		frame.top    = top;
+		frame.right  = frame.left + spriteWidth;
+		frame.bottom = frame.top + spriteHeight;
 
-		frames.emplace_back(std::move(frame));
+		frames.emplace_back(frame);
 	}
+
 	return frames;
 }
 

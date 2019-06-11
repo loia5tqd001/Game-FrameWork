@@ -13,7 +13,7 @@ struct RectF
 	{
 		assert(top < bottom);
 	}
-	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + (float)width, y + (float)height)
+	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height)
 	{}
 
 	operator Rect() const

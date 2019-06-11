@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "GameDev.h"
+#include "DemoScene.h"
 #include "Textures.h"
 #include "Sprites.h"
 #include "Brick.h"
@@ -7,7 +7,7 @@
 #include "Camera.h"
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
-void GameDev::LoadResources()
+void DemoScene::LoadResources()
 {
 	static constexpr char* jsonPath = "textures\\db.json";
 
@@ -29,12 +29,12 @@ void GameDev::LoadResources()
 	for (UINT i = 0; i < (UINT)SpriteType::Count; i++)
 		Sprites::Add(SpriteType(i), root);
 
-	map = std::make_unique<Map>(root, objects);
+	map = std::make_unique<Map>(root);
 
 	LoadObjects();
 }
 
-void GameDev::Update(float dt)
+void DemoScene::Update(float dt)
 {
 	static auto getCollidableObjects = [this]()
 	{
@@ -64,7 +64,7 @@ void GameDev::Update(float dt)
 		brick->Update(dt);
 	}
 }
-void GameDev::ComposeFrame()
+void DemoScene::Draw()
 {
 	map->Render();
 	mario->Render();
@@ -78,7 +78,7 @@ void GameDev::ComposeFrame()
 	}
 }
 
-void GameDev::LoadObjects()
+void DemoScene::LoadObjects()
 {
 	mario = std::make_unique<Mario>(Point(10.0f, 10.0f, 0.0f));
 

@@ -14,7 +14,7 @@ private:
 	      bool    doneCycle   = false                     ;
 
 public:
-	Animation(SpriteType spriteId, float holdTime = std::numeric_limits<float>::infinity()); // infinity foldTime indicates static animation (only has 1 frame)
+	Animation(SpriteType spriteId, float holdTime = 0.0f);
 
 	void Update(float dt);
 	void Render(const Point& pos, const Vector2& vtScale = { 1.0f, 1.0f }, int alpha = 255) const;

@@ -1,15 +1,15 @@
 #include "pch.h"
 #include "Map.h"
 #include "Camera.h"
-#include "GameDev.h"
+#include "Game.h"
 
 
-Map::Map(const Json::Value & root, std::vector<std::unique_ptr<GameObject>>& objects)
+Map::Map(const Json::Value & root)
 {
-	LoadResources(root, objects);
+	LoadResources(root);
 }
 
-void Map::LoadResources(const Json::Value& root, std::vector<std::unique_ptr<GameObject>>& objects)
+void Map::LoadResources(const Json::Value& root)
 {
 	const Json::Value&   tileMap = root["map"];
 	const UINT columns = tileMap["columns" ].asUInt();
@@ -47,7 +47,7 @@ void Map::Render() const
 		if (cam.GetBBox().IsIntersect(tile.GetBBox()))
 		{
 			auto drawablePos = cam.GetPositionInViewPort(tile.position);
-			GameDev::Instance().Draw(drawablePos, texture, tile.portion);
+			Game::Instance().Draw(drawablePos, texture, tile.portion);
 		}
 	}
 }

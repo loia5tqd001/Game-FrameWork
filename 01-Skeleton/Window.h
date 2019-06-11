@@ -1,6 +1,6 @@
 #pragma once
 
-class MainWindow : ISingleton
+class Window : ISingleton
 {
 private:
 	static constexpr char* WINDOW_CLASS_NAME = "MainWindow" ;
@@ -16,6 +16,7 @@ public:
 	void InitWindow();
 	bool ProcessMessage() const ;
 	bool IsKeyPressed(BYTE keyCode) const { return keyStates.test(keyCode); }
+
 	static LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) 
 	{ 
@@ -27,12 +28,12 @@ public:
 	const HWND GetHWnd  () const { return hWnd		   ;}
 
 private:
-	MainWindow() : ISingleton(NULL) {}
+	Window() : ISingleton(NULL) {}
 
 public:
-	static MainWindow& Instance() 
+	static Window& Instance() 
 	{ 
-		static MainWindow instance; 
+		static Window instance; 
 		return instance; 
 	}
 };

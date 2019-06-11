@@ -13,12 +13,6 @@
     <Filter Include="Framework\Source">
       <UniqueIdentifier>{c4bffbd0-d6eb-41c8-91f6-dae3b812ff13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Development\Header">
-      <UniqueIdentifier>{a66e785f-bc20-456c-9b94-37e174bc24da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Development\Source">
-      <UniqueIdentifier>{90152314-ebb9-43c7-b976-871719dc9e69}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\_ThirdParty">
       <UniqueIdentifier>{24cb7110-3619-4716-bba6-03607fca019e}</UniqueIdentifier>
     </Filter>
@@ -28,14 +22,17 @@
     <Filter Include="Framework\_MyUtils">
       <UniqueIdentifier>{ee005e60-a311-4fef-a228-f27e3a9e3ac7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Development\Scenes">
+      <UniqueIdentifier>{bec1d83e-1091-44ea-8466-fe1e747997e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development\Objects">
+      <UniqueIdentifier>{97cf505e-1d03-4a1a-8c53-b1e5a7ef5296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development\Manager">
+      <UniqueIdentifier>{91d35982-a90a-4d1c-9b6b-c9f02a5235d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainWindow.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDev.cpp">
-      <Filter>Development\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
@@ -51,17 +48,8 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameBase.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Development\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Development\Source</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>Main</Filter>
@@ -81,21 +69,30 @@
     <ClCompile Include="..\Dependencies\JsonCpp\jsoncpp.cpp">
       <Filter>Framework\_ThirdParty</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Development\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Development\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Development\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Development\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainWindow.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDev.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameBase.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
@@ -107,20 +104,8 @@
     <ClInclude Include="Animation.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="enums.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Development\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Development\Header</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Main</Filter>
@@ -157,6 +142,33 @@
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractScene.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Development\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Development\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Development\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Development\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Development\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Development\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

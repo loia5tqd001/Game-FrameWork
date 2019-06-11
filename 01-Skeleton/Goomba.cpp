@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Goomba.h"
-#include "MainWindow.h"
+#include "Window.h"
 
 Goomba::Goomba(const Point & spawnPos) :
 	GameObject(State::GoombaMoving, spawnPos, { -50.0f, 0.0f })
@@ -11,7 +11,7 @@ Goomba::Goomba(const Point & spawnPos) :
 
 void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
-	static const MainWindow& wnd = MainWindow::Instance();
+	static const Window& wnd = Window::Instance();
 	if (curState == State::GoombaDie) return;
 
 	pos.x += vel.x * dt;

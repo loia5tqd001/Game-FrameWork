@@ -1,13 +1,13 @@
 #include "pch.h"
-#include "GameDev.h"
+#include "Game.h"
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
 #ifdef DEBUG
 
-	GameDev::Instance().InitGame();
-	GameDev::Instance().Run();
+	Game::Instance().InitGame();
+	Game::Instance().Run();
 
 #else
 

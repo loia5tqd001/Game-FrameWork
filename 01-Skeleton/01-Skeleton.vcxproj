@@ -71,10 +71,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
@@ -86,13 +90,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)DEBUG</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <EnablePREfast>false</EnablePREfast>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>26495;28251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);d3d9.lib;d3dx9.lib;d3dx9d.lib</AdditionalDependencies>
@@ -115,14 +120,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <EnablePREfast>false</EnablePREfast>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>26495;28251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -156,8 +162,8 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="GameBase.cpp" />
-    <ClCompile Include="GameDev.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -173,11 +179,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -185,19 +192,21 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DebugOut.h" />
-    <ClInclude Include="GameDev.h" />
+    <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MyException.h" />
-    <ClInclude Include="GameBase.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
-    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="RectF.h" />
+    <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Sprites.h" />

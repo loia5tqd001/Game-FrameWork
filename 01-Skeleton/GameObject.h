@@ -11,20 +11,18 @@ class GameObject
 protected: 
 	Point   pos           ; 
 	Vector2 vel           ;
-	UINT    explicitWidth ; // moving objects should define this, or GetWidth() will be defined by the width of sprites 
-	UINT    explicitHeight; 
 	State   curState      ;
 	Vector2 scale         ; // direction and how much scale
 	std::unordered_map<State, Animation> animations;
 
+	UINT explicitWidth  = 0; // for objects don't use sprite to determine width-height
+	UINT explicitHeight = 0; // i.e spawner: is invisible but does have width n height to check collision
+
+private:
+	const Point    GetDrawablePos   () const;
+	void           RenderBoundingBox() const;
+
 public: 
-	virtual bool IsCollidable() const { return true; } 
-	GameObject(const GameObject&) = delete;
-
-#if DEBUG
-	bool is_debugging = false;
-#endif
-
 	const Point&   GetPosition      () const { return pos     ; }
 	const Vector2& GetVelocity      () const { return vel     ; }
 	const State    GetState         () const { return curState; }
@@ -33,33 +31,32 @@ public:
 	const UINT     GetWidth         () const;
 	const UINT     GetHeight        () const;
 	const RectF    GetBoundingBox   () const;
-	const Point    GetDrawablePos   () const;
-	void           RenderBoundingBox() const;
 
-	void LowDownBody(UINT oldHeight)
-	{
-		pos.y += oldHeight - GetHeight();
-	}
+	void SetWidthHeight(UINT w, UINT h);
 
+	virtual bool IsCollidable() const { return true; } 
 	virtual void SetState(State state); 
 
 	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects = {}) {}
 	virtual void Render() const;
-	virtual ~GameObject() = default; 
 
-	GameObject(State initState, 
+	virtual ~GameObject() = default; 
+	GameObject(const GameObject&) = delete; 
+	GameObject(
+		const State initState, 
 		const Point& pos, 
 		const Vector2& vel = { 0.0f, 0.0f },
-		const UINT width = 0u,
-		const UINT height = 0u,
 		const Vector2& scale = { 1.0f, 1.0f })
 		:
 		curState(initState),
 		pos(pos),
 		vel(vel),
-		explicitWidth(width),
-		explicitHeight(height),
 		scale(scale) {}
+
+	void LowDownBody(UINT oldHeight) 
+	{
+		pos.y += oldHeight - GetHeight();
+	}
 
 	template<typename T>
 	static void Clamp(T& toClamp, T low, T high)
@@ -76,6 +73,10 @@ public:
 		     if (toClamp < low ) toClamp = low , action();
 		else if (toClamp > high) toClamp = high, action();
 	}
+
+#if DEBUG
+	bool is_debugging = false;
+#endif
 };
 
 

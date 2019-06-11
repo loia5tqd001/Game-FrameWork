@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Sprite.h"
-#include "GameDev.h"
+#include "Game.h"
 
 
 Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames) : 
@@ -12,7 +12,7 @@ Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames) :
 void Sprite::Draw(const Point& pos, UINT frameIndex, const Vector2& vtScale, int alpha) const
 {
 	assert(frameIndex <= frames.size());
-	GameDev::Instance().Draw(pos, texture, frames[frameIndex], vtScale, alpha);
+	Game::Instance().Draw(pos, texture, frames[frameIndex], vtScale, alpha);
 }
 
 Rect Sprite::GetFrameSize(UINT frameIndex, const Vector2 & vtScale) const

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Textures.h"
-#include "GameDev.h"
+#include "Game.h"
 
 
 void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
@@ -15,7 +15,7 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 
 	LPDIRECT3DTEXTURE9 texture;
 	HRESULT result = D3DXCreateTextureFromFileEx(
-					 GameDev::Instance().GetDirect3DDevice(),
+					 Game::Instance().GetDirect3DDevice(),
 					 texturePath,
 					 info.Width,
 					 info.Height,

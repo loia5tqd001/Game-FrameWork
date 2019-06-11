@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "GameBase.h"
+#include "Game.h"
 
 
-GameBase::~GameBase()
+Game::~Game()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
@@ -10,7 +10,7 @@ GameBase::~GameBase()
 	if (d3d != NULL) d3d->Release();
 }
 
-void GameBase::Draw(const Point& pos, const LPDIRECT3DTEXTURE9 texture, const Rect& portion, const Vector2& vtScale, int alpha) const
+void Game::Draw(const Point& pos, const LPDIRECT3DTEXTURE9 texture, const Rect& portion, const Vector2& vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
@@ -31,14 +31,14 @@ void GameBase::Draw(const Point& pos, const LPDIRECT3DTEXTURE9 texture, const Re
 	spriteHandler->SetTransform(&oldMt);
 }
 
-void GameBase::InitGame()
+void Game::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
-	LoadResources();
+	sceneManager.SetScene(Scene::Demo);
 }
 
-void GameBase::InitDirectDevice()
+void Game::InitDirectDevice()
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -64,26 +64,26 @@ void GameBase::InitDirectDevice()
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 }
 
-void GameBase::Render()
+void Game::Render()
 {
-	if (d3ddv->BeginScene())	
-	{
-		d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
-		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		ComposeFrame(); // actual development render
-		spriteHandler->End();
-		d3ddv->EndScene();
-	}
+	d3ddv->BeginScene();
+	d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
+	sceneManager.Draw();
+
+	spriteHandler->End();
+	d3ddv->EndScene();
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void GameBase::Run()
+void Game::Run()
 {
 	while (wnd.ProcessMessage())
 	{
 		GameTimer::BeginFrame();
-		Update(GameTimer::DeltaTime());
+
+		sceneManager.Update(GameTimer::DeltaTime());
 		Render();
 
 		#ifdef DEBUG

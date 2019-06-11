@@ -25,9 +25,9 @@ private:
 
 public:
 	Map(const Map&) = delete;
-	Map(const Json::Value& root, std::vector<std::unique_ptr<GameObject>>& objects);
+	Map(const Json::Value& root);
 
-	void LoadResources(const Json::Value& root, std::vector<std::unique_ptr<GameObject>>& objects);
+	void LoadResources(const Json::Value& root);
 	void Render() const;
 
 	UINT GetMapWidth () const { return width  * tileSize; }

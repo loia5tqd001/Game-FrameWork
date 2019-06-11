@@ -1,9 +1,9 @@
 #include "pch.h"
-#include "MainWindow.h"
-#include "GameDev.h"
+#include "Window.h"
+#include "SceneManager.h"
 
 
-LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT Window::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
@@ -15,15 +15,15 @@ LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		case WM_SYSKEYDOWN:
 			if (!(lParam & 0x40000000)) // if key is not holding 
 			{
-				GameDev::Instance().OnKeyDown((BYTE)wParam);
-				MainWindow::Instance().keyStates.set((BYTE)wParam);
+				SceneManager::Instance().OnKeyDown((BYTE)wParam);
+				Window::Instance().keyStates.set((BYTE)wParam);
 			}
 			break;
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
-			GameDev::Instance().OnKeyUp((BYTE)wParam);
-			MainWindow::Instance().keyStates.reset((BYTE)wParam);
+			SceneManager::Instance().OnKeyUp((BYTE)wParam);
+			Window::Instance().keyStates.reset((BYTE)wParam);
 			break;
 
 		default:
@@ -32,7 +32,7 @@ LRESULT MainWindow::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	return 0;
 }
 
-void MainWindow::InitWindow()
+void Window::InitWindow()
 {
 	hInstance = GetModuleHandle(NULL);
 
@@ -69,7 +69,7 @@ void MainWindow::InitWindow()
 	UpdateWindow(hWnd);
 }
 
-bool MainWindow::ProcessMessage() const
+bool Window::ProcessMessage() const
 {
 	MSG msg;
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))

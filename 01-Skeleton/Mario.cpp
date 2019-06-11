@@ -1,14 +1,14 @@
 #include "pch.h"
 #include "Mario.h"
 #include "Collision.h"
-#include "GameDev.h"
 #include "Goomba.h"
+#include "Window.h"
 
 
-static const MainWindow& wnd = MainWindow::Instance();
+static const Window& wnd = Window::Instance();
 
 Mario::Mario(const Point & spawnPos) : 
-	GameObject(State::MarioWalking, spawnPos, { 0.0f, 0.0f }, 16, 27)
+	GameObject(State::MarioWalking, spawnPos)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));

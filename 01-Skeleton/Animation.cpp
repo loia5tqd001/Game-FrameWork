@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Animation.h"
-#include "GameDev.h"
 #include "Sprites.h"
 
 
@@ -8,14 +7,17 @@ Animation::Animation(SpriteType spriteId, float holdTime) :
 	sprite(Sprites::Get(spriteId)),
 	holdTime(holdTime)
 {
-	if (holdTime == std::numeric_limits<float>::infinity())
+	if (holdTime == 0.0f)
 	{
 		assert(nFrames == 1);
+		doneCycle = true;
 	}
 }
 
 void Animation::Update(float dt)
 {
+	if (nFrames == 1) return;
+
 	holdingTime += dt;
 	while (holdingTime >= holdTime)
 	{

@@ -2,7 +2,6 @@
 
 
 
-
 enum class TextureType
 {
 	Bbox  = 0,
@@ -49,6 +48,13 @@ enum class State
 	Count
 
 
+};
+
+enum class Scene
+{
+	Demo,
+	Intro,
+	GamePlay
 };
 
 

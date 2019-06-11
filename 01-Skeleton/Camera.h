@@ -1,13 +1,13 @@
 #pragma once
-#include "MainWindow.h"
+#include "Window.h"
 #include "GameObject.h"
 
 class Camera : ISingleton
 {
 private:
 	Point pos; 
-	const UINT width  = MainWindow::Instance().GetWidth (); 
-	const UINT height = MainWindow::Instance().GetHeight();
+	const UINT width  = Window::Instance().GetWidth (); 
+	const UINT height = Window::Instance().GetHeight();
 
 public:
 	void  MoveTo(const Point& newPos);

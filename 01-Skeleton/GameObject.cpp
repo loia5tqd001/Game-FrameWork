@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Textures.h"
-#include "GameDev.h"
+#include "Game.h"
 #include "Camera.h"
 
 
@@ -13,7 +13,7 @@ const Point GameObject::GetCenter() const
 
 const UINT GameObject::GetWidth() const
 {
-	const  Rect& frameSize = animations.at(curState).GetFrameSize();
+	const  Rect& frameSize  = animations.at(curState).GetFrameSize();
 	const  UINT normalWidth = explicitWidth ? explicitWidth : frameSize.GetWidth();
 	return UINT(normalWidth * std::abs(scale.x));
 }
@@ -23,6 +23,13 @@ const UINT GameObject::GetHeight() const
 	const  Rect& frameSize   = animations.at(curState).GetFrameSize();
 	const  UINT normalHeight = explicitHeight ? explicitHeight : frameSize.GetHeight();
 	return UINT(normalHeight * std::abs(scale.y));
+}
+
+void GameObject::SetWidthHeight(UINT w, UINT h)
+{
+	assert(curState == State::Invisible); // only invisible objects should have explicitWidth and explicitHeight
+	explicitWidth  = w;
+	explicitHeight = h;
 }
 
 const RectF GameObject::GetBoundingBox() const
@@ -41,7 +48,7 @@ void GameObject::RenderBoundingBox() const
 {
 	const auto bboxTexture = Textures::Get(TextureType::Bbox);
 	const auto portionDraw = animations.at(curState).GetFrameSize();
-	GameDev::Instance().Draw(GetDrawablePos(), bboxTexture, portionDraw, scale);
+	Game::Instance().Draw(GetDrawablePos(), bboxTexture, portionDraw, scale, 100);
 }
 
 void GameObject::SetState(State state)
