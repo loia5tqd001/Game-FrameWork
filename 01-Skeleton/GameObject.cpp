@@ -5,6 +5,18 @@
 #include "Game.h"
 #include "Camera.h"
 
+GameObject::GameObject(State initState, const Point& pos, const Vector2& vel, const Vector2& scale) :
+	curState(initState),
+	pos(pos),
+	vel(vel),
+	scale(scale)
+{
+}
+
+void GameObject::LowDownBody(UINT oldHeight)
+{
+	pos.y += oldHeight - GetHeight();
+}
 
 const Point GameObject::GetCenter() const
 {

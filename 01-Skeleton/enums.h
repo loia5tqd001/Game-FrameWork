@@ -30,7 +30,7 @@ enum class ObjectType
 {
 	Mario,
 	Brick,
-	Boomba,
+	Goomba,
 	Count
 };
 

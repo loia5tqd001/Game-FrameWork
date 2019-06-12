@@ -7,6 +7,7 @@ Goomba::Goomba(const Point & spawnPos) :
 {
 	animations.emplace(State::GoombaMoving, Animation(SpriteType::GoombaMoving, 0.1f));
 	animations.emplace(State::GoombaDie   , Animation(SpriteType::GoombaDie   , 0.1f));
+	animations.emplace(State::Destroyed   , Animation(SpriteType::Invisible         ));
 }
 
 void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)

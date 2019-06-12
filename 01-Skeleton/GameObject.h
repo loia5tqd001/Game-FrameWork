@@ -32,6 +32,7 @@ public:
 	const UINT     GetHeight        () const;
 	const RectF    GetBoundingBox   () const;
 
+	void LowDownBody(UINT oldHeight);
 	void SetWidthHeight(UINT w, UINT h);
 
 	virtual bool IsCollidable() const { return true; } 
@@ -42,21 +43,7 @@ public:
 
 	virtual ~GameObject() = default; 
 	GameObject(const GameObject&) = delete; 
-	GameObject(
-		const State initState, 
-		const Point& pos, 
-		const Vector2& vel = { 0.0f, 0.0f },
-		const Vector2& scale = { 1.0f, 1.0f })
-		:
-		curState(initState),
-		pos(pos),
-		vel(vel),
-		scale(scale) {}
-
-	void LowDownBody(UINT oldHeight) 
-	{
-		pos.y += oldHeight - GetHeight();
-	}
+	GameObject(State initState, const Point& pos, const Vector2& vel = { 0.0f, 0.0f }, const Vector2& scale = { 1.0f, 1.0f });
 
 	template<typename T>
 	static void Clamp(T& toClamp, T low, T high)

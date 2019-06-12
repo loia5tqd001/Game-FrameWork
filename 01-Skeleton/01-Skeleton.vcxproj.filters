@@ -63,9 +63,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\Dependencies\JsonCpp\jsoncpp.cpp">
       <Filter>Framework\_ThirdParty</Filter>
     </ClCompile>
@@ -86,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Development\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Development\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractScene.cpp">
+      <Filter>Framework\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +117,6 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="DebugOut.h">
@@ -168,6 +168,9 @@
       <Filter>Development\Manager</Filter>
     </ClInclude>
     <ClInclude Include="enums.h">
+      <Filter>Development\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
       <Filter>Development\Manager</Filter>
     </ClInclude>
   </ItemGroup>

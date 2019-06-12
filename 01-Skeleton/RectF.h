@@ -11,7 +11,7 @@ struct RectF
 	{}
 	RectF(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b) 
 	{
-		assert(top < bottom);
+		assert(top <= bottom);
 	}
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height)
 	{}
@@ -29,6 +29,11 @@ struct RectF
 		const float x = (left + right) / 2;
 		const float y = (top + bottom) / 2;
 		return Point{ x, y, 0.0f };
+	}
+
+	bool IsNone() const
+	{
+		return left == right;
 	}
 
 	bool IsIntersect(const RectF& other) const

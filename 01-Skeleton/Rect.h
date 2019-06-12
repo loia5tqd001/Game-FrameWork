@@ -16,12 +16,12 @@ struct Rect : public RECT
 
 	UINT GetWidth() const
 	{
-		assert(right > left);
+		assert(right >= left);
 		return right - left;
 	}
 	UINT GetHeight() const
 	{
-		assert(bottom > top);
+		assert(bottom >= top);
 		return bottom - top;
 	}
 
