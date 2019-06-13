@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <WarningLevel>Level2</WarningLevel>
-      <DisableSpecificWarnings>26495;28251;28182</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4566;26495;28251;28182</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);d3d9.lib;d3dx9.lib;d3dx9d.lib</AdditionalDependencies>
@@ -128,7 +128,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <WarningLevel>Level2</WarningLevel>
-      <DisableSpecificWarnings>26495;28251;28182</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4566;26495;28251;28182</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

@@ -32,6 +32,11 @@ LRESULT Window::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+void Window::ShowMessageBox(LPCSTR message, LPCSTR title, UINT type)
+{ 
+	MessageBox(nullptr, message, title, type); 
+}
+
 void Window::InitWindow()
 {
 	hInstance = GetModuleHandle(NULL);

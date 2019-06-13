@@ -18,10 +18,7 @@ public:
 	bool IsKeyPressed(BYTE keyCode) const { return keyStates.test(keyCode); }
 
 	static LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK) 
-	{ 
-		MessageBox(nullptr, message, title, type); 
-	}
+	static void ShowMessageBox(LPCSTR message, LPCSTR title = "", UINT type = MB_OK);
 
 	const UINT GetWidth () const { return SCREEN_WIDTH ;}
 	const UINT GetHeight() const { return SCREEN_HEIGHT;}

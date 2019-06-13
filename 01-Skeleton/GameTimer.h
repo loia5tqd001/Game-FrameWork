@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-class GameTimer : ISingleton
+class GameTimer 
 {
 private:
 	std::chrono::steady_clock::time_point last = std::chrono::steady_clock::now();
@@ -9,7 +9,8 @@ private:
 	float deltaTime = 0.0f;
 
 private:
-	GameTimer() : ISingleton(NULL) {}
+	GameTimer() = default;
+
 	static GameTimer& Instance()
 	{
 		static GameTimer instance;

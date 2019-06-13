@@ -9,7 +9,10 @@ struct Cell
 	const RectF& GetBoundingBox() const { return boundingBox; }
 };
 
-struct Area { UINT xs, xe, ys, ye; };
+struct Area 
+{ 
+	UINT xs, xe, ys, ye; 
+};
 
 class Grid
 {
@@ -21,18 +24,17 @@ private:
 private:
 	Grid(const Grid&) = delete;
 	Area CalcCollidableArea(const RectF& bbox) const;
+	Area GetVicinityAreaOfViewPort() const;
 
 	auto LoadObjects(const Json::Value& root);
 	void LoadResources(const Json::Value& root);
-
-public:
 	void RemoveDestroyedObjects();
-	Grid(const Json::Value& root);
-
-	void SpawnObject(std::unique_ptr<GameObject> obj); // for spawner to add objects to grid
-	std::vector<LPCGAMEOBJECT> GetObjectsInViewPort() const;
 	void UpdateCells();
 
+public:
+	Grid(const Json::Value& root);
+	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
+	std::vector<LPCGAMEOBJECT> GetObjectsInViewPort();
 
 	template<typename T, typename Pred>
 	static void RemoveIf(std::vector<T>& container, Pred remove_condition)

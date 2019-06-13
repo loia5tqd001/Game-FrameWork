@@ -13,16 +13,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 	try
 	{	
-		GameDev::Instance().InitGame();
-		GameDev::Instance().Run();
+		Game::Instance().InitGame();
+		Game::Instance().Run();
 	}
 	catch (const std::exception& ex)
 	{
-		MainWindow::ShowMessageBox(ex.what());
+		Window::ShowMessageBox(ex.what());
 	}
 	catch (...)
 	{
-		MainWindow::ShowMessageBox("Unknown Exception");
+		Window::ShowMessageBox("Unknown Exception");
 	}
 
 #endif

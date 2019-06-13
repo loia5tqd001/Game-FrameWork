@@ -9,7 +9,7 @@
 
 void DemoScene::LoadResources()
 {
-	const auto root = GetRootJson();
+	const auto root = GetRootJson("textures\\db.json");
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
 		Textures::Add( TextureType(i), root );
@@ -24,22 +24,15 @@ void DemoScene::LoadResources()
 
 void DemoScene::Update(float dt)
 {
-	grid->UpdateCells(); 
-
 	objectsInViewPort = grid->GetObjectsInViewPort();
 
 	mario->Update(dt, objectsInViewPort);
 
 	Camera::Instance().CenterTo( mario->GetCenter() );
 
-	for (const auto& obj : objectsInViewPort)
+	for (auto& obj : objectsInViewPort)
 	{
 		const_cast<LPGAMEOBJECT>( obj )->Update(dt);
-
-		if (auto goomba = dynamic_cast<const Goomba*>(obj))
-		{
-			const_cast<Goomba*>(goomba)->SetState(State::Destroyed);
-		}	
 	}
 }
 

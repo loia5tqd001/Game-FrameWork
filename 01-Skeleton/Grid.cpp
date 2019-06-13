@@ -122,13 +122,20 @@ void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 	objectHolder.emplace_back( std::move(obj) );
 }
 
-void Grid::RemoveDestroyedObjects()
+
+Area Grid::GetVicinityAreaOfViewPort() const
 {
 	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
-	area.xs = max(0    , (int)area.xs - 2); // expand destroyed region considered by (2,1) cells
-	area.xe = min(width  - 1, area.xe + 2); //  to be more than just camera bbox
+	area.xs = max(0    , (int)area.xs - 2); // expand considering region by (2,1) cells
+	area.xe = min(width  - 1, area.xe + 2);
 	area.ys = max(0    , (int)area.ys - 1); 
 	area.ye = min(height - 1, area.ye + 1); 
+	return area;
+}
+
+void Grid::RemoveDestroyedObjects()
+{
+	Area area = GetVicinityAreaOfViewPort();
 
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
@@ -176,8 +183,10 @@ void Grid::UpdateCells()
 	RemoveDestroyedObjects();
 }
 
-std::vector<LPCGAMEOBJECT> Grid::GetObjectsInViewPort() const
+std::vector<LPCGAMEOBJECT> Grid::GetObjectsInViewPort()
 {
+	UpdateCells(); // update cells in viewport (put moving objects to right cells, remove destroyed objects) before taking them into account
+
 	std::unordered_set<LPCGAMEOBJECT> result;
 
 	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );

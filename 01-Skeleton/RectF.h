@@ -16,13 +16,9 @@ struct RectF
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height)
 	{}
 
-	operator Rect() const
-	{
-		return { left + 0.5f, top + 0.5f, right + 0.5f, bottom + 0.5f };
-	}
-
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return bottom - top; }
+	bool  IsNone   () const { return left == right;}
 
 	Point GetCenter() const
 	{
@@ -31,48 +27,19 @@ struct RectF
 		return Point{ x, y, 0.0f };
 	}
 
-	bool IsNone() const
-	{
-		return left == right;
-	}
-
 	bool IsIntersect(const RectF& other) const
 	{
 		return left < other.right && right > other.left
 			&& top < other.bottom && bottom > other.top;
 	}
 
-	RectF& MoveToOrigin()
-	{
-		return OffsetRect(left, top);
-	}
-	Rect GetMovedToOrigin() const
-	{
-		RectF result = *this;
-		return result.MoveToOrigin();
-	}
-	RectF& OffsetRect(float dx, float dy)
-	{
-		left += dx, right  += dx;
-		top  += dy, bottom += dy;
-		return *this;
-	}
-	RectF GetOffsetRect(float dx, float dy) const
-	{
-		RectF result = *this;
-		return result.OffsetRect(dx, dy);
-	}
-	RectF& BroadPhase(float dx, float dy)
-	{
-		left   = min(left  , left   + dx);
-		top    = min(top   , top    + dy);
-		right  = max(right , right  + dx);
-		bottom = max(bottom, bottom + dy);
-		return *this;
-	}
 	RectF GetBroadPhase(float dx, float dy) const
 	{
-		RectF result = *this;
-		return result.BroadPhase(dx, dy);
+		return {
+			min(left  , left   + dx),
+			min(top   , top    + dy),
+			max(right , right  + dx),
+			max(bottom, bottom + dy)
+		};
 	}
 };

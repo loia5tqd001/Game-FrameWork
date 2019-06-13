@@ -7,11 +7,11 @@
 class DemoScene : public AbstractScene
 {
 private:
-	std::unique_ptr<Grid>  grid;
-	std::unique_ptr<Map>   map;
+	std::unique_ptr<Grid>  grid; // holding map objects
+	std::unique_ptr<Map>   map; // responsible for drawing map background
 	std::unique_ptr<Mario> mario;
 
-	std::vector<LPCGAMEOBJECT> objectsInViewPort;
+	std::vector<LPCGAMEOBJECT> objectsInViewPort; // being calculated every frame by grid
 
 public:
 	void LoadResources () override;

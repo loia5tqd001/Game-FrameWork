@@ -21,7 +21,6 @@ private:
 public:
 	const char* what() const noexcept override { return msgOut.c_str(); }
 
-	#pragma warning(disable:4566) // unicode - ascii converting wanring
 	template <typename ...Args>
 	static void Throw(UINT line, LPCSTR func, LPCSTR file, Args... msgs)
 	{
