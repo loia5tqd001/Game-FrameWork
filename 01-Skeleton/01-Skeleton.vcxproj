@@ -96,8 +96,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
-      <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>26495;28251</DisableSpecificWarnings>
+      <WarningLevel>Level2</WarningLevel>
+      <DisableSpecificWarnings>26495;28251;28182</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);d3d9.lib;d3dx9.lib;d3dx9d.lib</AdditionalDependencies>
@@ -127,8 +127,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
-      <WarningLevel>Level3</WarningLevel>
-      <DisableSpecificWarnings>26495;28251</DisableSpecificWarnings>
+      <WarningLevel>Level2</WarningLevel>
+      <DisableSpecificWarnings>26495;28251;28182</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -202,6 +202,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rect.h" />

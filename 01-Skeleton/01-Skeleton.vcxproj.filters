@@ -84,11 +84,11 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Development\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Development\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="AbstractScene.cpp">
       <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Development\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Development\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

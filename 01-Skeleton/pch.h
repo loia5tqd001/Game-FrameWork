@@ -22,5 +22,6 @@
 #include "MyException.h"
 #include "GameTimer.h"
 #include "RectF.h"
+#include "Random.h"
 
 
