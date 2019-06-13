@@ -93,10 +93,6 @@ void Grid::LoadResources(const Json::Value& root)
 			UINT objId = movings[j].asUInt();
 			auto obj   = mapObjects.second.at(objId);
 
-			//for debugging
-			static int count = 0; 
-			if (count++ < 1) const_cast<LPGAMEOBJECT>(obj)->is_debugging = true;
-
 			cells[i].movingObjects.emplace( obj );
 			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBoundingBox() ));
 		}
@@ -129,8 +125,10 @@ void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 void Grid::RemoveDestroyedObjects()
 {
 	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
-	area.xs = max(0   , (int)area.xs - 2);
-	area.xe = min(width - 1, area.xe + 2); 
+	area.xs = max(0    , (int)area.xs - 2); // expand destroyed region considered by (2,1) cells
+	area.xe = min(width  - 1, area.xe + 2); //  to be more than just camera bbox
+	area.ys = max(0    , (int)area.ys - 1); 
+	area.ye = min(height - 1, area.ye + 1); 
 
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
@@ -172,16 +170,6 @@ void Grid::UpdateCells()
 		for (UINT y = area.ys; y <= area.ye; y++)
 		{
 			cells[x * height + y].movingObjects.emplace( obj );
-		}
-
-		// for testing grid
-		static int count = 0;
-		if (obj->is_debugging && count++ > 0)
-		{
-			if (auto goomba = dynamic_cast<const Goomba*>(obj))
-			{
-				const_cast<Goomba*>(goomba)->SetState(State::Destroyed);
-			}			
 		}
 	}
 	

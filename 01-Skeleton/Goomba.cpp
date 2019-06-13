@@ -13,7 +13,7 @@ Goomba::Goomba(const Point & spawnPos) :
 void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 {
 	static const Window& wnd = Window::Instance();
-	if (curState == State::GoombaDie) return;
+	if (curState == State::GoombaDie || curState == State::Destroyed) return;
 
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;

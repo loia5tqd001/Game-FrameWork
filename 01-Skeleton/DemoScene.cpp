@@ -35,6 +35,11 @@ void DemoScene::Update(float dt)
 	for (const auto& obj : objectsInViewPort)
 	{
 		const_cast<LPGAMEOBJECT>( obj )->Update(dt);
+
+		if (auto goomba = dynamic_cast<const Goomba*>(obj))
+		{
+			const_cast<Goomba*>(goomba)->SetState(State::Destroyed);
+		}	
 	}
 }
 
