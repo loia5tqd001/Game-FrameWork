@@ -9,7 +9,7 @@
 
 void DemoScene::LoadResources()
 {
-	const auto root = GetRootJson("textures\\db.json");
+	const auto root = GetRootJson("Resources\\db.json");
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
 		Textures::Add( TextureType(i), root );

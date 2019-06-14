@@ -98,7 +98,7 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 	HandleCollisions(dt, coObjects);
 
 	// clamping
-	Clamp(pos.x, 0.0f, float(wnd.GetWidth() - GetWidth()));
+	//Clamp(pos.x, 0.0f, float(wnd.GetWidth() - GetWidth()));
 
 	// update animations
 	animations.at(curState).Update(dt);
