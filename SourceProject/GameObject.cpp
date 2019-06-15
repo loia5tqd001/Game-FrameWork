@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Game.h"
 #include "Camera.h"
+#include "DebugDraw.h"
 
 GameObject::GameObject(State initState, const Point& pos, const Vector2& vel, const Vector2& scale) :
 	curState(initState),
@@ -50,17 +51,18 @@ const RectF GameObject::GetBoundingBox() const
 	return { pos.x, pos.y, GetWidth(), GetHeight() };
 }
 
+const RectF GameObject::GetVisibleBox() const
+{
+	const  Rect& frameSize  = animations.at(curState).GetFrameSize();
+	const  UINT  frameWidth = UINT( frameSize.GetWidth()  * std::abs(scale.x) );
+	const  UINT frameHeight = UINT( frameSize.GetHeight() * std::abs(scale.y) );
+	return { pos.x, pos.y, frameWidth, frameHeight };
+}
+
 const Point GameObject::GetDrawablePos() const
 {
 	static auto& cam = Camera::Instance();
 	return cam.GetPositionInViewPort(GetPosition()); 
-}
-
-void GameObject::RenderBoundingBox() const
-{
-	const auto bboxTexture = Textures::Get(TextureType::Bbox);
-	const auto portionDraw = animations.at(curState).GetFrameSize();
-	Game::Instance().Draw(GetDrawablePos(), bboxTexture, portionDraw, scale, 100);
 }
 
 void GameObject::SetState(State state)
@@ -71,7 +73,9 @@ void GameObject::SetState(State state)
 
 void GameObject::Render() const
 {
-	if (IsCollidable()) RenderBoundingBox();
+	if (IsCollidable()) DebugDraw::Draw( GetBoundingBox(), DebugDraw::DrawType::SolidHalf );
+	else                DebugDraw::Draw( GetVisibleBox (), DebugDraw::DrawType::SolidFull );
+
 	animations.at(curState).Render(GetDrawablePos(), scale);
 }
 

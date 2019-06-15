@@ -35,6 +35,8 @@ public:
 	Grid(const Json::Value& root);
 	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
 	std::vector<LPCGAMEOBJECT> GetObjectsInViewPort();
+	void RenderCells() const;
+
 
 	template<typename T, typename Pred>
 	static void RemoveIf(std::vector<T>& container, Pred remove_condition)

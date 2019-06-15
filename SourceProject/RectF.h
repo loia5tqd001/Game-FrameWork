@@ -16,9 +16,17 @@ struct RectF
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height)
 	{}
 
+	operator Rect() const { return { (LONG)left, (LONG)top, (LONG)right, (LONG)bottom }; }
+
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return bottom - top; }
 	bool  IsNone   () const { return left == right;}
+
+	RectF GetOriginRect() const
+	{
+		assert(left < right && top < bottom);
+		return { 0.0f, 0.0f, right - left, bottom - top };
+	}
 
 	Point GetCenter() const
 	{

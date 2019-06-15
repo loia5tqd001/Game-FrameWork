@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "DemoScene.h"
-
+#include "DebugDraw.h"
 
 void SceneManager::SetScene(Scene scene)
 {
@@ -30,6 +30,8 @@ void SceneManager::Draw()
 
 void SceneManager::OnKeyDown(BYTE keyCode)
 {
+	if (keyCode == VK_CONTROL) 
+		DebugDraw::ToggleDebugMode();
 	curScene->OnKeyDown(keyCode);
 }
 

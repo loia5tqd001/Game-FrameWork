@@ -39,6 +39,7 @@ void DemoScene::Update(float dt)
 void DemoScene::Draw()
 {
 	map->Render();
+	grid->RenderCells();
 	mario->Render();
 
 	for (auto& obj : objectsInViewPort)

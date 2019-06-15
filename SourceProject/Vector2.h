@@ -13,6 +13,11 @@ struct Vector2 : public D3DXVECTOR2
 	{
 		return Vector2{ std::abs(x), std::abs(y) };
 	}
+
+	Vector2 operator+(const Vector2& other) const
+	{
+		return { x + other.x, y + other.y };
+	}
 };
 
 using Distance = Vector2;

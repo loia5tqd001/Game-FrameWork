@@ -20,7 +20,7 @@ protected:
 
 private:
 	const Point    GetDrawablePos   () const;
-	void           RenderBoundingBox() const;
+	const RectF    GetVisibleBox    () const;
 
 public: 
 	const Point&   GetPosition      () const { return pos     ; }

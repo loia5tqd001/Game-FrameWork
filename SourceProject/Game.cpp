@@ -10,7 +10,14 @@ Game::~Game()
 	if (d3d != NULL) d3d->Release();
 }
 
-void Game::Draw(const Point& pos, const LPDIRECT3DTEXTURE9 texture, const Rect& portion, const Vector2& vtScale, int alpha) const
+void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
+{
+	lineDraw->Begin();
+	lineDraw->Draw(points.data(), points.size(), color);
+	lineDraw->End();
+}
+
+void Game::Draw(Point pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
@@ -62,6 +69,7 @@ void Game::InitDirectDevice()
 
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 	D3DXCreateSprite(d3ddv, &spriteHandler);
+	D3DXCreateLine(d3ddv, &lineDraw);
 }
 
 void Game::Render()

@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Brick.h"
 #include "Goomba.h"
+#include "DebugDraw.h"
 
 
 Grid::Grid(const Json::Value& root)
@@ -189,7 +190,7 @@ std::vector<LPCGAMEOBJECT> Grid::GetObjectsInViewPort()
 
 	std::unordered_set<LPCGAMEOBJECT> result;
 
-	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
+	Area area = GetVicinityAreaOfViewPort();
 
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
@@ -200,4 +201,15 @@ std::vector<LPCGAMEOBJECT> Grid::GetObjectsInViewPort()
 	}
 
 	return { result.begin(), result.end() };
+}
+
+void Grid::RenderCells() const
+{
+	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
+
+	for (UINT x = area.xs; x <= area.xe; x++)
+	for (UINT y = area.ys; y <= area.ye; y++)
+	{
+		DebugDraw::Draw( cells[x * height + y].GetBoundingBox(), DebugDraw::DrawType::Outline );
+	}
 }
