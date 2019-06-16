@@ -4,11 +4,10 @@
 
 enum class TextureType
 {
-	Bbox  = 0,
-	Mario = 1,
-	Misc  = 2,
-	Enemy = 3,
-	Map   = 4,
+	Mario = 0,
+	Misc  = 1,
+	Enemy = 2,
+	Map   = 3,
 	Count
 };
 

@@ -208,6 +208,6 @@ void Grid::RenderCells() const
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
 	{
-		DebugDraw::Draw( cells[x * height + y].GetBoundingBox(), DebugDraw::DrawType::Outline );
+		DebugDraw::Draw( cells[x * height + y].GetBoundingBox(), DrawType::RectOutline, Colors::MyChineseBrown );
 	}
 }

@@ -73,10 +73,10 @@ void GameObject::SetState(State state)
 
 void GameObject::Render() const
 {
-	if (IsCollidable()) DebugDraw::Draw( GetBoundingBox(), DebugDraw::DrawType::SolidHalf );
-	else                DebugDraw::Draw( GetVisibleBox (), DebugDraw::DrawType::SolidFull );
-
 	animations.at(curState).Render(GetDrawablePos(), scale);
+
+	if (IsCollidable()) DebugDraw::Draw( GetBoundingBox(), DrawType::SolidRect, Colors::MyChineseBrown );
+	else                DebugDraw::Draw( GetVisibleBox (), DrawType::SolidRect, Colors::MyPoisonGreen );
 }
 
 

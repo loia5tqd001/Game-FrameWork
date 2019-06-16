@@ -1,24 +1,23 @@
 {  
   "textures": [ 
     // textureId[0] - texturePath[1] - transparentColor[2]
-    [ 0, "Resources\\bbox.png"   , 0             ],
-    [ 1, "Resources\\mario.png"  , [255,255,255] ],
-    [ 2, "Resources\\misc.png"   , [176,224,248] ],
-    [ 3, "Resources\\enemies.png", [3  ,26 ,110] ],
-	[ 4, "Resources\\tileset.png", 0             ]
+    [ 0, "Resources\\mario.png"  , [255,255,255] ],
+    [ 1, "Resources\\misc.png"   , [176,224,248] ],
+    [ 2, "Resources\\enemies.png", [3  ,26 ,110] ],
+	[ 3, "Resources\\tileset.png", 0             ]
   ],  
   
   "sprites": [ 
     // spriteId[0] - textureId[1] - left[2] - top[3] - spriteWidth[4] - spriteHeight[5] - count[6] - margin[7]
 	[ 0, 0,   0,   0,  0,  0, 1,  0],    // invisible
-	[ 1, 1, 245, 154, 16, 27, 1,  0],    // mario-big-idle		
-	[ 2, 1, 245, 154, 16, 27, 3, 14],    // mario-big-walking
-	[ 3, 1, 247,   0, 12, 15, 1,  0],    // mario-small-idle
-	[ 4, 1,   0,   0,  0,  0, 2,  0],    // mario-small-walking
-	[ 5, 1,   0,   0,  0,  0, 1,  0],    // mario-die
-	[ 6, 2, 408, 225, 16, 16, 1,  0],    // brick-idle
-	[ 7, 3,   5,  14, 16, 15, 2,  4],    // goomba-moving
-	[ 8, 3,  45,  21, 16,  9, 1,  0]     // goomba-die
+	[ 1, 0, 245, 154, 16, 27, 1,  0],    // mario-big-idle		
+	[ 2, 0, 245, 154, 16, 27, 3, 14],    // mario-big-walking
+	[ 3, 0, 247,   0, 12, 15, 1,  0],    // mario-small-idle
+	[ 4, 0,   0,   0,  0,  0, 2,  0],    // mario-small-walking
+	[ 5, 0,   0,   0,  0,  0, 1,  0],    // mario-die
+	[ 6, 1, 408, 225, 16, 16, 1,  0],    // brick-idle
+	[ 7, 2,   5,  14, 16, 15, 2,  4],    // goomba-moving
+	[ 8, 2,  45,  21, 16,  9, 1,  0]     // goomba-die
   ],
   
   "map": {  
