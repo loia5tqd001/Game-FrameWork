@@ -9,10 +9,7 @@ struct Cell
 	const RectF& GetBoundingBox() const { return boundingBox; }
 };
 
-struct Area 
-{ 
-	UINT xs, xe, ys, ye; 
-};
+struct Area { UINT xs, xe, ys, ye; };
 
 class Grid
 {
@@ -20,6 +17,8 @@ private:
 	UINT cellSize, width, height;
 	std::vector<Cell> cells;
 	std::vector<std::unique_ptr<GameObject>> objectHolder; // responsible for deleting objects
+
+	std::vector<LPCGAMEOBJECT> curObjectsInViewPort; // being calculated every frame 
 
 private:
 	Grid(const Grid&) = delete;
@@ -29,13 +28,16 @@ private:
 	auto LoadObjects(const Json::Value& root);
 	void LoadResources(const Json::Value& root);
 	void RemoveDestroyedObjects();
-	void UpdateCells();
+	void RecalculateObjectsInViewPort();
 
 public:
 	Grid(const Json::Value& root);
-	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
-	std::vector<LPCGAMEOBJECT> GetObjectsInViewPort();
+
+	void UpdateCells();
 	void RenderCells() const;
+
+	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
+	inline const auto& GetObjectsInViewPort() const { return curObjectsInViewPort; }
 
 
 	template<typename T, typename Pred>

@@ -11,8 +11,6 @@ private:
 	std::unique_ptr<Map>   map; // responsible for drawing map background
 	std::unique_ptr<Mario> mario;
 
-	std::vector<LPCGAMEOBJECT> objectsInViewPort; // being calculated every frame by grid
-
 public:
 	void LoadResources () override;
 	void Update(float dt) override;

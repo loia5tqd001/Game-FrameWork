@@ -24,13 +24,13 @@ void DemoScene::LoadResources()
 
 void DemoScene::Update(float dt)
 {
-	objectsInViewPort = grid->GetObjectsInViewPort();
+	grid->UpdateCells();
 
-	mario->Update(dt, objectsInViewPort);
+	mario->Update(dt, grid->GetObjectsInViewPort());
 
 	Camera::Instance().CenterTo( mario->GetCenter() );
 
-	for (auto& obj : objectsInViewPort)
+	for (auto& obj : grid->GetObjectsInViewPort())
 	{
 		const_cast<LPGAMEOBJECT>( obj )->Update(dt);
 	}
@@ -42,7 +42,7 @@ void DemoScene::Draw()
 	grid->RenderCells();
 	mario->Render();
 
-	for (auto& obj : objectsInViewPort)
+	for (auto& obj : grid->GetObjectsInViewPort())
 	{
 		obj->Render();
 	}

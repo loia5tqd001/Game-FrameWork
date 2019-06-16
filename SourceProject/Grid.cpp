@@ -123,7 +123,6 @@ void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 	objectHolder.emplace_back( std::move(obj) );
 }
 
-
 Area Grid::GetVicinityAreaOfViewPort() const
 {
 	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
@@ -146,6 +145,23 @@ void Grid::RemoveDestroyedObjects()
 	}
 
 	RemoveIf(objectHolder, [](auto& o) { return o->GetState() == State::Destroyed; });
+}
+
+void Grid::RecalculateObjectsInViewPort()
+{
+	std::unordered_set<LPCGAMEOBJECT> result;
+
+	Area area = GetVicinityAreaOfViewPort();
+
+	for (UINT x = area.xs; x <= area.xe; x++)
+	for (UINT y = area.ys; y <= area.ye; y++)
+	{
+		const Cell& cell = cells[x * height + y];
+		result.insert(cell.staticObjects.begin(), cell.staticObjects.end());
+		result.insert(cell.movingObjects.begin(), cell.movingObjects.end());
+	}
+
+	curObjectsInViewPort = { result.begin(), result.end() };
 }
 
 void Grid::UpdateCells()
@@ -182,25 +198,7 @@ void Grid::UpdateCells()
 	}
 	
 	RemoveDestroyedObjects();
-}
-
-std::vector<LPCGAMEOBJECT> Grid::GetObjectsInViewPort()
-{
-	UpdateCells(); // update cells in viewport (put moving objects to right cells, remove destroyed objects) before taking them into account
-
-	std::unordered_set<LPCGAMEOBJECT> result;
-
-	Area area = GetVicinityAreaOfViewPort();
-
-	for (UINT x = area.xs; x <= area.xe; x++)
-	for (UINT y = area.ys; y <= area.ye; y++)
-	{
-		const Cell& cell = cells[x * height + y];
-		result.insert(cell.staticObjects.begin(), cell.staticObjects.end());
-		result.insert(cell.movingObjects.begin(), cell.movingObjects.end());
-	}
-
-	return { result.begin(), result.end() };
+	RecalculateObjectsInViewPort();
 }
 
 void Grid::RenderCells() const
