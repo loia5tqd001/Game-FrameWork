@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject.h"
+#include "VisibleObject.h"
 
-class Brick : public GameObject
+class Brick : public VisibleObject
 {
 public:
-	Brick(const Point& pos) :
-		GameObject(State::BrickIdle, pos)
+	Brick(const Vector3& pos) :
+		VisibleObject(State::BrickIdle, pos)
 	{
 		animations.emplace(State::BrickIdle, Animation(SpriteType::BrickIdle));
 	}

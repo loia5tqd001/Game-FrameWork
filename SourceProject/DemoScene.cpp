@@ -19,7 +19,7 @@ void DemoScene::LoadResources()
 
 	map = std::make_unique<Map>( root );
 	grid = std::make_unique<Grid>( root );
-	mario = std::make_unique<Mario>( Point(10.0f, 10.0f, 0.0f) );
+	mario = std::make_unique<Mario>( Vector3(10.0f, 10.0f, 0.0f) );
 }
 
 void DemoScene::Update(float dt)
@@ -28,11 +28,11 @@ void DemoScene::Update(float dt)
 
 	mario->Update(dt, grid->GetObjectsInViewPort());
 
-	Camera::Instance().CenterTo( mario->GetCenter() );
+	Camera::Instance().CenterTo( mario->GetBoundingBox().GetCenter() );
 
 	for (auto& obj : grid->GetObjectsInViewPort())
 	{
-		const_cast<LPGAMEOBJECT>( obj )->Update(dt);
+		obj->Update(dt);
 	}
 }
 
@@ -46,6 +46,11 @@ void DemoScene::Draw()
 	{
 		obj->Render();
 	}
+}
+
+void DemoScene::OnKeyDown(BYTE keyCode)
+{
+	mario->OnKeyDown(keyCode);
 }
 
 

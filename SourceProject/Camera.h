@@ -5,20 +5,20 @@
 class Camera : ISingleton
 {
 private:
-	Point pos; 
+	Vector3 pos; 
 	const UINT width  = Window::Instance().GetWidth (); 
 	const UINT height = Window::Instance().GetHeight();
 
 public:
-	void  MoveTo(const Point& newPos);
-	void  MoveBy(const Distance& dist);
-	void  CenterTo(const Point& center);
+	void  MoveTo(const Vector3& newPos);
+	void  MoveBy(const Vector2& dist);
+	void  CenterTo(const Vector3& center);
 
-	const Point& GetPosition() const;
+	const Vector3& GetPosition() const;
 	const RectF  GetBBox    () const;
 
 	bool  IsIntersect(const RectF& box) const;
-	Point GetPositionInViewPort (const Point& pos) const;
+	Vector3 GetPositionInViewPort (const Vector3& pos) const;
 
 private:
 	Camera() : ISingleton(NULL) {}

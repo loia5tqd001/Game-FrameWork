@@ -93,6 +93,12 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="InvisibleObject.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VisibleObject.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -180,6 +186,12 @@
       <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
     <ClInclude Include="DebugDraw.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VisibleObject.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="InvisibleObject.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>

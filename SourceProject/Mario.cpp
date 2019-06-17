@@ -4,11 +4,8 @@
 #include "Goomba.h"
 #include "Window.h"
 
-
-static const Window& wnd = Window::Instance();
-
-Mario::Mario(const Point & spawnPos) : 
-	GameObject(State::MarioWalking, spawnPos)
+Mario::Mario(const Vector3 & spawnPos) : 
+	VisibleObject(State::MarioWalking, spawnPos)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
@@ -27,14 +24,16 @@ void Mario::OnKeyDown(BYTE keyCode)
 
 void Mario::ProcessInput()
 {
+	static const Window& wnd = Window::Instance();
+
 	if (wnd.IsKeyPressed(VK_LEFT)) 
 	{
-		scale.x = -std::abs(scale.x);
+		nx = -std::abs(nx);
 		SetState(State::MarioWalking);
 	}
 	else if (wnd.IsKeyPressed(VK_RIGHT)) 
 	{
-		scale.x = std::abs(scale.x);
+		nx = std::abs(nx);
 		SetState(State::MarioWalking);
 	}
 	else {
@@ -48,7 +47,7 @@ void Mario::HandleNoCollisions(float dt)
 	pos.y += vel.y * dt;
 }
 
-void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
+void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects)
 {
 	auto coEvents = CollisionDetector::CalcPotentialCollisions(*this, coObjects, dt);
 	if (coEvents.size() == 0) 
@@ -65,25 +64,46 @@ void Mario::HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjec
 	if (nx != 0.0f) vel.x = 0.0f;
 	if (ny != 0.0f) vel.y = 0.0f;
 
-
-
 	// Collision logic with Goombas
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		const CollisionEvent& e = coEvents[i];
 
-		if (auto goomba = dynamic_cast<const Goomba*>(e.pCoObj))
+		if (auto goomba = dynamic_cast<Goomba*>(e.pCoObj))
 		{
 			if (e.ny < 0.0f && goomba->GetState() != State::GoombaDie)
 			{
-				const_cast<Goomba*>(goomba)->SetState(State::GoombaDie);
+				goomba->SetState(State::GoombaDie);
 				vel.y = -JUMP_DEFLECT_SPEED;
 			}
 		}
 	}
 }
 
-void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
+void Mario::SetState(State state)
+{
+	VisibleObject::SetState(state);
+
+	switch (state)
+	{
+		case State::MarioWalking:
+			vel.x = nx * WALKING_SPEED;
+			break;
+
+		case State::MarioJump:
+			vel.y = -JUMP_SPEED;
+			break;
+
+		case State::MarioIdle:
+			vel.x = 0.0f;
+			break;
+
+		case State::MarioDie:
+			break;
+	}
+}
+
+void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 {
 	// early checking
 	if (curState == State::MarioDie) return;
@@ -102,27 +122,4 @@ void Mario::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 
 	// update animations
 	animations.at(curState).Update(dt);
-}
-
-void Mario::SetState(State state)
-{
-	GameObject::SetState(state);
-
-	switch (state)
-	{
-		case State::MarioWalking:
-			vel.x = scale.x * WALKING_SPEED;
-			break;
-
-		case State::MarioJump:
-			vel.y = -JUMP_SPEED;
-			break;
-
-		case State::MarioIdle:
-			vel.x = 0.0f;
-			break;
-
-		case State::MarioDie:
-			break;
-	}
 }

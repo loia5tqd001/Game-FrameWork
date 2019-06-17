@@ -9,12 +9,12 @@ struct Vector3 : public D3DXVECTOR3
 	Vector3() : D3DXVECTOR3(0.0f, 0.0f, 0.0f)
 	{}
 
-	Vector3 operator+(const Distance& offset) const
+	Vector3 operator+(const Vector2& offset) const
 	{
 		assert(z == 0.0f);
 		return Vector3{ x + offset.x, y + offset.y, 0.0f };
 	}
-	Vector3& operator+=(const Distance& offset)
+	Vector3& operator+=(const Vector2& offset)
 	{
 		return *this = *this + offset;
 	}
@@ -27,5 +27,3 @@ struct Vector3 : public D3DXVECTOR3
 		return Vector3{ x + other.x, y + other.y, z + other.z };
 	}
 };
-
-using Point = Vector3;

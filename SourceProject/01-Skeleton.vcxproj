@@ -170,6 +170,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="InvisibleObject.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="pch.cpp">
@@ -186,6 +187,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="VisibleObject.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -199,6 +201,7 @@
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="InvisibleObject.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MyException.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="VisibleObject.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rect.h" />

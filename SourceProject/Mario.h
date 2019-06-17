@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "VisibleObject.h"
 
 
-class Mario : public GameObject
+class Mario : public VisibleObject
 {
 public:
 	static constexpr float WALKING_SPEED      =  100.0f;
@@ -11,21 +11,16 @@ public:
 	static constexpr float JUMP_DEFLECT_SPEED =   50.0f;
 
 private:
-	enum class Level { Small, Big };
-
-private:
-	Level level = Level::Big;
-
-public:
-	Mario(const Point & spawnPos);
-
-	void OnKeyDown(BYTE keyCode);
 	void ProcessInput();
 	void HandleNoCollisions(float dt);
-	void HandleCollisions(float dt, const std::vector<LPCGAMEOBJECT>& coObjects);
+	void HandleCollisions(float dt, const std::vector<GameObject*>& coObjects);
 
-	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;
+public:
+	Mario(const Vector3 & spawnPos);
+
+	void OnKeyDown(BYTE keyCode);
 	void SetState(State state) override;
 
+	void Update(float dt, const std::vector<GameObject*>& coObjects) override;
 };
 

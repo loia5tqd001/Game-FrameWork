@@ -1,14 +1,13 @@
 #pragma once
-#include "GameObject.h"
+#include "VisibleObject.h"
 
-class Goomba : public GameObject
+class Goomba : public VisibleObject
 {
 public:
-	Goomba(const Point& spawnPos);
+	Goomba(const Vector3& spawnPos, const Vector2& vel);
 
 	void SetState(State state) override;
+	UINT GetWidth() const override;
 
-	bool IsCollidable() const override { return curState != State::GoombaDie; }
-
-	void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects) override;
+	void Update(float dt, const std::vector<GameObject*>& coObjects) override;
 };

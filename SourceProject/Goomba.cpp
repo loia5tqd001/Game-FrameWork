@@ -1,18 +1,15 @@
 #include "pch.h"
 #include "Goomba.h"
-#include "Window.h"
 
-Goomba::Goomba(const Point & spawnPos) :
-	GameObject(State::GoombaMoving, spawnPos, { -50.0f, 0.0f })
+Goomba::Goomba(const Vector3 & spawnPos, const Vector2 & vel) :
+	VisibleObject(State::GoombaMoving, spawnPos, vel)
 {
 	animations.emplace(State::GoombaMoving, Animation(SpriteType::GoombaMoving, 0.1f));
 	animations.emplace(State::GoombaDie   , Animation(SpriteType::GoombaDie   , 0.1f));
-	animations.emplace(State::Destroyed   , Animation(SpriteType::Invisible         ));
 }
 
-void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
+void Goomba::Update(float dt, const std::vector<GameObject*>& coObjects)
 {
-	static const Window& wnd = Window::Instance();
 	if (curState == State::GoombaDie || curState == State::Destroyed) return;
 
 	pos.x += vel.x * dt;
@@ -25,15 +22,21 @@ void Goomba::Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects)
 
 void Goomba::SetState(State state)
 {
-	auto oldHeight = GetHeight();
+	const auto oldHeight = GetHeight();
 
-	GameObject::SetState(state);
+	VisibleObject::SetState(state);
+
 	switch (state)
 	{
 		case State::GoombaDie:
 			LowDownBody(oldHeight);
 			vel.x = 0.0f;
 			break;
-
 	}
+}
+
+UINT Goomba::GetWidth() const
+{
+	if (curState == State::GoombaDie) return 0;
+	return VisibleObject::GetWidth();
 }

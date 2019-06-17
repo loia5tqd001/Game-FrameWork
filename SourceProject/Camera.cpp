@@ -1,23 +1,23 @@
 #include "pch.h"
 #include "Camera.h"
 
-void Camera::MoveTo(const Point & newPos)
+void Camera::MoveTo(const Vector3 & newPos)
 {
 	pos = newPos;
 }
 
-void Camera::MoveBy(const Distance & dist)
+void Camera::MoveBy(const Vector2 & dist)
 {
 	MoveTo(pos + dist);
 }
 
-void Camera::CenterTo(const Point & center)
+void Camera::CenterTo(const Vector3 & center)
 {
 	MoveTo(center);
 	MoveBy({ -float(width / 2), -float(height / 2) });
 }
 
-const Point & Camera::GetPosition() const
+const Vector3 & Camera::GetPosition() const
 {
 	return pos;
 }
@@ -32,7 +32,7 @@ bool Camera::IsIntersect(const RectF & box) const
 	return GetBBox().IsIntersect(box);
 }
 
-Point Camera::GetPositionInViewPort(const Point & pos) const
+Vector3 Camera::GetPositionInViewPort(const Vector3 & pos) const
 {
 	return pos - GetPosition();
 }

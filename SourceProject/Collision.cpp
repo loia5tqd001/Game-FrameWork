@@ -65,10 +65,10 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 		ny = dy < 0.0f ? 1.0f : -1.0f;
 	}
 
-	return { entryTime, nx, ny, obj2 };	
+	return { entryTime, nx, ny, const_cast<GameObject&>(obj2) };	
 }
 
-std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const GameObject & obj, const std::vector<LPCGAMEOBJECT>& coObjs, float dt)
+std::vector<CollisionEvent> CollisionDetector::CalcPotentialCollisions(const GameObject & obj, const std::vector<GameObject*>& coObjs, float dt)
 {
 	std::vector<CollisionEvent> potentialCollisions;
 

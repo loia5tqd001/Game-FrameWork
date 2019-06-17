@@ -6,8 +6,11 @@
 
 void DebugDraw::DrawBoundingBox(const RectF& bbox, D3DCOLOR color) const
 {
-	const auto drawablePos = Camera::Instance().GetPositionInViewPort({ bbox.left, bbox.top, 0.0f });
-	const Rect portion = bbox;
+	static const auto& cam = Camera::Instance();
+
+	const auto drawablePos = cam.GetPositionInViewPort({ bbox.left - 0.5f, bbox.top - 0.5f, 0.0f });
+
+	const Rect portion = (Rect)bbox;
 	std::vector<Vector2> points(2 * portion.GetHeight());
 
 	for (UINT i = 0; i < portion.GetHeight(); i++)

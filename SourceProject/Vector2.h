@@ -20,5 +20,3 @@ struct Vector2 : public D3DXVECTOR2
 	}
 };
 
-using Distance = Vector2;
-

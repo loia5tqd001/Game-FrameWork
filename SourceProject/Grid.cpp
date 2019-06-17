@@ -13,8 +13,8 @@ Grid::Grid(const Json::Value& root)
 
 auto Grid::LoadObjects(const Json::Value& root)
 {
-	std::unordered_map<UINT, LPCGAMEOBJECT> staticObjects;
-	std::unordered_map<UINT, LPCGAMEOBJECT> movingObjects;
+	std::unordered_map<UINT, GameObject*> staticObjects;
+	std::unordered_map<UINT, GameObject*> movingObjects;
 
 	const Json::Value& jsonObjects = root["objects"];
 
@@ -31,17 +31,19 @@ auto Grid::LoadObjects(const Json::Value& root)
 		const bool  isStatic = obj[2].asBool ();
 		const float x        = obj[3].asFloat();
 		const float y        = obj[4].asFloat();
-		const float nx       = obj[5].asFloat();
+		const float vx       = obj[5].asFloat();
+		const float vy       = obj[6].asFloat();
+		const float nx       = obj[7].asFloat();
 
 		static std::unique_ptr<GameObject> object;
 		switch ((ObjectType)classId)
 		{
 			case ObjectType::Brick:
-				object = std::make_unique<Brick>( Point(x, y, 0.0f) );
+				object = std::make_unique<Brick>( Vector3(x, y, 0.0f) );
 				break;
 
 			case ObjectType::Goomba:
-				object = std::make_unique<Goomba>( Point(x, y, 0.0f) );
+				object = std::make_unique<Goomba>( Vector3(x, y, 0.0f), Vector2(vx, 0.0f) );
 				break;
 
 			default:
@@ -149,7 +151,7 @@ void Grid::RemoveDestroyedObjects()
 
 void Grid::RecalculateObjectsInViewPort()
 {
-	std::unordered_set<LPCGAMEOBJECT> result;
+	std::unordered_set<GameObject*> result;
 
 	Area area = GetVicinityAreaOfViewPort();
 
@@ -166,7 +168,7 @@ void Grid::RecalculateObjectsInViewPort()
 
 void Grid::UpdateCells()
 {
-	std::unordered_set<LPCGAMEOBJECT> shouldBeUpdatedObjects;
+	std::unordered_set<GameObject*> shouldBeUpdatedObjects;
 
 	for (UINT x = 0; x < width; x++)
 	for (UINT y = 0; y < height; y++)

@@ -17,7 +17,7 @@ void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
 	lineDraw->End();
 }
 
-void Game::Draw(Point pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
+void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);

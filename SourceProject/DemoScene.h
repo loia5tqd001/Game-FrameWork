@@ -16,6 +16,6 @@ public:
 	void Update(float dt) override;
 	void Draw          () override;
 
-	void OnKeyDown(BYTE keyCode) override { mario->OnKeyDown(keyCode); }
+	void OnKeyDown(BYTE keyCode) override;
 };
 

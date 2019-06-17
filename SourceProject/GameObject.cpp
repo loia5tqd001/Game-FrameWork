@@ -1,82 +1,26 @@
 #include "pch.h"
 #include "GameObject.h"
-#include "Sprite.h"
-#include "Textures.h"
-#include "Game.h"
-#include "Camera.h"
 #include "DebugDraw.h"
 
-GameObject::GameObject(State initState, const Point& pos, const Vector2& vel, const Vector2& scale) :
-	curState(initState),
-	pos(pos),
-	vel(vel),
-	scale(scale)
+RectF GameObject::GetBoundingBox() const
 {
-}
-
-void GameObject::LowDownBody(UINT oldHeight)
-{
-	pos.y += oldHeight - GetHeight();
-}
-
-const Point GameObject::GetCenter() const
-{
-	return GetBoundingBox().GetCenter();
-}
-
-const UINT GameObject::GetWidth() const
-{
-	const  Rect& frameSize  = animations.at(curState).GetFrameSize();
-	const  UINT normalWidth = explicitWidth ? explicitWidth : frameSize.GetWidth();
-	return UINT(normalWidth * std::abs(scale.x));
-}
-
-const UINT GameObject::GetHeight() const
-{
-	const  Rect& frameSize   = animations.at(curState).GetFrameSize();
-	const  UINT normalHeight = explicitHeight ? explicitHeight : frameSize.GetHeight();
-	return UINT(normalHeight * std::abs(scale.y));
-}
-
-void GameObject::SetWidthHeight(UINT w, UINT h)
-{
-	assert(curState == State::Invisible); // only invisible objects should have explicitWidth and explicitHeight
-	explicitWidth  = w;
-	explicitHeight = h;
-}
-
-const RectF GameObject::GetBoundingBox() const
-{
-	if (!IsCollidable()) return {};
+	if (GetWidth() == 0) return {};
 	return { pos.x, pos.y, GetWidth(), GetHeight() };
 }
 
-const RectF GameObject::GetVisibleBox() const
+void GameObject::RenderBoundingBox() const
 {
-	const  Rect& frameSize  = animations.at(curState).GetFrameSize();
-	const  UINT  frameWidth = UINT( frameSize.GetWidth()  * std::abs(scale.x) );
-	const  UINT frameHeight = UINT( frameSize.GetHeight() * std::abs(scale.y) );
-	return { pos.x, pos.y, frameWidth, frameHeight };
+	DebugDraw::Draw( GetBoundingBox(), DrawType::SolidRect, bboxColor ); 
 }
 
-const Point GameObject::GetDrawablePos() const
+Vector2 GameObject::GetVelocity() const
 {
-	static auto& cam = Camera::Instance();
-	return cam.GetPositionInViewPort(GetPosition()); 
+	return vel;
 }
 
-void GameObject::SetState(State state)
+GameObject::GameObject(Vector3 pos, Vector2 vel) : 
+	pos(pos),
+	vel(vel),
+	bboxColor(Colors::MyChineseBrown)
 {
-	assert(animations.count(state) == 1); // make sure the state has already had a corresponding animation 
-	curState = state;
 }
-
-void GameObject::Render() const
-{
-	animations.at(curState).Render(GetDrawablePos(), scale);
-
-	if (IsCollidable()) DebugDraw::Draw( GetBoundingBox(), DrawType::SolidRect, Colors::MyChineseBrown );
-	else                DebugDraw::Draw( GetVisibleBox (), DrawType::SolidRect, Colors::MyPoisonGreen );
-}
-
-

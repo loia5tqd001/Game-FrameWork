@@ -1,49 +1,31 @@
 #pragma once
 #include "enums.h"
-#include "Animation.h"
-
-// CAPITAL_ALIAS pointers: only point to objects, do not call new or delete
-using LPGAMEOBJECT  = class GameObject*;
-using LPCGAMEOBJECT = const GameObject*;
 
 class GameObject
 {
 protected: 
-	Point   pos           ; 
-	Vector2 vel           ;
-	State   curState      ;
-	Vector2 scale         ; // direction and how much scale
-	std::unordered_map<State, Animation> animations;
-
-	UINT explicitWidth  = 0; // for objects don't use sprite to determine width-height
-	UINT explicitHeight = 0; // i.e spawner: is invisible but does have width n height to check collision
-
-private:
-	const Point    GetDrawablePos   () const;
-	const RectF    GetVisibleBox    () const;
+	Vector3 pos; 
+	Vector2 vel;
+	D3DCOLOR bboxColor;
 
 public: 
-	const Point&   GetPosition      () const { return pos     ; }
-	const Vector2& GetVelocity      () const { return vel     ; }
-	const State    GetState         () const { return curState; }
-	const Vector2& GetScale         () const { return scale   ; }
-	const Point    GetCenter        () const;
-	const UINT     GetWidth         () const;
-	const UINT     GetHeight        () const;
-	const RectF    GetBoundingBox   () const;
+	Vector2 GetVelocity      () const;
+	RectF   GetBoundingBox   () const;
+	void    RenderBoundingBox() const; // draw bounding box for better debugging
 
-	void LowDownBody(UINT oldHeight);
-	void SetWidthHeight(UINT w, UINT h);
+	virtual State GetState   () const = 0;
+	virtual UINT  GetWidth   () const = 0;
+	virtual UINT  GetHeight  () const = 0;
 
-	virtual bool IsCollidable() const { return true; } 
-	virtual void SetState(State state); 
-
-	virtual void Update(float dt, const std::vector<LPCGAMEOBJECT>& coObjects = {}) {}
-	virtual void Render() const;
+	virtual void Update(float dt, const std::vector<GameObject*>& coObjects = {}) = 0;
+	virtual void Render() const = 0;
 
 	virtual ~GameObject() = default; 
 	GameObject(const GameObject&) = delete; 
-	GameObject(State initState, const Point& pos, const Vector2& vel = { 0.0f, 0.0f }, const Vector2& scale = { 1.0f, 1.0f });
+	GameObject(Vector3 pos, Vector2 vel = { 0.0f, 0.0f });
+
+
+	//== Utils: ==
 
 	template<typename T>
 	static void Clamp(T& toClamp, T low, T high)
@@ -60,10 +42,11 @@ public:
 		     if (toClamp < low ) toClamp = low , action();
 		else if (toClamp > high) toClamp = high, action();
 	}
-
+	
 #if DEBUG
-	bool is_debugging = false;
+	bool is_debugging = false; // To select which objects targeted for debugging
 #endif
+
 };
 
 

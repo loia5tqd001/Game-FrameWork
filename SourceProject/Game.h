@@ -25,7 +25,7 @@ public:
 	CONST LPDIRECT3DDEVICE9 GetDirect3DDevice() const { return d3ddv; }
 
 	void DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const;
-	void Draw(Point pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, int alpha = 255) const;
+	void Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, int alpha = 255) const;
 
 private:
 	Game() : ISingleton(NULL) {}

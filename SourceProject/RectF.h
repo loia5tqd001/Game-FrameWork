@@ -16,7 +16,11 @@ struct RectF
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height)
 	{}
 
-	operator Rect() const { return { (LONG)left, (LONG)top, (LONG)right, (LONG)bottom }; }
+	operator Rect() const 
+	{ 
+		return { LONG(left - 0.5f), LONG(top - 0.5f), LONG(right - 0.5f), LONG(bottom - 0.5f) }; 
+		// +0.5f makes more sense but somehow -0.5f works better
+	} 
 
 	float GetWidth () const { return right - left; }
 	float GetHeight() const { return bottom - top; }
@@ -28,11 +32,11 @@ struct RectF
 		return { 0.0f, 0.0f, right - left, bottom - top };
 	}
 
-	Point GetCenter() const
+	Vector3 GetCenter() const
 	{
 		const float x = (left + right) / 2;
 		const float y = (top + bottom) / 2;
-		return Point{ x, y, 0.0f };
+		return Vector3{ x, y, 0.0f };
 	}
 
 	bool IsIntersect(const RectF& other) const

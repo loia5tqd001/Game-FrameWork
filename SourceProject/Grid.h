@@ -4,8 +4,8 @@
 struct Cell
 {
 	RectF boundingBox;
-	std::unordered_set<LPCGAMEOBJECT> staticObjects;
-	std::unordered_set<LPCGAMEOBJECT> movingObjects;
+	std::unordered_set<GameObject*> staticObjects; 
+	std::unordered_set<GameObject*> movingObjects; // objects moving around from cells to cells
 	const RectF& GetBoundingBox() const { return boundingBox; }
 };
 
@@ -17,8 +17,7 @@ private:
 	UINT cellSize, width, height;
 	std::vector<Cell> cells;
 	std::vector<std::unique_ptr<GameObject>> objectHolder; // responsible for deleting objects
-
-	std::vector<LPCGAMEOBJECT> curObjectsInViewPort; // being calculated every frame 
+	std::vector<GameObject*> curObjectsInViewPort; // being recalculated every frame 
 
 private:
 	Grid(const Grid&) = delete;
@@ -40,6 +39,7 @@ public:
 	inline const auto& GetObjectsInViewPort() const { return curObjectsInViewPort; }
 
 
+	//== Utils: ==
 	template<typename T, typename Pred>
 	static void RemoveIf(std::vector<T>& container, Pred remove_condition)
 	{

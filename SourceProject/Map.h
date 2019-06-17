@@ -4,7 +4,7 @@
 
 struct Tile
 {
-	Point position;  // on world map
+	Vector3 position;  // on world map
 	Rect  portion ;  // in texture
 	RectF GetBBox() const { return { position.x, position.y, portion.GetWidth(), portion.GetHeight() }; }
 	bool IsInvisible() const { return portion.IsNone(); }
