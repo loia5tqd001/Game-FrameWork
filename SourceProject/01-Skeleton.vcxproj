@@ -70,13 +70,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -156,6 +156,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Dependencies\DirectX SDK\dsutil.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\Dependencies\JsonCpp\jsoncpp.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -184,6 +188,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -209,6 +214,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="VisibleObject.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />

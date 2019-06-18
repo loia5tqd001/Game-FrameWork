@@ -12,16 +12,21 @@
 #include <mmsystem.h>
 #include <mmreg.h>
 #include <dsound.h>
+#include <dxerr.h>
 
 
+#pragma comment(lib, "dsound.lib")
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dxerr.lib")
 
 
 //-----------------------------------------------------------------------------
 // Classes used by this header
 //-----------------------------------------------------------------------------
-class GSoundManager;
-class GSound;
-class GStreamingSound;
+class CSoundManager;
+class CSound;
+class CStreamingSound;
 class CWaveFile;
 
 
@@ -44,23 +49,23 @@ class CWaveFile;
 // Name: class CSoundManager
 // Desc: 
 //-----------------------------------------------------------------------------
-class GSoundManager
+class CSoundManager
 {
 protected:
     LPDIRECTSOUND8 m_pDS;
 
 public:
-    GSoundManager();
-    ~GSoundManager();
+    CSoundManager();
+    ~CSoundManager();
 
     HRESULT Initialize( HWND hWnd, DWORD dwCoopLevel );
     inline  LPDIRECTSOUND8 GetDirectSound() { return m_pDS; }
     HRESULT SetPrimaryBufferFormat( DWORD dwPrimaryChannels, DWORD dwPrimaryFreq, DWORD dwPrimaryBitRate );
     HRESULT Get3DListenerInterface( LPDIRECTSOUND3DLISTENER* ppDSListener );
 
-    HRESULT Create( GSound** ppSound, LPTSTR strWaveFileName, DWORD dwCreationFlags = 0, GUID guid3DAlgorithm = GUID_NULL, DWORD dwNumBuffers = 1 );
-    HRESULT CreateFromMemory( GSound** ppSound, BYTE* pbData, ULONG ulDataSize, LPWAVEFORMATEX pwfx, DWORD dwCreationFlags = 0, GUID guid3DAlgorithm = GUID_NULL, DWORD dwNumBuffers = 1 );
-    HRESULT CreateStreaming( GStreamingSound** ppStreamingSound, LPTSTR strWaveFileName, DWORD dwCreationFlags, GUID guid3DAlgorithm, DWORD dwNotifyCount, DWORD dwNotifySize, HANDLE hNotifyEvent );
+    HRESULT Create( CSound** ppSound, LPTSTR strWaveFileName, DWORD dwCreationFlags = 0, GUID guid3DAlgorithm = GUID_NULL, DWORD dwNumBuffers = 1 );
+    HRESULT CreateFromMemory( CSound** ppSound, BYTE* pbData, ULONG ulDataSize, LPWAVEFORMATEX pwfx, DWORD dwCreationFlags = 0, GUID guid3DAlgorithm = GUID_NULL, DWORD dwNumBuffers = 1 );
+    HRESULT CreateStreaming( CStreamingSound** ppStreamingSound, LPTSTR strWaveFileName, DWORD dwCreationFlags, GUID guid3DAlgorithm, DWORD dwNotifyCount, DWORD dwNotifySize, HANDLE hNotifyEvent );
 };
 
 
@@ -70,7 +75,7 @@ public:
 // Name: class GSound
 // Desc: Encapsulates functionality of a DirectSound buffer.
 //-----------------------------------------------------------------------------
-class GSound
+class CSound
 {
 protected:
     LPDIRECTSOUNDBUFFER* m_apDSBuffer;
@@ -82,8 +87,8 @@ protected:
     HRESULT RestoreBuffer( LPDIRECTSOUNDBUFFER pDSB, BOOL* pbWasRestored );
 
 public:
-    GSound( LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize, DWORD dwNumBuffers, CWaveFile* pWaveFile, DWORD dwCreationFlags );
-    virtual ~GSound();
+    CSound( LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize, DWORD dwNumBuffers, CWaveFile* pWaveFile, DWORD dwCreationFlags );
+    virtual ~CSound();
 
     HRESULT Get3DBufferInterface( DWORD dwIndex, LPDIRECTSOUND3DBUFFER* ppDS3DBuffer );
     HRESULT FillBufferWithSound( LPDIRECTSOUNDBUFFER pDSB, BOOL bRepeatWavIfBufferLarger );
@@ -107,7 +112,7 @@ public:
 //       and as sound plays more is written to the buffer by calling 
 //       HandleWaveStreamNotification() whenever hNotifyEvent is signaled.
 //-----------------------------------------------------------------------------
-class GStreamingSound : public GSound
+class CStreamingSound : public CSound
 {
 protected:
     DWORD m_dwLastPlayPos;
@@ -117,8 +122,8 @@ protected:
     BOOL  m_bFillNextNotificationWithSilence;
 
 public:
-    GStreamingSound( LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize, CWaveFile* pWaveFile, DWORD dwNotifySize );
-    ~GStreamingSound();
+    CStreamingSound( LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize, CWaveFile* pWaveFile, DWORD dwNotifySize );
+    ~CStreamingSound();
 
     HRESULT HandleWaveStreamNotification( BOOL bLoopedPlay );
     HRESULT Reset();

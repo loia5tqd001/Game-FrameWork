@@ -8,10 +8,6 @@
 // Copyright (c) Microsoft Corp. All rights reserved.
 //-----------------------------------------------------------------------------
 #define STRICT
-#include <windows.h>
-#include <mmsystem.h>
-#include <dxerr.h>
-#include <dsound.h>
 #include "dsutil.h"
 #include <stdio.h>
 int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
@@ -30,7 +26,7 @@ int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
 // Name: CSoundManager::CSoundManager()
 // Desc: Constructs the class
 //-----------------------------------------------------------------------------
-GSoundManager::GSoundManager()
+CSoundManager::CSoundManager()
 {
     m_pDS = NULL;
 }
@@ -42,7 +38,7 @@ GSoundManager::GSoundManager()
 // Name: CSoundManager::~CSoundManager()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-GSoundManager::~GSoundManager()
+CSoundManager::~CSoundManager()
 {
     SAFE_RELEASE( m_pDS ); 
 }
@@ -55,7 +51,7 @@ GSoundManager::~GSoundManager()
 // Desc: Initializes the IDirectSound object and also sets the primary buffer
 //       format.  This function must be called before any others.
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::Initialize( HWND  hWnd, 
+HRESULT CSoundManager::Initialize( HWND  hWnd, 
                                    DWORD dwCoopLevel )
 {
     HRESULT             hr;
@@ -86,7 +82,7 @@ HRESULT GSoundManager::Initialize( HWND  hWnd,
 //               dwPrimaryFreq     = 22050, 
 //               dwPrimaryBitRate  = 16
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::SetPrimaryBufferFormat( DWORD dwPrimaryChannels, 
+HRESULT CSoundManager::SetPrimaryBufferFormat( DWORD dwPrimaryChannels, 
                                                DWORD dwPrimaryFreq, 
                                                DWORD dwPrimaryBitRate )
 {
@@ -131,7 +127,7 @@ HRESULT GSoundManager::SetPrimaryBufferFormat( DWORD dwPrimaryChannels,
 // Name: CSoundManager::Get3DListenerInterface()
 // Desc: Returns the 3D listener interface associated with primary buffer.
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::Get3DListenerInterface( LPDIRECTSOUND3DLISTENER* ppDSListener )
+HRESULT CSoundManager::Get3DListenerInterface( LPDIRECTSOUND3DLISTENER* ppDSListener )
 {
     HRESULT             hr;
     DSBUFFERDESC        dsbdesc;
@@ -171,7 +167,7 @@ HRESULT GSoundManager::Get3DListenerInterface( LPDIRECTSOUND3DLISTENER* ppDSList
 // Name: CSoundManager::Create()
 // Desc: 
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::Create( GSound** ppSound, 
+HRESULT CSoundManager::Create( CSound** ppSound, 
                                LPTSTR strWaveFileName, 
                                DWORD dwCreationFlags, 
                                GUID guid3DAlgorithm,
@@ -276,7 +272,7 @@ HRESULT GSoundManager::Create( GSound** ppSound,
    }
     
     // Create the sound
-    *ppSound = new GSound( apDSBuffer, dwDSBufferSize, dwNumBuffers, pWaveFile, dwCreationFlags );
+    *ppSound = new CSound( apDSBuffer, dwDSBufferSize, dwNumBuffers, pWaveFile, dwCreationFlags );
     
     SAFE_DELETE_ARRAY( apDSBuffer );
     return hrRet;
@@ -300,7 +296,7 @@ LFail:
 // Name: CSoundManager::CreateFromMemory()
 // Desc: 
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::CreateFromMemory( GSound** ppSound, 
+HRESULT CSoundManager::CreateFromMemory( CSound** ppSound, 
                                         BYTE* pbData,
                                         ULONG  ulDataSize,
                                         LPWAVEFORMATEX pwfx,
@@ -384,7 +380,7 @@ HRESULT GSoundManager::CreateFromMemory( GSound** ppSound,
    }
 
     // Create the sound
-    *ppSound = new GSound( apDSBuffer, dwDSBufferSize, dwNumBuffers, pWaveFile, dwCreationFlags );
+    *ppSound = new CSound( apDSBuffer, dwDSBufferSize, dwNumBuffers, pWaveFile, dwCreationFlags );
 
     SAFE_DELETE_ARRAY( apDSBuffer );
     return S_OK;
@@ -404,7 +400,7 @@ LFail:
 // Name: CSoundManager::CreateStreaming()
 // Desc: 
 //-----------------------------------------------------------------------------
-HRESULT GSoundManager::CreateStreaming( GStreamingSound** ppStreamingSound, 
+HRESULT CSoundManager::CreateStreaming( CStreamingSound** ppStreamingSound, 
                                         LPTSTR strWaveFileName, 
                                         DWORD dwCreationFlags, 
                                         GUID guid3DAlgorithm,
@@ -489,7 +485,7 @@ HRESULT GSoundManager::CreateStreaming( GStreamingSound** ppStreamingSound,
     SAFE_DELETE_ARRAY( aPosNotify );
 
     // Create the sound
-    *ppStreamingSound = new GStreamingSound( pDSBuffer, dwDSBufferSize, pWaveFile, dwNotifySize );
+    *ppStreamingSound = new CStreamingSound( pDSBuffer, dwDSBufferSize, pWaveFile, dwNotifySize );
 
     return S_OK;
 }
@@ -501,7 +497,7 @@ HRESULT GSoundManager::CreateStreaming( GStreamingSound** ppStreamingSound,
 // Name: GSound::GSound()
 // Desc: Constructs the class
 //-----------------------------------------------------------------------------
-GSound::GSound( LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize, 
+CSound::CSound( LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize, 
                 DWORD dwNumBuffers, CWaveFile* pWaveFile, DWORD dwCreationFlags )
 {
     DWORD i;
@@ -528,7 +524,7 @@ GSound::GSound( LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
 // Name: GSound::~GSound()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-GSound::~GSound()
+CSound::~CSound()
 {
     for( DWORD i=0; i<m_dwNumBuffers; i++ )
     {
@@ -546,7 +542,7 @@ GSound::~GSound()
 // Name: GSound::FillBufferWithSound()
 // Desc: Fills a DirectSound buffer with a sound file 
 //-----------------------------------------------------------------------------
-HRESULT GSound::FillBufferWithSound( LPDIRECTSOUNDBUFFER pDSB, BOOL bRepeatWavIfBufferLarger )
+HRESULT CSound::FillBufferWithSound( LPDIRECTSOUNDBUFFER pDSB, BOOL bRepeatWavIfBufferLarger )
 {
     HRESULT hr; 
     VOID*   pDSLockedBuffer      = NULL; // Pointer to locked buffer memory
@@ -629,7 +625,7 @@ HRESULT GSound::FillBufferWithSound( LPDIRECTSOUNDBUFFER pDSB, BOOL bRepeatWavIf
 // Desc: Restores the lost buffer. *pbWasRestored returns TRUE if the buffer was 
 //       restored.  It can also NULL if the information is not needed.
 //-----------------------------------------------------------------------------
-HRESULT GSound::RestoreBuffer( LPDIRECTSOUNDBUFFER pDSB, BOOL* pbWasRestored )
+HRESULT CSound::RestoreBuffer( LPDIRECTSOUNDBUFFER pDSB, BOOL* pbWasRestored )
 {
     HRESULT hr;
 
@@ -675,7 +671,7 @@ HRESULT GSound::RestoreBuffer( LPDIRECTSOUNDBUFFER pDSB, BOOL* pbWasRestored )
 // Desc: Finding the first buffer that is not playing and return a pointer to 
 //       it, or if all are playing return a pointer to a randomly selected buffer.
 //-----------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER GSound::GetFreeBuffer()
+LPDIRECTSOUNDBUFFER CSound::GetFreeBuffer()
 {
     if( m_apDSBuffer == NULL ) 
         return FALSE; 
@@ -706,7 +702,7 @@ LPDIRECTSOUNDBUFFER GSound::GetFreeBuffer()
 // Name: GSound::GetBuffer()
 // Desc: 
 //-----------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER GSound::GetBuffer( DWORD dwIndex )
+LPDIRECTSOUNDBUFFER CSound::GetBuffer( DWORD dwIndex )
 {
     if( m_apDSBuffer == NULL )
         return NULL;
@@ -723,7 +719,7 @@ LPDIRECTSOUNDBUFFER GSound::GetBuffer( DWORD dwIndex )
 // Name: GSound::Get3DBufferInterface()
 // Desc: 
 //-----------------------------------------------------------------------------
-HRESULT GSound::Get3DBufferInterface( DWORD dwIndex, LPDIRECTSOUND3DBUFFER* ppDS3DBuffer )
+HRESULT CSound::Get3DBufferInterface( DWORD dwIndex, LPDIRECTSOUND3DBUFFER* ppDS3DBuffer )
 {
     if( m_apDSBuffer == NULL )
         return CO_E_NOTINITIALIZED;
@@ -742,7 +738,7 @@ HRESULT GSound::Get3DBufferInterface( DWORD dwIndex, LPDIRECTSOUND3DBUFFER* ppDS
 // Desc: Plays the sound using voice management flags.  Pass in DSBPLAY_LOOPING
 //       in the dwFlags to loop the sound
 //-----------------------------------------------------------------------------
-HRESULT GSound::Play( DWORD dwPriority, DWORD dwFlags, LONG lVolume, LONG lFrequency, LONG lPan )
+HRESULT CSound::Play( DWORD dwPriority, DWORD dwFlags, LONG lVolume, LONG lFrequency, LONG lPan )
 {
     HRESULT hr;
     BOOL    bRestored;
@@ -793,7 +789,7 @@ HRESULT GSound::Play( DWORD dwPriority, DWORD dwFlags, LONG lVolume, LONG lFrequ
 // Desc: Plays the sound using voice management flags.  Pass in DSBPLAY_LOOPING
 //       in the dwFlags to loop the sound
 //-----------------------------------------------------------------------------
-HRESULT GSound::Play3D( LPDS3DBUFFER p3DBuffer, DWORD dwPriority, DWORD dwFlags, LONG lFrequency )
+HRESULT CSound::Play3D( LPDS3DBUFFER p3DBuffer, DWORD dwPriority, DWORD dwFlags, LONG lFrequency )
 {
     HRESULT hr;
     BOOL    bRestored;
@@ -846,7 +842,7 @@ HRESULT GSound::Play3D( LPDS3DBUFFER p3DBuffer, DWORD dwPriority, DWORD dwFlags,
 // Name: GSound::Stop()
 // Desc: Stops the sound from playing
 //-----------------------------------------------------------------------------
-HRESULT GSound::Stop()
+HRESULT CSound::Stop()
 {
     if( m_apDSBuffer == NULL )
         return CO_E_NOTINITIALIZED;
@@ -866,7 +862,7 @@ HRESULT GSound::Stop()
 // Name: GSound::Reset()
 // Desc: Reset all of the sound buffers
 //-----------------------------------------------------------------------------
-HRESULT GSound::Reset()
+HRESULT CSound::Reset()
 {
     if( m_apDSBuffer == NULL )
         return CO_E_NOTINITIALIZED;
@@ -886,7 +882,7 @@ HRESULT GSound::Reset()
 // Name: GSound::IsSoundPlaying()
 // Desc: Checks to see if a buffer is playing and returns TRUE if it is.
 //-----------------------------------------------------------------------------
-BOOL GSound::IsSoundPlaying()
+BOOL CSound::IsSoundPlaying()
 {
     BOOL bIsPlaying = FALSE;
 
@@ -917,9 +913,9 @@ BOOL GSound::IsSoundPlaying()
 //       as sound is played the notification events are signaled and more data
 //       is written into the buffer by calling HandleWaveStreamNotification()
 //-----------------------------------------------------------------------------
-GStreamingSound::GStreamingSound( LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize, 
+CStreamingSound::CStreamingSound( LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize, 
                                   CWaveFile* pWaveFile, DWORD dwNotifySize ) 
-                : GSound( &pDSBuffer, dwDSBufferSize, 1, pWaveFile, 0 )           
+                : CSound( &pDSBuffer, dwDSBufferSize, 1, pWaveFile, 0 )           
 {
     m_dwLastPlayPos     = 0;
     m_dwPlayProgress    = 0;
@@ -935,7 +931,7 @@ GStreamingSound::GStreamingSound( LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBuffe
 // Name: GStreamingSound::~GStreamingSound()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-GStreamingSound::~GStreamingSound()
+CStreamingSound::~CStreamingSound()
 {
 }
 
@@ -946,7 +942,7 @@ GStreamingSound::~GStreamingSound()
 // Desc: Handle the notification that tells us to put more wav data in the 
 //       circular buffer
 //-----------------------------------------------------------------------------
-HRESULT GStreamingSound::HandleWaveStreamNotification( BOOL bLoopedPlay )
+HRESULT CStreamingSound::HandleWaveStreamNotification( BOOL bLoopedPlay )
 {
     HRESULT hr;
     DWORD   dwCurrentPlayPos;
@@ -1078,7 +1074,7 @@ HRESULT GStreamingSound::HandleWaveStreamNotification( BOOL bLoopedPlay )
 // Name: GStreamingSound::Reset()
 // Desc: Resets the sound so it will begin playing at the beginning
 //-----------------------------------------------------------------------------
-HRESULT GStreamingSound::Reset()
+HRESULT CStreamingSound::Reset()
 {
     HRESULT hr;
 

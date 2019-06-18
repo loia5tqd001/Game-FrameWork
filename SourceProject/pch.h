@@ -2,7 +2,6 @@
 
 #include <Windows.h>
 #include <d3dx9.h>
-//#include <DSUtil.h>
 
 #include <algorithm>
 #include <assert.h>
@@ -17,6 +16,7 @@
 #include <bitset>
 
 #include <json/json.h>
+#include <dsutil.h>
 
 #include "ISingleton.h"
 #include "DebugOut.h"

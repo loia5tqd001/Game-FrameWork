@@ -99,6 +99,12 @@
     <ClCompile Include="VisibleObject.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Dependencies\DirectX SDK\dsutil.cpp">
+      <Filter>Framework\_ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -193,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="InvisibleObject.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
