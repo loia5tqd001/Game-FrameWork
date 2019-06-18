@@ -7,9 +7,9 @@
 Mario::Mario(const Vector3 & spawnPos) : 
 	VisibleObject(State::MarioWalking, spawnPos)
 {
-	animations.emplace(State::MarioIdle   , Animation(SpriteType::MarioBigIdle   , 0.1f));
-	animations.emplace(State::MarioJump   , Animation(SpriteType::MarioBigWalking, 0.1f));
-	animations.emplace(State::MarioWalking, Animation(SpriteType::MarioBigWalking, 0.1f));
+	animations.emplace(State::MarioIdle   , Animation(SpriteId::MarioBigIdle   , 0.1f));
+	animations.emplace(State::MarioJump   , Animation(SpriteId::MarioBigWalking, 0.1f));
+	animations.emplace(State::MarioWalking, Animation(SpriteId::MarioBigWalking, 0.1f));
 }
 
 void Mario::OnKeyDown(BYTE keyCode)

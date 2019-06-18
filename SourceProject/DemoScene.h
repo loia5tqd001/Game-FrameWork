@@ -11,8 +11,12 @@ private:
 	std::unique_ptr<Map>   map; // responsible for drawing map background
 	std::unique_ptr<Mario> mario;
 
-public:
+private:
+	void ToggleMuteMode() const;
 	void LoadResources () override;
+
+public:
+	DemoScene();
 	void Update(float dt) override;
 	void Draw          () override;
 

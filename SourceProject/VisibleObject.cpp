@@ -8,7 +8,7 @@ VisibleObject::VisibleObject(State initState, Vector3 pos, Vector2 vel, FLOAT nx
 	nx(nx) 
 {
 	assert(std::abs(nx) == 1.0f);
-	animations.emplace( State::Destroyed, Animation(SpriteType::Invisible) );
+	animations.emplace( State::Destroyed, Animation(SpriteId::Invisible) );
 }
 
 void VisibleObject::FlipHorizontally()

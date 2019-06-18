@@ -4,7 +4,8 @@
 #include "Game.h"
 
 
-Map::Map(const Json::Value & root)
+Map::Map(const Json::Value & root) :
+	texture( Textures::Get(TextureId::Map) )
 {
 	LoadResources(root);
 }

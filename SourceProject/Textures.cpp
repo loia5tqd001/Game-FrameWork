@@ -3,7 +3,7 @@
 #include "Game.h"
 
 
-void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transparentColor)
+void Textures::AddTexture(TextureId id, LPCSTR texturePath, D3DCOLOR transparentColor)
 {
 	assert(textureDictionary.count(id) == 0);
 
@@ -34,7 +34,7 @@ void Textures::AddTexture(TextureType id, LPCSTR texturePath, D3DCOLOR transpare
 	textureDictionary.emplace(id, texture);
 }
 
-const Json::Value & Textures::GetTextureInfoFromTextureId(TextureType id, const Json::Value & root) const
+const Json::Value & Textures::GetTextureInfoFromTextureId(TextureId id, const Json::Value & root) const
 {
 	static auto matchTextureIdPred = [&id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
 
@@ -48,14 +48,14 @@ const Json::Value & Textures::GetTextureInfoFromTextureId(TextureType id, const 
 }
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
-void Textures::AddTexture(TextureType id, const Json::Value& root)
+void Textures::AddTexture(TextureId id, const Json::Value& root)
 {
 	assert(textureDictionary.count(id) == 0);
 
-	const Json::Value& textureInfo          = GetTextureInfoFromTextureId(id, root);
-	LPCSTR             texturePath          = textureInfo[1].asCString();
-	const Json::Value& transparentColorJson = textureInfo[2];
-	D3DCOLOR transparentColor;
+	const auto& textureInfo          = GetTextureInfoFromTextureId(id, root);
+	LPCSTR      texturePath          = textureInfo[1].asCString();
+	const auto& transparentColorJson = textureInfo[2];
+	D3DCOLOR    transparentColor;
 	if (transparentColorJson.isNumeric()) {
 		transparentColor = 0;
 	} else {
@@ -68,10 +68,20 @@ void Textures::AddTexture(TextureType id, const Json::Value& root)
 	AddTexture(id, texturePath, transparentColor);
 }
 
-const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureType id) const
+const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureId id) const
 {
 	assert(textureDictionary.count(id) == 1);
 	return textureDictionary.at(id);
+}
+
+void Textures::Add(TextureId id, const Json::Value& root)
+{
+	Instance().AddTexture(id, root);
+}
+
+const LPDIRECT3DTEXTURE9 Textures::Get(TextureId id)
+{
+	return Instance().GetTexture(id);
 }
 
 

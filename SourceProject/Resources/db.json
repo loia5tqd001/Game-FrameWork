@@ -20,6 +20,10 @@
 	[ 8, 2,  45,  21, 16,  9, 1,  0]     // goomba-die
   ],
   
+  "sounds": [
+	[ 0, "Resources\\man1.wav"]
+  ],	
+  
   "map": {  
        "columns": 6,
        "tilesize": 16,

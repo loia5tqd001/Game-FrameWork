@@ -4,7 +4,7 @@
 
 
 
-const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteType id, const Json::Value & root) const
+const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value & root) const
 {
 	static auto matchSpriteIdPred = [&](const Json::Value& sprite) { return sprite[0].asUInt() == (UINT)id; };
 
@@ -19,7 +19,7 @@ const Json::Value & Sprites::GetSpriteInfoFromSpriteId(SpriteType id, const Json
 
 const LPDIRECT3DTEXTURE9 Sprites::GetTextureFromSpriteInfo(const Json::Value & spriteInfo) const
 {
-	TextureType textureId = (TextureType)spriteInfo[1].asUInt();
+	TextureId textureId = (TextureId)spriteInfo[1].asUInt();
 	return Textures::Get(textureId);
 }
 
@@ -48,7 +48,7 @@ const std::vector<Rect> Sprites::GetFramesFromSpriteInfo(const Json::Value & spr
 	return frames;
 }
 
-void Sprites::AddSprite(SpriteType id, const Json::Value& root)
+void Sprites::AddSprite(SpriteId id, const Json::Value& root)
 {
 	assert(spriteDictionary.count(id) == 0);
 	
@@ -60,8 +60,18 @@ void Sprites::AddSprite(SpriteType id, const Json::Value& root)
 	spriteDictionary.emplace(id, std::move(sprite));
 }
 
-const Sprite & Sprites::GetSprite(SpriteType id) const
+const Sprite & Sprites::GetSprite(SpriteId id) const
 {
 	assert(spriteDictionary.count(id) == 1);
 	return spriteDictionary.at(id);
+}
+
+void Sprites::Add(SpriteId id, const Json::Value& root)
+{
+	Instance().AddSprite(id, root);
+}
+
+const Sprite& Sprites::Get(SpriteId id)
+{
+	return Instance().GetSprite(id);
 }

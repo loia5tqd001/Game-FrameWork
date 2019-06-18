@@ -2,7 +2,7 @@
 
 
 
-enum class TextureType
+enum class TextureId
 {
 	Mario = 0,
 	Misc  = 1,
@@ -11,7 +11,7 @@ enum class TextureType
 	Count
 };
 
-enum class SpriteType
+enum class SpriteId
 {
 	Invisible         = 0,
 	MarioBigIdle      = 1,
@@ -22,6 +22,12 @@ enum class SpriteType
 	BrickIdle         = 6,
 	GoombaMoving      = 7,
 	GoombaDie         = 8,
+	Count
+};
+
+enum class SoundId
+{
+	Test,
 	Count
 };
 
@@ -55,6 +61,8 @@ enum class Scene
 	Intro,
 	GamePlay
 };
+
+
 
 
 

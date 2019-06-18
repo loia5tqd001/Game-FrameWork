@@ -13,7 +13,7 @@ struct Tile
 class Map
 {
 private:
-	LPDIRECT3DTEXTURE9 texture = Textures::Get(TextureType::Map);
+	LPDIRECT3DTEXTURE9 texture;
 	UINT height, width, tileSize;
 	std::vector<Tile> tiles;
 

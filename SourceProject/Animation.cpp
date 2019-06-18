@@ -3,7 +3,7 @@
 #include "Sprites.h"
 
 
-Animation::Animation(SpriteType spriteId, float holdTime) :
+Animation::Animation(SpriteId spriteId, float holdTime) :
 	sprite(Sprites::Get(spriteId)),
 	holdTime(holdTime)
 {

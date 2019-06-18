@@ -6,25 +6,20 @@
 class Sprites : ISingleton
 {
 private:
-	std::unordered_map<SpriteType, Sprite> spriteDictionary;
+	std::unordered_map<SpriteId, Sprite> spriteDictionary;
 
 private:
-	void  AddSprite(SpriteType id, const Json::Value& root);
+	void  AddSprite(SpriteId id, const Json::Value& root);
 
-	const Json::Value&       GetSpriteInfoFromSpriteId(SpriteType id, const Json::Value& root) const;
-	const LPDIRECT3DTEXTURE9 GetTextureFromSpriteInfo (const Json::Value& spriteInfo         ) const;
-	const std::vector<Rect>  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo         ) const;
-	const Sprite&            GetSprite                (SpriteType id                         ) const;
+	const Json::Value&       GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value& root) const;
+	const LPDIRECT3DTEXTURE9 GetTextureFromSpriteInfo (const Json::Value& spriteInfo       ) const;
+	const std::vector<Rect>  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo       ) const;
+	const Sprite&            GetSprite                (SpriteId id                         ) const;
 
 public:
-	static void Add(SpriteType id, const Json::Value& root) 
-	{
-		Instance().AddSprite(id, root);
-	}
-	static const Sprite& Get(SpriteType id) 
-	{
-		return Instance().GetSprite(id);
-	}
+	static void Add(SpriteId id, const Json::Value& root);
+	static const Sprite& Get(SpriteId id);
+
 
 private:
 	Sprites() : ISingleton(NULL) {}

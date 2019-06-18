@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Game.h"
-
+#include "Sounds.h"
 
 Game::~Game()
 {
@@ -42,6 +42,7 @@ void Game::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
+	Sounds::Instance().InitDirectSound();
 	sceneManager.SetScene(Scene::Demo);
 }
 

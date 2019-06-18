@@ -4,23 +4,17 @@
 class Textures : ISingleton
 {
 private:
-	std::unordered_map<TextureType, LPDIRECT3DTEXTURE9> textureDictionary;
+	std::unordered_map<TextureId, LPDIRECT3DTEXTURE9> textureDictionary;
 
 private:
-	void AddTexture(TextureType id, LPCSTR filePath, D3DCOLOR transparentColor);
-	void AddTexture(TextureType id, const Json::Value& root);
-	const Json::Value&       GetTextureInfoFromTextureId(TextureType id, const Json::Value& root) const;
-	const LPDIRECT3DTEXTURE9 GetTexture(TextureType id) const;
+	void AddTexture(TextureId id, LPCSTR filePath, D3DCOLOR transparentColor);
+	void AddTexture(TextureId id, const Json::Value& root);
+	const Json::Value&       GetTextureInfoFromTextureId(TextureId id, const Json::Value& root) const;
+	const LPDIRECT3DTEXTURE9 GetTexture(TextureId id) const;
 
 public:
-	static void Add(TextureType id, const Json::Value& root)	
-	{
-		Instance().AddTexture(id, root);
-	}
-	static const LPDIRECT3DTEXTURE9 Get(TextureType id) 
-	{
-		return Instance().GetTexture(id);
-	}
+	static void Add(TextureId id, const Json::Value& root);	
+	static const LPDIRECT3DTEXTURE9 Get(TextureId id);
 
 private:
 	Textures() : ISingleton(NULL) {}

@@ -4,8 +4,8 @@
 Goomba::Goomba(const Vector3 & spawnPos, const Vector2 & vel) :
 	VisibleObject(State::GoombaMoving, spawnPos, vel)
 {
-	animations.emplace(State::GoombaMoving, Animation(SpriteType::GoombaMoving, 0.1f));
-	animations.emplace(State::GoombaDie   , Animation(SpriteType::GoombaDie   , 0.1f));
+	animations.emplace(State::GoombaMoving, Animation(SpriteId::GoombaMoving, 0.1f));
+	animations.emplace(State::GoombaDie   , Animation(SpriteId::GoombaDie   , 0.1f));
 }
 
 void Goomba::Update(float dt, const std::vector<GameObject*>& coObjects)

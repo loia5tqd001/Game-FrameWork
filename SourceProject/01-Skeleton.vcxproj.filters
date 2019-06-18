@@ -99,11 +99,11 @@
     <ClCompile Include="VisibleObject.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Dependencies\DirectX SDK\dsutil.cpp">
-      <Filter>Framework\_ThirdParty</Filter>
+    <ClCompile Include="Sounds.cpp">
+      <Filter>Framework\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Main</Filter>
+    <ClCompile Include="..\Dependencies\DirectX SDK\Sound Util\dsutil.cpp">
+      <Filter>Framework\_ThirdParty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,8 +200,8 @@
     <ClInclude Include="InvisibleObject.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Main</Filter>
+    <ClInclude Include="Sounds.h">
+      <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

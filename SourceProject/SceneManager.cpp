@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "DemoScene.h"
 #include "DebugDraw.h"
+#include "Sounds.h"
 
 void SceneManager::SetScene(Scene scene)
 {
@@ -14,8 +15,6 @@ void SceneManager::SetScene(Scene scene)
 		default:
 			ThrowMyException("Failed to change to unknown scene");
 	}
-
-	curScene->LoadResources();
 }
 
 void SceneManager::Update(float dt)
@@ -32,6 +31,7 @@ void SceneManager::OnKeyDown(BYTE keyCode)
 {
 	if (keyCode == VK_CONTROL) 
 		DebugDraw::ToggleDebugMode();
+
 	curScene->OnKeyDown(keyCode);
 }
 

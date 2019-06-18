@@ -14,7 +14,7 @@ private:
 	      bool    doneCycle   = false                     ;
 
 public:
-	Animation(SpriteType spriteId, float holdTime = 0.0f);
+	Animation(SpriteId spriteId, float holdTime = 0.0f);
 
 	void Update(float dt);
 	void Render(const Vector3& pos, const Vector2& vtScale = { 1.0f, 1.0f }, int alpha = 255) const;

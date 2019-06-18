@@ -7,6 +7,6 @@ public:
 	Brick(const Vector3& pos) :
 		VisibleObject(State::BrickIdle, pos)
 	{
-		animations.emplace(State::BrickIdle, Animation(SpriteType::BrickIdle));
+		animations.emplace(State::BrickIdle, Animation(SpriteId::BrickIdle));
 	}
 };
