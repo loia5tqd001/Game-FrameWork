@@ -5,11 +5,15 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include "Camera.h"
+#include "Sound.h"
 
 
 void DemoScene::LoadResources()
 {
 	const auto root = GetRootJson("Resources\\db.json");
+
+	//Sound::getInstance()->loadSound("Resources\\man1.wav", "man1");
+	//Sound::getInstance()->play("man1", true, 1);
 
 	for (UINT i = 0; i < (UINT)TextureType::Count; i++)
 		Textures::Add( TextureType(i), root );
