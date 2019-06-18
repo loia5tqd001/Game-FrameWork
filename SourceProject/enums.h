@@ -28,6 +28,8 @@ enum class SpriteId
 enum class SoundId
 {
 	Test,
+	MarioJump,
+	MarioMusic,
 	Count
 };
 

@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "Mario.h"
 #include "Collision.h"
-#include "Goomba.h"
+#include "Sounds.h"
 #include "Window.h"
+#include "Goomba.h"
 
 Mario::Mario(const Vector3 & spawnPos) : 
 	VisibleObject(State::MarioWalking, spawnPos)
@@ -91,6 +92,7 @@ void Mario::SetState(State state)
 			break;
 
 		case State::MarioJump:
+			Sounds::Invoke(Action::PlayOnce, SoundId::MarioJump);
 			vel.y = -JUMP_SPEED;
 			break;
 

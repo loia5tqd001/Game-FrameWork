@@ -21,8 +21,19 @@
   ],
   
   "sounds": [
-	[ 0, "Resources\\man1.wav"]
+	// soundId[0] - waveFileLink[1]
+	[ 0, "Resources\\man1.wav"],
+	[ 1, "Resources\\Jump.wav"],
+	[ 2, "Resources\\Overworld.wav"]
   ],	
+  
+  "texts": {
+	"texture-id": 1, // image holds texts
+	
+	"contents": [ // textId[0] - left[1] - top[2] - right[3] - bottom[4]
+		[ 0, 10, 10, 10, 10]
+	]
+  },
   
   "map": {  
        "columns": 6,
