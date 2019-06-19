@@ -17,6 +17,16 @@ private:
 		return instance;
 	}
 
+public:
+	static void BeginFrame()
+	{
+		Instance().last = Instance().now;
+		Instance().now = std::chrono::steady_clock::now();
+
+		std::chrono::duration<float> duration = Instance().now - Instance().last;
+		Instance().deltaTime = duration.count();
+	}
+
 	static int GetFps()
 	{
 		static float timePassed = 0.0f;
@@ -34,16 +44,6 @@ private:
 		}
 
 		return fps;
-	}
-
-public:
-	static void BeginFrame()
-	{
-		Instance().last = Instance().now;
-		Instance().now = std::chrono::steady_clock::now();
-
-		std::chrono::duration<float> duration = Instance().now - Instance().last;
-		Instance().deltaTime = duration.count();
 	}
 
 	static float DeltaTime() { return Instance().deltaTime; }

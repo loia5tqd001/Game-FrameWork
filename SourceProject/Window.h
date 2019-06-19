@@ -14,7 +14,8 @@ private:
 
 public:
 	void InitWindow();
-	bool ProcessMessage() const ;
+	bool ProcessMessage() const;
+	void SetTitleToFps() const;
 	bool IsKeyPressed(BYTE keyCode) const { return keyStates.test(keyCode); }
 
 	static LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

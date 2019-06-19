@@ -76,7 +76,7 @@ void Window::InitWindow()
 
 bool Window::ProcessMessage() const
 {
-	MSG msg;
+	static MSG msg;
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
 		if (msg.message == WM_QUIT) return false;
@@ -84,4 +84,11 @@ bool Window::ProcessMessage() const
 		DispatchMessage(&msg);
 	}
 	return true;
+}
+
+void Window::SetTitleToFps() const
+{
+	static std::ostringstream oss;
+	oss.str(""), oss << WINDOW_TITLE << " | Fps: " << GameTimer::GetFps();
+	SetWindowText(hWnd, oss.str().c_str());
 }

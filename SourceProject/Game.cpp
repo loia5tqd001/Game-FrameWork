@@ -95,9 +95,7 @@ void Game::Run()
 		sceneManager.Update(GameTimer::DeltaTime());
 		Render();
 
-		#ifdef DEBUG
-		GameTimer::DebugFps();
-		#endif
+		wnd.SetTitleToFps();
 	}
 }
 
