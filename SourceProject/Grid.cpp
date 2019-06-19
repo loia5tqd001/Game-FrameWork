@@ -89,7 +89,7 @@ void Grid::LoadResources(const Json::Value& root)
 			auto obj   = mapObjects.first.at(objId);
 
 			cells[i].staticObjects.emplace( obj );
-			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBoundingBox() ));
+			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBBox() ));
 		}
 		for (UINT j = 0; j < movings.size(); j++)
 		{
@@ -97,7 +97,7 @@ void Grid::LoadResources(const Json::Value& root)
 			auto obj   = mapObjects.second.at(objId);
 
 			cells[i].movingObjects.emplace( obj );
-			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBoundingBox() ));
+			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBBox() ));
 		}
 	}
 }
@@ -177,13 +177,21 @@ void Grid::UpdateCells()
 
 		RemoveIf(cell.movingObjects, [&](auto& o)
 		{
+			static Camera& cam = Camera::Instance();
 			const RectF oBbox = o->GetBoundingBox();
 
-			if (!oBbox.IsNone() && !oBbox.IsIntersect( cell.GetBoundingBox() ))
+			// objects IsNone are either Destroyed or Die and won't be moving, so no need to care updating
+			// NOTE: but if game has objects flying around after died we should rewrite this
+			if (oBbox.IsNone()) return false; 
+
+			// Always reupdate objects on screen even on the case they move to new cell when haven't totally left old cell
+			// Objects offscreen should be updated when totally leave their old cell
+			if (cam.IsIntersect(oBbox) || !oBbox.IsIntersect(cell.GetBBox()))
 			{
-				shouldBeUpdatedObjects.emplace(o);
+				shouldBeUpdatedObjects.emplace(o);	
 				return true;
 			}
+			
 			return false;
 		});
 	}
@@ -210,6 +218,6 @@ void Grid::RenderCells() const
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
 	{
-		DebugDraw::Draw( cells[x * height + y].GetBoundingBox(), DrawType::RectOutline, Colors::MyChineseBrown );
+		DebugDraw::Draw( cells[x * height + y].GetBBox(), DrawType::RectOutline, Colors::MyChineseBrown );
 	}
 }

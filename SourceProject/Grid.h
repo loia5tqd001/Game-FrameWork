@@ -6,12 +6,12 @@ struct Cell
 	RectF boundingBox;
 	std::unordered_set<GameObject*> staticObjects; 
 	std::unordered_set<GameObject*> movingObjects; // objects moving around from cells to cells
-	const RectF& GetBoundingBox() const { return boundingBox; }
+	const RectF& GetBBox() const { return boundingBox; }
 };
 
 struct Area { UINT xs, xe, ys, ye; };
 
-class Grid
+class Grid 
 {
 private:
 	UINT cellSize, width, height;
@@ -32,12 +32,14 @@ private:
 public:
 	Grid(const Json::Value& root);
 
-	void UpdateCells();
+	void UpdateCells(); // NOTE: This grid will not update objects being too far away from viewport
 	void RenderCells() const;
 
 	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
 	inline const auto& GetObjectsInViewPort() const { return curObjectsInViewPort; }
 
+	// UNDONE: should do to have better reliable Grid for different game:
+	// std::vector<GameObject*> GetObjectsNear(GameObject* objectInInterest) const;
 
 	//== Utils: ==
 	template<typename T, typename Pred>
