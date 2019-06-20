@@ -15,7 +15,7 @@ void Goomba::Update(float dt, const std::vector<GameObject*>& coObjects)
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;
 
-	Clamp(pos.x, 0.0f, 624.0f, [this]() {vel.x = -vel.x; });
+	Utils::Clamp(pos.x, 0.0f, 624.0f, [this]() {vel.x = -vel.x; });
 
 	animations.at(curState).Update(dt);
 }

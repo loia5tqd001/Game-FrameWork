@@ -143,10 +143,10 @@ void Grid::RemoveDestroyedObjects()
 	for (UINT y = area.ys; y <= area.ye; y++)
 	{
 		Cell& cell = cells[x * height + y];
-		RemoveIf(cell.movingObjects, [](auto o) { return o->GetState() == State::Destroyed;} );
+		Utils::RemoveIf(cell.movingObjects, [](auto o) { return o->GetState() == State::Destroyed;} );
 	}
 
-	RemoveIf(objectHolder, [](auto& o) { return o->GetState() == State::Destroyed; });
+	Utils::RemoveIf(objectHolder, [](auto& o) { return o->GetState() == State::Destroyed; });
 }
 
 void Grid::RecalculateObjectsInViewPort()
@@ -175,7 +175,7 @@ void Grid::UpdateCells()
 	{
 		Cell& cell = cells[x * height + y];
 
-		RemoveIf(cell.movingObjects, [&](auto& o)
+		Utils::RemoveIf(cell.movingObjects, [&](auto& o)
 		{
 			static Camera& cam = Camera::Instance();
 			const RectF oBbox = o->GetBoundingBox();

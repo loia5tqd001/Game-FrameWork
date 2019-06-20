@@ -23,25 +23,6 @@ public:
 	virtual ~GameObject() = default; 
 	GameObject(const GameObject&) = delete; 
 	GameObject(Vector3 pos, Vector2 vel = { 0.0f, 0.0f });
-
-
-	//== Utils: ==
-
-	template<typename T>
-	static void Clamp(T& toClamp, T low, T high)
-	{
-			 assert(low  < high);
-		     if (toClamp < low ) toClamp = low ;
-		else if (toClamp > high) toClamp = high;
-	}
-
-	template<typename T, typename Functor>
-	static void Clamp(T& toClamp, T low, T high, Functor action)
-	{
-			 assert(low  < high);
-		     if (toClamp < low ) toClamp = low , action();
-		else if (toClamp > high) toClamp = high, action();
-	}
 	
 #if DEBUG
 	bool is_debugging = false; // To select which objects targeted for debugging

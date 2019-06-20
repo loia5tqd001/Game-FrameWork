@@ -40,23 +40,5 @@ public:
 
 	// UNDONE: should do to have better reliable Grid for different game:
 	// std::vector<GameObject*> GetObjectsNear(GameObject* objectInInterest) const;
-
-	//== Utils: ==
-	template<typename T, typename Pred>
-	static void RemoveIf(std::vector<T>& container, Pred remove_condition)
-	{
-		auto newEnd = std::remove_if(container.begin(), container.end(), remove_condition);
-		container.erase(newEnd, container.end());
-	}
-
-	template<typename T, typename Pred>
-	static void RemoveIf(std::unordered_set<T>& container, Pred remove_condition) 
-	{
-		for (auto it = container.begin(), end = container.end(); it != end; ) 
-		{
-			if (remove_condition(*it)) it = container.erase(it);
-			else                       it++;
-		}
-	}
 };
 
