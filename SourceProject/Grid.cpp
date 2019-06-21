@@ -213,11 +213,25 @@ void Grid::UpdateCells()
 
 void Grid::RenderCells() const
 {
-	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
+	Area collidableArea = CalcCollidableArea( Camera::Instance().GetBBox() );
 
-	for (UINT x = area.xs; x <= area.xe; x++)
-	for (UINT y = area.ys; y <= area.ye; y++)
+	for (UINT x = 0; x < width; x++)
+	for (UINT y = 0; y < height; y++)
 	{
-		DebugDraw::Draw( cells[x * height + y].GetBBox(), DrawType::RectOutline, Colors::MyChineseBrown );
+		const UINT  cellIndex = x * height + y           ;
+		const Cell& cell      = cells[cellIndex]         ;
+		const RectF cellBbox  = cell.GetBBox()           ;
+		const UINT  nStatic   = cell.staticObjects.size();
+		const UINT  nMoving   = cell.movingObjects.size();
+
+		if (x >= collidableArea.xs && x <= collidableArea.xe &&
+			y >= collidableArea.ys && y <= collidableArea.ye)
+		{
+			DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::MyChineseBrown );
+		}
+
+		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 20.0f, 20.0f, 0.0f };
+		std::ostringstream os; os << cellIndex << " s" << nStatic << " m" << nMoving;
+		DebugDraw::DrawString( os.str(), cellDrawPosition );
 	}
 }

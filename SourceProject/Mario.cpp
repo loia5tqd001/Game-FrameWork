@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "Mario.h"
 #include "Collision.h"
-#include "Sounds.h"
 #include "Window.h"
+#include "Sounds.h"
+#include "Texts.h"
 #include "Goomba.h"
 
 Mario::Mario(const Vector3 & spawnPos) : 
@@ -137,4 +138,10 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 	//if (wnd.IsKeyPressed(VK_DOWN))
 	//	vel.y += WALKING_SPEED;
 	//HandleCollisions(dt, coObjects);
+}
+
+void Mario::Render() const
+{
+	VisibleObject::Render();
+	Texts::DrawString("mario", { 140.0f, 95.0f, 0.0f } );
 }

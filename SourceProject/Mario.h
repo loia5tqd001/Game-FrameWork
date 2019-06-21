@@ -22,5 +22,6 @@ public:
 	void SetState(State state) override;
 
 	void Update(float dt, const std::vector<GameObject*>& coObjects) override;
+	void Render() const override;
 };
 

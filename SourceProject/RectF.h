@@ -32,6 +32,11 @@ struct RectF
 		return { 0.0f, 0.0f, right - left, bottom - top };
 	}
 
+	Vector3 GetTopLeft() const
+	{
+		return Vector3{ left, top, 0.0f };
+	}
+
 	Vector3 GetCenter() const
 	{
 		const float x = (left + right) / 2;

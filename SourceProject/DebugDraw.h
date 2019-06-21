@@ -21,6 +21,7 @@ public:
 	static void ToggleDebugMode();
 
 	static void Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color);
+	static void DrawString(const std::string& str, const Vector3& pos);
 
 private:
 	DebugDraw() : ISingleton(NULL) {}
