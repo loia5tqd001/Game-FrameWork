@@ -191,6 +191,7 @@
     <ClCompile Include="Sounds.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Texts.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="VisibleObject.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -215,6 +216,8 @@
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Sounds.h" />
+    <ClInclude Include="Texts.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="VisibleObject.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="pch.h" />

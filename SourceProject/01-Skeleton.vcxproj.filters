@@ -105,6 +105,9 @@
     <ClCompile Include="..\Dependencies\DirectX SDK\Sound Util\dsutil.cpp">
       <Filter>Framework\_ThirdParty</Filter>
     </ClCompile>
+    <ClCompile Include="Texts.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -201,6 +204,12 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Sounds.h">
+      <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Framework\_MyUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Texts.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
