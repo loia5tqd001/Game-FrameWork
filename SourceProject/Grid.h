@@ -31,6 +31,8 @@ private:
 
 public:
 	Grid(const Json::Value& root);
+	UINT GetWidthInPixel () const { return width  * cellSize; }
+	UINT GetHeightInPixel() const { return height * cellSize; }
 
 	void UpdateCells(); // NOTE: This grid will not update objects being too far away from viewport
 	void RenderCells() const;

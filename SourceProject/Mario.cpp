@@ -2,8 +2,11 @@
 #include "Mario.h"
 #include "Collision.h"
 #include "Window.h"
+#include "Camera.h"
+
 #include "Sounds.h"
 #include "Texts.h"
+
 #include "Goomba.h"
 
 Mario::Mario(const Vector3 & spawnPos) : 
@@ -126,7 +129,8 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 	HandleCollisions(dt, coObjects);
 
 	// clamping
-	//Clamp(pos.x, 0.0f, float(wnd.GetWidth() - GetWidth()));
+	Utils::Clamp(pos.x, 0.0f, 640.0f - GetBBox().GetWidth());
+	Utils::Clamp(pos.y, 0.0f, pos.y);
 
 	// update animations
 	animations.at(curState).Update(dt);
@@ -148,5 +152,7 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 void Mario::Render() const
 {
 	VisibleObject::Render();
-	Texts::DrawString("mario", { 140.0f, 95.0f, 0.0f } );
+
+	const Vector3 drawablePos = Camera::Instance().GetPositionInViewPort( pos ) - Vector3{ 14.0f, 10.0f, 0.0f};
+	Texts::DrawString("mario", drawablePos );
 }

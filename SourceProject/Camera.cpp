@@ -17,6 +17,12 @@ void Camera::CenterTo(const Vector3 & center)
 	MoveBy({ -float(width / 2), -float(height / 2) });
 }
 
+void Camera::ClampWithin(const RectF& theBox)
+{
+	Utils::Clamp(pos.x, theBox.left, theBox.right - width);
+	Utils::Clamp(pos.y, theBox.top, theBox.bottom - height);
+}
+
 const Vector3 & Camera::GetPosition() const
 {
 	return pos;

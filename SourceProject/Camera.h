@@ -14,10 +14,12 @@ public:
 	void  MoveBy(const Vector2& dist);
 	void  CenterTo(const Vector3& center);
 
-	const Vector3& GetPosition() const;
-	const RectF  GetBBox    () const;
+	void  ClampWithin(const RectF& theBox);
 
-	bool  IsIntersect(const RectF& box) const;
+	const Vector3& GetPosition() const;
+	const RectF    GetBBox    () const;
+
+	bool    IsIntersect(const RectF& box) const;
 	Vector3 GetPositionInViewPort (const Vector3& pos) const;
 
 private:

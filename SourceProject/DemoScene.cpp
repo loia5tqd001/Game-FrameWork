@@ -38,6 +38,7 @@ void DemoScene::Update(float dt)
 	mario->Update(dt, grid->GetObjectsInViewPort());
 
 	Camera::Instance().CenterTo( mario->GetBBox().GetCenter() );
+	Camera::Instance().ClampWithin({ 0.0f, 0.0f, grid->GetWidthInPixel(), grid->GetHeightInPixel() });
 
 	for (auto& obj : grid->GetObjectsInViewPort())
 	{

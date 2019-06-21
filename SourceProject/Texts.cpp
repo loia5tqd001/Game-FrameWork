@@ -20,24 +20,24 @@ void Texts::LoadResources(const Json::Value& root)
 	}
 }
 
-void Texts::DrawString(const std::string& str, Vector3 pos)
+void Texts::DrawString(const std::string& str, Vector3 drawablePos)
 {
 	for (UINT i = 0; i < str.size(); i++)
 	{
 		static UINT lastWidth = 0;
 		if (str[i] != ' ') 
 		{
-			lastWidth = DrawSymbol( (TextId) std::toupper( str[i] ), pos );
+			lastWidth = DrawSymbol( (TextId) std::toupper( str[i] ), drawablePos );
 		}
-		pos.x += lastWidth + 1;
+		drawablePos.x += lastWidth + 1;
 	}
 }
 
-UINT Texts::DrawSymbol(TextId id, const Vector3& pos)
+UINT Texts::DrawSymbol(TextId id, const Vector3& drawablePos)
 {
 	assert(Instance().textDictionary.count(id) == 1);
 	const Rect& rect = Instance().textDictionary.at(id);
 
-	Game::Instance().Draw(pos, Instance().texture, rect);
+	Game::Instance().Draw(drawablePos, Instance().texture, rect);
 	return rect.GetWidth();
 }
