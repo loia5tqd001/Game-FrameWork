@@ -57,7 +57,7 @@ CollisionEvent CollisionDetector::SweptAABBEx(const GameObject & obj1, const Gam
 	if (entryTime > exitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f) return {};
 
 	float nx = 0.0f, ny = 0.0f;
-	if ( !(txEntry == 0.0f && tyEntry == 0.0f) ) // both tEntry = 0 means object's going ino the corner
+	if ( !(txEntry == 0.0f && tyEntry == 0.0f) ) // both tEntry = 0 means object's going toward the corner
 	{
 		if (txEntry > tyEntry) {
 			ny = 0.0f;

@@ -51,14 +51,14 @@ void Mario::HandleNoCollisions(float dt)
 void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects)
 {
 	auto coEvents = CollisionDetector::CalcPotentialCollisions(*this, coObjects, dt);
-	if (coEvents.size() == 0) 
-	{
-		HandleNoCollisions(dt); return;
-	}
+	if (coEvents.size() == 0) { HandleNoCollisions(dt); return; }
 
 	float min_tx, min_ty, nx, ny;
 	CollisionDetector::FilterCollisionEvents(coEvents, min_tx, min_ty, nx, ny);
-	
+
+	// NOTE: HACK: not perfect handler but we're fine
+	if (coEvents.size() == 0) return; // the case object's going toward the corner
+
 	pos.x += min_tx * vel.x * dt;
 	pos.y += min_ty * vel.y * dt;
 
@@ -124,4 +124,17 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 
 	// update animations
 	animations.at(curState).Update(dt);
+
+	// === test collision
+	//static Window& wnd = Window::Instance();
+	//vel.x = vel.y = 0.0f;
+	//if (wnd.IsKeyPressed(VK_LEFT))
+	//	vel.x -= WALKING_SPEED;
+	//if (wnd.IsKeyPressed(VK_RIGHT))
+	//	vel.x += WALKING_SPEED;
+	//if (wnd.IsKeyPressed(VK_UP))
+	//	vel.y -= WALKING_SPEED;
+	//if (wnd.IsKeyPressed(VK_DOWN))
+	//	vel.y += WALKING_SPEED;
+	//HandleCollisions(dt, coObjects);
 }
