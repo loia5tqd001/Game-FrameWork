@@ -227,11 +227,14 @@ void Grid::RenderCells() const
 		if (x >= collidableArea.xs && x <= collidableArea.xe &&
 			y >= collidableArea.ys && y <= collidableArea.ye)
 		{
-			DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::MyChineseBrown );
+			DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::GridDebug );
 		}
 
-		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 20.0f, 20.0f, 0.0f };
-		std::ostringstream os; os << cellIndex << " s" << nStatic << " m" << nMoving;
-		DebugDraw::DrawString( os.str(), cellDrawPosition );
+		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 2.5f, 0.5f, 0.0f };
+		static std::ostringstream os; os.str("");
+		os << "index: " << cellIndex << "\n"
+			<< "static: " << nStatic << "\n"
+			<< "moving: " << nMoving;
+		DebugDraw::DrawString( os.str(), cellDrawPosition, Colors::GridDebug );
 	}
 }

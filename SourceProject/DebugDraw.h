@@ -6,6 +6,7 @@ struct Colors
 {
 	static constexpr auto MyChineseBrown = D3DCOLOR_ARGB(123, 420, 69, 0);
 	static constexpr auto MyPoisonGreen  = D3DCOLOR_ARGB(123, 69, 420, 0);
+	static constexpr auto GridDebug      = D3DCOLOR_ARGB(123, 420, 69, 0);
 };
 
 class DebugDraw : ISingleton
@@ -21,7 +22,7 @@ public:
 	static void ToggleDebugMode();
 
 	static void Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color);
-	static void DrawString(const std::string& str, const Vector3& pos);
+	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size = 13, LPCSTR font = "Arial");
 
 private:
 	DebugDraw() : ISingleton(NULL) {}

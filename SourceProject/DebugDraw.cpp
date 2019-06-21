@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Camera.h"
 #include "Textures.h"
-#include "Texts.h"
 
 void DebugDraw::DrawBoundingBox(const RectF& bbox, D3DCOLOR color) const
 {
@@ -59,10 +58,10 @@ void DebugDraw::Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color)
 	}
 }
 
-void DebugDraw::DrawString(const std::string& str, const Vector3& pos)
+void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font)
 {
 	if (!Instance().isInDebugMode) return;
 
 	const auto drawablePos = Camera::Instance().GetPositionInViewPort( pos );
-	Texts::DrawString(str, drawablePos);
+	Game::Instance().DrawString(str, drawablePos, color, size, font);
 }
