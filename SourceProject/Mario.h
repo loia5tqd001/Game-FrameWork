@@ -18,6 +18,8 @@ private:
 public:
 	Mario(const Vector3 & spawnPos);
 
+	RectF GetBBox() const override;
+
 	void OnKeyDown(BYTE keyCode);
 	void SetState(State state) override;
 

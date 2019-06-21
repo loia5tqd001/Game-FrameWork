@@ -13,14 +13,9 @@ State InvisibleObject::GetState() const
 	return State::Invisible;
 }
 
-UINT InvisibleObject::GetWidth() const
+RectF InvisibleObject::GetBBox() const
 {
-	return width;
-}
-
-UINT InvisibleObject::GetHeight() const
-{
-	return height;
+	return { pos.x, pos.y, width, height };
 }
 
 void InvisibleObject::Render() const

@@ -14,6 +14,11 @@ Mario::Mario(const Vector3 & spawnPos) :
 	animations.emplace(State::MarioWalking, Animation(SpriteId::MarioBigWalking, 0.1f));
 }
 
+RectF Mario::GetBBox() const
+{
+	return VisibleObject::GetBBox().Trim(2, 1, 2, 1);
+}
+
 void Mario::OnKeyDown(BYTE keyCode)
 {
 	switch (keyCode)

@@ -89,7 +89,7 @@ void Grid::LoadResources(const Json::Value& root)
 			auto obj   = mapObjects.first.at(objId);
 
 			cells[i].staticObjects.emplace( obj );
-			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBBox() ));
+			assert(obj->GetBBox().IsIntersect( cells[i].GetBBox() ));
 		}
 		for (UINT j = 0; j < movings.size(); j++)
 		{
@@ -97,7 +97,7 @@ void Grid::LoadResources(const Json::Value& root)
 			auto obj   = mapObjects.second.at(objId);
 
 			cells[i].movingObjects.emplace( obj );
-			assert(obj->GetBoundingBox().IsIntersect( cells[i].GetBBox() ));
+			assert(obj->GetBBox().IsIntersect( cells[i].GetBBox() ));
 		}
 	}
 }
@@ -114,7 +114,7 @@ Area Grid::CalcCollidableArea(const RectF& bbox) const
 
 void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 {
-	Area area = CalcCollidableArea( obj->GetBoundingBox() );
+	Area area = CalcCollidableArea( obj->GetBBox() );
 
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
@@ -178,7 +178,7 @@ void Grid::UpdateCells()
 		Utils::RemoveIf(cell.movingObjects, [&](auto& o)
 		{
 			static Camera& cam = Camera::Instance();
-			const RectF oBbox = o->GetBoundingBox();
+			const RectF oBbox = o->GetBBox();
 
 			// objects IsNone are either Destroyed or Die and won't be moving, so no need to care updating
 			// NOTE: but if game has objects flying around after died we should rewrite this
@@ -198,7 +198,7 @@ void Grid::UpdateCells()
 
 	for (auto& obj : shouldBeUpdatedObjects)
 	{
-		Area area = CalcCollidableArea( obj->GetBoundingBox() );
+		Area area = CalcCollidableArea( obj->GetBBox() );
 
 		for (UINT x = area.xs; x <= area.xe; x++)
 		for (UINT y = area.ys; y <= area.ye; y++)

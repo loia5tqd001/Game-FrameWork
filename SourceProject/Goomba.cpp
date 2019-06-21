@@ -35,8 +35,19 @@ void Goomba::SetState(State state)
 	}
 }
 
-UINT Goomba::GetWidth() const
+UINT Goomba::GetHeight() const
 {
-	if (curState == State::GoombaDie) return 0;
-	return VisibleObject::GetWidth();
+	return animations.at(curState).GetFrameSize().GetHeight();
+}
+
+void Goomba::LowDownBody(UINT oldHeight)
+{ 
+	assert(oldHeight > GetHeight());
+	pos.y += oldHeight - GetHeight(); 
+}
+
+RectF Goomba::GetBBox() const
+{
+	if (curState == State::GoombaDie) return {};
+	return VisibleObject::GetBBox();
 }

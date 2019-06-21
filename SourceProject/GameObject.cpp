@@ -2,15 +2,10 @@
 #include "GameObject.h"
 #include "DebugDraw.h"
 
-RectF GameObject::GetBoundingBox() const
-{
-	if (GetWidth() == 0) return {};
-	return { pos.x, pos.y, GetWidth(), GetHeight() };
-}
 
 void GameObject::RenderBoundingBox() const
 {
-	DebugDraw::Draw( GetBoundingBox(), DrawType::SolidRect, bboxColor ); 
+	DebugDraw::Draw( GetBBox(), DrawType::SolidRect, bboxColor ); 
 }
 
 Vector2 GameObject::GetVelocity() const

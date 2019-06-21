@@ -26,6 +26,12 @@ struct RectF
 	float GetHeight() const { return bottom - top; }
 	bool  IsNone   () const { return left == right;}
 
+	RectF& Trim(float dl, float dt, float dr, float db)
+	{
+		left += dl, top += dt, right -= dr, bottom -= db;
+		return *this;
+	}
+
 	RectF GetOriginRect() const
 	{
 		assert(left < right && top < bottom);

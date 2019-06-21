@@ -10,12 +10,10 @@ protected:
 
 public: 
 	Vector2 GetVelocity      () const;
-	RectF   GetBoundingBox   () const;
 	void    RenderBoundingBox() const; // draw bounding box for better debugging
 
-	virtual State GetState   () const = 0;
-	virtual UINT  GetWidth   () const = 0;
-	virtual UINT  GetHeight  () const = 0;
+	virtual State GetState() const = 0;
+	virtual RectF GetBBox () const = 0;
 
 	virtual void Update(float dt, const std::vector<GameObject*>& coObjects = {}) = 0;
 	virtual void Render() const = 0;

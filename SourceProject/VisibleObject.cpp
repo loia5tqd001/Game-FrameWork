@@ -17,28 +17,17 @@ void VisibleObject::FlipHorizontally()
 	nx = -nx;
 }
 
-void VisibleObject::LowDownBody(UINT oldHeight)
-{ 
-	assert(oldHeight > GetHeight());
-	pos.y += oldHeight - GetHeight(); 
-}
-
 State VisibleObject::GetState() const
 {
 	assert(animations.count(curState) == 1);
 	return curState;
 }
 
-UINT VisibleObject::GetWidth() const
+RectF VisibleObject::GetBBox() const
 {
 	assert(animations.count(curState) == 1);
-	return animations.at(curState).GetFrameSize().GetWidth();
-}
-
-UINT VisibleObject::GetHeight() const
-{
-	assert(animations.count(curState) == 1);
-	return animations.at(curState).GetFrameSize().GetHeight();
+	const auto animationFrame = animations.at(curState).GetFrameSize();
+	return { pos.x, pos.y, animationFrame.GetWidth(), animationFrame.GetHeight() };
 }
 
 void VisibleObject::Render() const

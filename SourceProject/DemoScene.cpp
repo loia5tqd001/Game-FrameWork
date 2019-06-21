@@ -37,7 +37,7 @@ void DemoScene::Update(float dt)
 
 	mario->Update(dt, grid->GetObjectsInViewPort());
 
-	Camera::Instance().CenterTo( mario->GetBoundingBox().GetCenter() );
+	Camera::Instance().CenterTo( mario->GetBBox().GetCenter() );
 
 	for (auto& obj : grid->GetObjectsInViewPort())
 	{
