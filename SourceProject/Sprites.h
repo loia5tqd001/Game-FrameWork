@@ -17,7 +17,7 @@ private:
 	const Sprite&            GetSprite                (SpriteId id                         ) const;
 
 public:
-	static void Add(SpriteId id, const Json::Value& root);
+	static void LoadResources(const Json::Value& root);
 	static const Sprite& Get(SpriteId id);
 
 

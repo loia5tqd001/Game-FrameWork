@@ -66,9 +66,10 @@ const Sprite & Sprites::GetSprite(SpriteId id) const
 	return spriteDictionary.at(id);
 }
 
-void Sprites::Add(SpriteId id, const Json::Value& root)
+void Sprites::LoadResources(const Json::Value& root)
 {
-	Instance().AddSprite(id, root);
+	for (UINT i = 0; i < (UINT)SpriteId::Count; i++)
+		Instance().AddSprite( SpriteId(i), root );
 }
 
 const Sprite& Sprites::Get(SpriteId id)

@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Sounds.h"
+#include "Texts.h"
 
 #include "Brick.h"
 #include "Goomba.h"
@@ -20,14 +21,10 @@ void DemoScene::LoadResources()
 {
 	const auto root = GetRootJson("Resources\\db.json");
 
-	for (UINT i = 0; i < (UINT)TextureId::Count; i++)
-		Textures::Add( TextureId(i), root );
-
-	for (UINT i = 0; i < (UINT)SpriteId::Count; i++)
-		Sprites::Add( SpriteId(i), root );
-
-	for (UINT i = 0; i < (UINT)SoundId::Count; i++)
-		Sounds::Add( SoundId(i), root );
+	Textures::LoadResources(root);
+	Sprites::LoadResources(root);
+	Sounds::LoadResources(root);
+	Texts::LoadResources(root);
 
 	map = std::make_unique<Map>( root );
 	grid = std::make_unique<Grid>( root );

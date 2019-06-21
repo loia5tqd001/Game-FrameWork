@@ -76,9 +76,10 @@ bool Sounds::IsPlaying(SoundId id)
 	return soundDictionary.at(id).IsSoundPlaying();
 }
 
-void Sounds::Add(SoundId id, const Json::Value& root)
+void Sounds::LoadResources(const Json::Value& root)
 {
-	Instance().AddSound(id, root);
+	for (UINT i = 0; i < (UINT)SoundId::Count; i++)
+		Instance().AddSound( SoundId(i), root );
 }
 
 void Sounds::Invoke(Action action, SoundId id)

@@ -74,9 +74,10 @@ const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureId id) const
 	return textureDictionary.at(id);
 }
 
-void Textures::Add(TextureId id, const Json::Value& root)
+void Textures::LoadResources(const Json::Value& root)
 {
-	Instance().AddTexture(id, root);
+	for (UINT i = 0; i < (UINT)TextureId::Count; i++)
+		Instance().AddTexture( TextureId(i), root );
 }
 
 const LPDIRECT3DTEXTURE9 Textures::Get(TextureId id)

@@ -23,7 +23,7 @@ private:
 
 public:
 	void InitDirectSound();
-	static void Add(SoundId id, const Json::Value& root);
+	static void LoadResources(const Json::Value& root);
 	static void Invoke(Action action, SoundId id = SoundId::Count); // ::Count indicates invalid SoundId (case SoundId is needless)
 	static void SetMuteMode(bool isMute);
 	static bool IsMute();

@@ -13,7 +13,7 @@ private:
 	const LPDIRECT3DTEXTURE9 GetTexture(TextureId id) const;
 
 public:
-	static void Add(TextureId id, const Json::Value& root);	
+	static void LoadResources(const Json::Value& root);
 	static const LPDIRECT3DTEXTURE9 Get(TextureId id);
 
 private:
