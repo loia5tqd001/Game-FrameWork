@@ -15,11 +15,13 @@ Mario::Mario(const Vector3 & spawnPos) :
 	animations.emplace(State::MarioIdle   , Animation(SpriteId::MarioBigIdle   , 0.1f));
 	animations.emplace(State::MarioJump   , Animation(SpriteId::MarioBigWalking, 0.1f));
 	animations.emplace(State::MarioWalking, Animation(SpriteId::MarioBigWalking, 0.1f));
+
+	bboxColor = Colors::MyPoisonGreen;
 }
 
 RectF Mario::GetBBox() const
 {
-	return VisibleObject::GetBBox().Trim(2, 1, 2, 1);
+	return VisibleObject::GetBBox().Trim(1, 0, 1, 0);
 }
 
 void Mario::OnKeyDown(BYTE keyCode)

@@ -20,7 +20,7 @@ void Game::AdjustFontString(UINT size, LPCSTR font)
 void Game::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color) const
 {
 	static Rect rect;
-	SetRect(&rect, pos.x, pos.y, wnd.GetWidth(), wnd.GetHeight());
+	SetRect(&rect, (int)pos.x, (int)pos.y, wnd.GetWidth(), wnd.GetHeight());
 	fontDraw->DrawText(spriteHandler, str.c_str(), -1, &rect, DT_NOCLIP, color);
 }
 
@@ -32,6 +32,11 @@ void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
 }
 
 void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
+{
+	Draw(pos, texture, portion, vtScale, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
 {
 	D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
@@ -48,7 +53,7 @@ void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 v
 	}
 
 	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
-	spriteHandler->Draw(texture, &portion, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &portion, NULL, &pos, color);
 	spriteHandler->SetTransform(&oldMt);
 }
 

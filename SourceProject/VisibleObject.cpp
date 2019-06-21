@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "VisibleObject.h"
 #include "Camera.h"
-#include "DebugDraw.h"
 
 VisibleObject::VisibleObject(State initState, Vector3 pos, Vector2 vel, FLOAT nx) :
 	GameObject(pos, vel),

@@ -4,10 +4,11 @@
 
 enum class TextureId
 {
-	Mario = 0,
-	Misc  = 1,
-	Enemy = 2,
-	Map   = 3,
+	Bbox  = 0,
+	Mario = 1,
+	Misc  = 2,
+	Enemy = 3,
+	Map   = 4,
 	Count
 };
 

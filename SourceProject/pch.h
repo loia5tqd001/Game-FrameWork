@@ -20,9 +20,9 @@
 
 #include "ISingleton.h"
 #include "DebugOut.h"
+#include "DebugDraw.h"
 #include "MyException.h"
 #include "GameTimer.h"
-#include "RectF.h"
 #include "Random.h"
 #include "Utils.h"
 

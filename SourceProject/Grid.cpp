@@ -3,7 +3,6 @@
 #include "Camera.h"
 #include "Brick.h"
 #include "Goomba.h"
-#include "DebugDraw.h"
 
 
 Grid::Grid(const Json::Value& root)
@@ -236,9 +235,9 @@ void Grid::RenderCells() const
 	for (UINT x = area.xs; x <= area.xe; x++)
 	for (UINT y = area.ys; y <= area.ye; y++)
 	{
-		const UINT  cellIndex = x * height + y           ;
-		const Cell& cell      = cells[cellIndex]         ;
-		const RectF cellBbox  = cell.GetBBox()           ;
+		const UINT  cellIndex = x * height + y   ;
+		const Cell& cell      = cells[cellIndex] ;
+		const RectF cellBbox  = cell.GetBBox()   ;
 
 		DebugDraw::DrawRectOutLine( cellBbox, Colors::GridDebug );		
 

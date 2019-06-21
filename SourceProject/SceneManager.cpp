@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "DemoScene.h"
-#include "DebugDraw.h"
 #include "Sounds.h"
 
 void SceneManager::SetScene(Scene scene)

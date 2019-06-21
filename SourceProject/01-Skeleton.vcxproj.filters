@@ -106,7 +106,7 @@
       <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Development\Manager</Filter>
+      <Filter>Framework\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,7 +210,7 @@
       <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Development\Manager</Filter>
+      <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

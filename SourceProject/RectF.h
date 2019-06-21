@@ -18,8 +18,7 @@ struct RectF
 
 	operator Rect() const 
 	{ 
-		return { LONG(left - 0.5f), LONG(top - 0.5f), LONG(right - 0.5f), LONG(bottom - 0.5f) }; 
-		// +0.5f makes more sense but somehow -0.5f works better
+		return { LONG(left - 0.5f), LONG(top - 0.5f), LONG(right + 0.5f), LONG(bottom + 0.5f) }; 
 	} 
 
 	float GetWidth () const { return right - left; }
@@ -34,7 +33,7 @@ struct RectF
 
 	RectF GetOriginRect() const
 	{
-		assert(left < right && top < bottom);
+		assert(left <= right && top <= bottom);
 		return { 0.0f, 0.0f, right - left, bottom - top };
 	}
 

@@ -9,4 +9,9 @@ public:
 	{
 		animations.emplace(State::BrickIdle, Animation(SpriteId::BrickIdle));
 	}
+
+	RectF GetBBox() const override
+	{
+		return VisibleObject::GetBBox().Trim(1, 1, 1, 1);
+	}
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include "RectF.h"
 
 struct Colors
 {
@@ -7,7 +8,7 @@ struct Colors
 	static constexpr auto GridDebug      = D3DCOLOR_ARGB(123, 420, 69, 0);
 };
 
-class DebugDraw : ISingleton
+class DebugDraw
 {
 private:
 	bool isInDebugMode = true;
@@ -22,7 +23,7 @@ public:
 	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font);
 
 private:
-	DebugDraw() : ISingleton(NULL) {}
+	DebugDraw() = default;
 	static DebugDraw& Instance() 
 	{ 
 		static DebugDraw instance; 
