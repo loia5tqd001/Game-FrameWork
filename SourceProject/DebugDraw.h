@@ -1,7 +1,5 @@
 #pragma once
 
-enum class DrawType { SolidRect, RectOutline };
-
 struct Colors
 {
 	static constexpr auto MyChineseBrown = D3DCOLOR_ARGB(123, 420, 69, 0);
@@ -14,21 +12,17 @@ class DebugDraw : ISingleton
 private:
 	bool isInDebugMode = true;
 
-private:
-	void DrawBoundingBox(const RectF& bbox, D3DCOLOR color) const;
-	void DrawOutLine(const RectF& bbox, D3DCOLOR color) const;
-
 public:
 	static void ToggleDebugMode();
+	static bool IsInDebugMode();
 
-	static void Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color);
+	static void DrawSolidRect(const RectF& bbox, D3DCOLOR color);
+	static void DrawRectOutLine(const RectF& bbox, D3DCOLOR color);
 	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color);
 	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font);
 
 private:
 	DebugDraw() : ISingleton(NULL) {}
-
-public:
 	static DebugDraw& Instance() 
 	{ 
 		static DebugDraw instance; 

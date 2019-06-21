@@ -240,7 +240,7 @@ void Grid::RenderCells() const
 		const Cell& cell      = cells[cellIndex]         ;
 		const RectF cellBbox  = cell.GetBBox()           ;
 
-		DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::GridDebug );		
+		DebugDraw::DrawRectOutLine( cellBbox, Colors::GridDebug );		
 
 		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 2.5f, 0.5f, 0.0f };
 

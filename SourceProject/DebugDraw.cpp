@@ -4,10 +4,11 @@
 #include "Camera.h"
 #include "Textures.h"
 
-void DebugDraw::DrawBoundingBox(const RectF& bbox, D3DCOLOR color) const
+void DebugDraw::DrawSolidRect(const RectF& bbox, D3DCOLOR color)
 {
-	static const auto& cam = Camera::Instance();
+	if (!Instance().isInDebugMode) return;
 
+	static const auto& cam = Camera::Instance();
 	const auto drawablePos = cam.GetPositionInViewPort({ bbox.left - 0.5f, bbox.top - 0.5f, 0.0f });
 
 	const Rect portion = (Rect)bbox;
@@ -22,10 +23,11 @@ void DebugDraw::DrawBoundingBox(const RectF& bbox, D3DCOLOR color) const
 	Game::Instance().DrawLines(points, color);
 }
 
-void DebugDraw::DrawOutLine(const RectF& bbox, D3DCOLOR color) const
+void DebugDraw::DrawRectOutLine(const RectF& bbox, D3DCOLOR color)
 {
-	static std::vector<Vector2> points(5);
+	if (!Instance().isInDebugMode) return;
 
+	static std::vector<Vector2> points(5);
 	const auto drawablePos = Camera::Instance().GetPositionInViewPort({ bbox.left, bbox.top, 0.0f });
 
 	points[0] =                    { drawablePos.x   , drawablePos.y    };
@@ -42,20 +44,9 @@ void DebugDraw::ToggleDebugMode()
 	Instance().isInDebugMode = !Instance().isInDebugMode;
 }
 
-void DebugDraw::Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color)
+bool DebugDraw::IsInDebugMode()
 {
-	if (!Instance().isInDebugMode) return;
-
-	switch (drawType)
-	{
-		case DrawType::SolidRect:
-			Instance().DrawBoundingBox(bbox, color);
-			break;
-
-		case DrawType::RectOutline:
-			Instance().DrawOutLine(bbox, color);
-			break;
-	}
+	return Instance().isInDebugMode;
 }
 
 void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color)

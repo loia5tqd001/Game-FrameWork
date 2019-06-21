@@ -5,7 +5,7 @@
 
 void GameObject::RenderBoundingBox() const
 {
-	DebugDraw::Draw( GetBBox(), DrawType::SolidRect, bboxColor ); 
+	DebugDraw::DrawSolidRect( GetBBox(), bboxColor ); 
 }
 
 void GameObject::GetDxDy(float dt, float& dx, float& dy) const
