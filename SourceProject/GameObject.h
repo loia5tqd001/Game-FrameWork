@@ -9,6 +9,8 @@ protected:
 	D3DCOLOR bboxColor;
 
 public: 
+	void GetDxDy(float dt, float& dx, float& dy) const;
+
 	Vector2 GetVelocity      () const;
 	void    RenderBoundingBox() const; // draw bounding box for better debugging
 

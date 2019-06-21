@@ -58,10 +58,20 @@ void DebugDraw::Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color)
 	}
 }
 
+void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color)
+{
+	if (!Instance().isInDebugMode) return;
+
+	const auto drawablePos = Camera::Instance().GetPositionInViewPort( pos );
+	Game::Instance().DrawString(str, drawablePos, color);
+}
+
 void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font)
 {
 	if (!Instance().isInDebugMode) return;
 
 	const auto drawablePos = Camera::Instance().GetPositionInViewPort( pos );
-	Game::Instance().DrawString(str, drawablePos, color, size, font);
+
+	Game::Instance().AdjustFontString(size, font);
+	Game::Instance().DrawString(str, drawablePos, color);
 }

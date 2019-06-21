@@ -25,7 +25,9 @@ public:
 
 	CONST LPDIRECT3DDEVICE9 GetDirect3DDevice() const { return d3ddv; }
 
-	void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size = 13, LPCSTR font = "Arial");
+	void AdjustFontString(UINT size, LPCSTR font);
+
+	void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color) const;
 	void DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const;
 	void Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, int alpha = 255) const;
 

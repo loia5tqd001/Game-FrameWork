@@ -11,16 +11,17 @@ Game::~Game()
 	if (d3d != NULL) d3d->Release();
 }
 
-void Game::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font)
+void Game::AdjustFontString(UINT size, LPCSTR font)
 {
-	//AddFontResourceEx( , , ); if needed
+	if (fontDraw != NULL) fontDraw->Release();
 	assert( SUCCEEDED( D3DXCreateFontA(d3ddv, size, 0, FW_NORMAL, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, font, &fontDraw) ));
+}
 
+void Game::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color) const
+{
 	static Rect rect;
 	SetRect(&rect, pos.x, pos.y, wnd.GetWidth(), wnd.GetHeight());
 	fontDraw->DrawText(spriteHandler, str.c_str(), -1, &rect, DT_NOCLIP, color);
-
-	fontDraw->Release();
 }
 
 void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
@@ -85,6 +86,8 @@ void Game::InitDirectDevice()
 
 	assert( SUCCEEDED( D3DXCreateSprite(d3ddv, &spriteHandler) ));
 	assert( SUCCEEDED( D3DXCreateLine(d3ddv, &lineDraw)        ));
+	assert( SUCCEEDED( D3DXCreateFontA(d3ddv, 13, 0, FW_NORMAL, 1, //AddFontResourceEx( , , ); if need more custom font
+									   FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, "Arial", &fontDraw) ));
 }
 
 void Game::Render()

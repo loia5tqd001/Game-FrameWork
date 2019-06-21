@@ -22,7 +22,8 @@ public:
 	static void ToggleDebugMode();
 
 	static void Draw(const RectF& bbox, DrawType drawType, D3DCOLOR color);
-	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size = 13, LPCSTR font = "Arial");
+	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color);
+	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font);
 
 private:
 	DebugDraw() : ISingleton(NULL) {}

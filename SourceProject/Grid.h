@@ -38,7 +38,7 @@ public:
 	void SpawnObject(std::unique_ptr<GameObject> obj); // add objects to grid (used by spwaner object)
 	inline const auto& GetObjectsInViewPort() const { return curObjectsInViewPort; }
 
-	// UNDONE: should do to have better reliable Grid for different game:
-	// std::vector<GameObject*> GetObjectsNear(GameObject* objectInInterest) const;
+	std::vector<GameObject*> GetObjectsNear(GameObject* objectInInterest) const;
+
 };
 

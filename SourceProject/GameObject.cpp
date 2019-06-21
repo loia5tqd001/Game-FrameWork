@@ -8,6 +8,12 @@ void GameObject::RenderBoundingBox() const
 	DebugDraw::Draw( GetBBox(), DrawType::SolidRect, bboxColor ); 
 }
 
+void GameObject::GetDxDy(float dt, float& dx, float& dy) const
+{
+	dx = vel.x * dt;
+	dy = vel.y * dt;
+}
+
 Vector2 GameObject::GetVelocity() const
 {
 	return vel;

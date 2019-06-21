@@ -125,6 +125,24 @@ void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 	objectHolder.emplace_back( std::move(obj) );
 }
 
+std::vector<GameObject*> Grid::GetObjectsNear(GameObject* objectInInterest) const
+{
+	std::unordered_set<GameObject*> result;
+	float dx, dy; objectInInterest->GetDxDy(GameTimer::DeltaTime(), dx, dy);
+
+	Area area = CalcCollidableArea( objectInInterest->GetBBox().GetBroadPhase(dx, dy) );
+
+	for (UINT x = area.xs; x <= area.xe; x++)
+	for (UINT y = area.ys; y <= area.ye; y++)
+	{
+		const Cell& cell = cells[x * height + y];
+		result.insert(cell.staticObjects.begin(), cell.staticObjects.end());
+		result.insert(cell.movingObjects.begin(), cell.movingObjects.end());
+	}
+
+	return { result.begin(), result.end() };
+}
+
 Area Grid::GetVicinityAreaOfViewPort() const
 {
 	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
@@ -213,28 +231,24 @@ void Grid::UpdateCells()
 
 void Grid::RenderCells() const
 {
-	Area collidableArea = CalcCollidableArea( Camera::Instance().GetBBox() );
+	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
 
-	for (UINT x = 0; x < width; x++)
-	for (UINT y = 0; y < height; y++)
+	for (UINT x = area.xs; x <= area.xe; x++)
+	for (UINT y = area.ys; y <= area.ye; y++)
 	{
 		const UINT  cellIndex = x * height + y           ;
 		const Cell& cell      = cells[cellIndex]         ;
 		const RectF cellBbox  = cell.GetBBox()           ;
-		const UINT  nStatic   = cell.staticObjects.size();
-		const UINT  nMoving   = cell.movingObjects.size();
 
-		if (x >= collidableArea.xs && x <= collidableArea.xe &&
-			y >= collidableArea.ys && y <= collidableArea.ye)
-		{
-			DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::GridDebug );
-		}
+		DebugDraw::Draw( cellBbox, DrawType::RectOutline, Colors::GridDebug );		
 
 		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 2.5f, 0.5f, 0.0f };
+
 		static std::ostringstream os; os.str("");
 		os << "index: " << cellIndex << "\n"
-			<< "static: " << nStatic << "\n"
-			<< "moving: " << nMoving;
+			<< "static: " << cell.staticObjects.size() << "\n"
+			<< "moving: " << cell.movingObjects.size();
+
 		DebugDraw::DrawString( os.str(), cellDrawPosition, Colors::GridDebug );
 	}
 }
