@@ -14,7 +14,9 @@ Game::~Game()
 void Game::AdjustFontString(UINT size, LPCSTR font)
 {
 	if (fontDraw != NULL) fontDraw->Release();
-	assert( SUCCEEDED( D3DXCreateFontA(d3ddv, size, 0, FW_NORMAL, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, font, &fontDraw) ));
+	if( FAILED( D3DXCreateFontA(d3ddv, size, 0, FW_NORMAL, 1, FALSE, DEFAULT_CHARSET, 
+								OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, font, &fontDraw) ))
+		ThrowMyException("Create font", font, "with size of", size, "unsuccessfully");
 }
 
 void Game::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color) const
@@ -90,10 +92,13 @@ void Game::InitDirectDevice()
 
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 
-	assert( SUCCEEDED( D3DXCreateSprite(d3ddv, &spriteHandler) ));
-	assert( SUCCEEDED( D3DXCreateLine(d3ddv, &lineDraw)        ));
-	assert( SUCCEEDED( D3DXCreateFontA(d3ddv, 13, 0, FW_NORMAL, 1, //AddFontResourceEx( , , ); if need more custom font
-									   FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, "Arial", &fontDraw) ));
+	if ( FAILED( D3DXCreateSprite(d3ddv, &spriteHandler) )) 
+		ThrowMyException("Create direct device failed");
+	if ( FAILED( D3DXCreateLine(d3ddv, &lineDraw) ))
+		ThrowMyException("Create direct line failed");
+	if ( FAILED( D3DXCreateFontA(d3ddv, 13, 0, FW_NORMAL, 1, //AddFontResourceEx( , , ); if need more custom font
+								FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_MODERN, "Arial", &fontDraw) ))
+		ThrowMyException("Create direct font failed");
 }
 
 void Game::Render()
