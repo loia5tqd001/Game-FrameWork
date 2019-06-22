@@ -12,6 +12,6 @@ public:
 
 	RectF GetBBox() const override
 	{
-		return VisibleObject::GetBBox().Trim(1, 1, 1, 1);
+		return VisibleObject::GetBBox().Trim(1.5f, 1, 1.5f, 1);
 	}
 };

@@ -27,7 +27,7 @@ void Texts::DrawString(const std::string& str, Vector3 drawablePos)
 		static UINT lastWidth = 0;
 		if (str[i] != ' ') 
 		{
-			lastWidth = DrawSymbol( (TextId) std::toupper( str[i] ), drawablePos );
+			lastWidth = DrawSymbol( (TextId) toupper( str[i] ), drawablePos );
 		}
 		drawablePos.x += lastWidth + 1;
 	}

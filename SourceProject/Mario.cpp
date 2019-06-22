@@ -21,7 +21,7 @@ Mario::Mario(const Vector3 & spawnPos) :
 
 RectF Mario::GetBBox() const
 {
-	return VisibleObject::GetBBox().Trim(1, 0, 1, 0);
+	return VisibleObject::GetBBox().Trim(1.5f, 0, 1.5f, 0);
 }
 
 void Mario::OnKeyDown(BYTE keyCode)
