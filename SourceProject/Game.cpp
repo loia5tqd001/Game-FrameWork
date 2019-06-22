@@ -38,8 +38,9 @@ void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 v
 
 void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
 {
-	D3DXMATRIX oldMt;
+	static D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
+	pos.ToRasterizablePos();
 
 	if (vtScale != Vector2(1.0f, 1.0f))
 	{

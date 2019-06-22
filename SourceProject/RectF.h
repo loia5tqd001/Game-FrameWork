@@ -18,7 +18,7 @@ struct RectF
 
 	operator Rect() const 
 	{ 
-		return { LONG(left - 0.5f), LONG(top - 0.5f), LONG(right + 0.5f), LONG(bottom + 0.5f) }; 
+		return { left, top, right, bottom };
 	} 
 
 	float GetWidth () const { return right - left; }

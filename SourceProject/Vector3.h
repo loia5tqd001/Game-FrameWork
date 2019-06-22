@@ -9,6 +9,13 @@ struct Vector3 : public D3DXVECTOR3
 	Vector3() : D3DXVECTOR3(0.0f, 0.0f, 0.0f)
 	{}
 
+	//to fix blury texture issue: https://docs.microsoft.com/vi-vn/windows/desktop/direct3d9/directly-mapping-texels-to-pixels
+	Vector3& ToRasterizablePos() 
+	{
+		x = floor(x), y = floor(y), z = floor(z);
+		return *this;
+	}
+
 	Vector3 operator+(const Vector2& offset) const
 	{
 		assert(z == 0.0f);

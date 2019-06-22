@@ -16,7 +16,7 @@ class Grid
 private:
 	UINT cellSize, width, height;
 	std::vector<Cell> cells;
-	std::vector<std::unique_ptr<GameObject>> objectHolder; // responsible for deleting objects
+	std::vector<std::unique_ptr<GameObject>> objectHolder; // responsible for deleting objects, use this to avoid using slow and complicated shared_ptr
 	std::vector<GameObject*> curObjectsInViewPort; // being recalculated every frame 
 
 private:

@@ -131,7 +131,7 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 	HandleCollisions(dt, coObjects);
 
 	// clamping
-	Utils::Clamp(pos.x, 0.0f, 640.0f - GetBBox().GetWidth());
+	Utils::Clamp(pos.x, 0.0f, 624.0f);
 	Utils::Clamp(pos.y, 0.0f, pos.y);
 
 	// update animations
