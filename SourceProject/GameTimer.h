@@ -46,6 +46,6 @@ public:
 		return fps;
 	}
 
-	static float DeltaTime() { return Instance().deltaTime; }
-	static void  DebugFps () { Debug::Out("Fps is", GetFps()); }
+	inline static float DeltaTime() { return Instance().deltaTime; }
+	inline static void  DebugFps () { Debug::Out("Fps is", GetFps()); }
 };
