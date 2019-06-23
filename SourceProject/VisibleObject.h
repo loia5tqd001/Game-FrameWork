@@ -10,7 +10,7 @@ protected:
 	std::unordered_map<State, Animation> animations;
 
 public:
-	VisibleObject(State initState, Vector3 pos, Vector2 vel = { 0.0f, 0.0f }, FLOAT nx = 1.0f);
+	VisibleObject(State initState, Vector2 pos, Vector2 vel = { 0.0f, 0.0f }, FLOAT nx = 1.0f);
 
 	void FlipHorizontally();
 

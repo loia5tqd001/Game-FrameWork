@@ -8,7 +8,7 @@ protected:
 	UINT height;
 
 public:
-	InvisibleObject(Vector3 pos, UINT w, UINT h, Vector2 vel = { 0.0f, 0.0f });
+	InvisibleObject(Vector2 pos, UINT w, UINT h, Vector2 vel = { 0.0f, 0.0f });
 
 	State GetState() const override;
 	RectF GetBBox () const override;

@@ -4,7 +4,7 @@
 class GameObject
 {
 protected: 
-	Vector3 pos; 
+	Vector2 pos; 
 	Vector2 vel;
 	D3DCOLOR bboxColor;
 
@@ -22,7 +22,7 @@ public:
 
 	virtual ~GameObject() = default; 
 	GameObject(const GameObject&) = delete; 
-	GameObject(Vector3 pos, Vector2 vel = { 0.0f, 0.0f });
+	GameObject(Vector2 pos, Vector2 vel = { 0.0f, 0.0f });
 	
 #if DEBUG
 	bool is_debugging = false; // To select which objects targeted for debugging

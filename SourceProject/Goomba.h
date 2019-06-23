@@ -4,7 +4,7 @@
 class Goomba : public VisibleObject
 {
 public:
-	Goomba(const Vector3& spawnPos, const Vector2& vel);
+	Goomba(const Vector2& spawnPos, const Vector2& vel);
 
 	RectF GetBBox() const override;
 	void SetState(State state) override;

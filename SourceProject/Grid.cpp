@@ -38,11 +38,11 @@ auto Grid::LoadObjects(const Json::Value& root)
 		switch ((ObjectType)classId)
 		{
 			case ObjectType::Brick:
-				object = std::make_unique<Brick>( Vector3(x, y, 0.0f) );
+				object = std::make_unique<Brick>( Vector2(x, y) );
 				break;
 
 			case ObjectType::Goomba:
-				object = std::make_unique<Goomba>( Vector3(x, y, 0.0f), Vector2(vx, 0.0f) );
+				object = std::make_unique<Goomba>( Vector2(x, y), Vector2(vx, 0.0f) );
 				break;
 
 			default:
@@ -241,7 +241,7 @@ void Grid::RenderCells() const
 
 		DebugDraw::DrawRectOutLine( cellBbox, Colors::GridDebug );		
 
-		const Vector3 cellDrawPosition = cellBbox.GetTopLeft() + Vector3{ 2.5f, 0.5f, 0.0f };
+		const Vector2 cellDrawPosition = cellBbox.GetTopLeft() + Vector2{ 2.5f, 0.5f };
 
 		static std::ostringstream os; os.str("");
 		os << "index: " << cellIndex << "\n"

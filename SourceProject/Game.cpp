@@ -19,7 +19,7 @@ void Game::AdjustFontString(UINT size, LPCSTR font)
 		ThrowMyException("Create font", font, "with size of", size, "unsuccessfully");
 }
 
-void Game::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color) const
+void Game::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color) const
 {
 	static Rect rect;
 	SetRect(&rect, (int)pos.x, (int)pos.y, wnd.GetWidth(), wnd.GetHeight());
@@ -33,22 +33,22 @@ void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
 	lineDraw->End();
 }
 
-void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
+void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
 {
 	Draw(pos, texture, portion, vtScale, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
-void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
+void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
 {
 	static D3DXMATRIX oldMt;
 	spriteHandler->GetTransform(&oldMt);
-	pos.ToRasterizablePos();
+	const auto rasPos = pos.ToRasterizablePos();
 
 	if (vtScale != Vector2(1.0f, 1.0f))
 	{
 		const float bboxWidth   = portion.GetWidth () * std::abs(vtScale.x);
 		const float bboxHeight  = portion.GetHeight() * std::abs(vtScale.y);
-		Vector2 centerScale = { pos.x + bboxWidth / 2, pos.y + bboxHeight / 2 };
+		Vector2 centerScale = { rasPos.x + bboxWidth / 2, rasPos.y + bboxHeight / 2 };
 		D3DXMATRIX newMt;
 		D3DXMatrixTransformation2D(&newMt, &centerScale, 0.0f, &vtScale, NULL, 0.0f, NULL);
 		newMt *= oldMt;
@@ -56,7 +56,7 @@ void Game::Draw(Vector3 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 v
 	}
 
 	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
-	spriteHandler->Draw(texture, &portion, NULL, &pos, color);
+	spriteHandler->Draw(texture, &portion, NULL, &rasPos, color);
 	spriteHandler->SetTransform(&oldMt);
 }
 

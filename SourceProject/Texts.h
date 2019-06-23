@@ -10,8 +10,8 @@ private:
 
 public:
 	static void LoadResources(const Json::Value& root);
-	static UINT DrawSymbol(TextId id, const Vector3& drawablePos);
-	static void DrawString(const std::string& str, Vector3 drawablePos);
+	static UINT DrawSymbol(TextId id, const Vector2& drawablePos);
+	static void DrawString(const std::string& str, Vector2 drawablePos);
 
 private:
 	Texts() : ISingleton(NULL) {}

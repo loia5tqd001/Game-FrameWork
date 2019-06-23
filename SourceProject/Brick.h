@@ -4,7 +4,7 @@
 class Brick : public VisibleObject
 {
 public:
-	Brick(const Vector3& pos) :
+	Brick(const Vector2& pos) :
 		VisibleObject(State::BrickIdle, pos)
 	{
 		animations.emplace(State::BrickIdle, Animation(SpriteId::BrickIdle));
@@ -12,6 +12,6 @@ public:
 
 	RectF GetBBox() const override
 	{
-		return VisibleObject::GetBBox().Trim(1.5f, 1, 1.5f, 1);
+		return VisibleObject::GetBBox().Trim(1, 1, 1, 1);
 	}
 };

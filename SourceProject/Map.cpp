@@ -24,7 +24,7 @@ void Map::LoadResources(const Json::Value& root)
 	for (UINT i = 0; i < height; i++)
 	for (UINT j = 0; j < width ; j++)
 	{
-		Tile tile; tile.position = { j * tileSize, i * tileSize, 0.0f };
+		Tile tile; tile.position = { j * tileSize, i * tileSize };
 		const UINT num = data[i * width + j].asUInt();
 		if (num != 0)
 		{

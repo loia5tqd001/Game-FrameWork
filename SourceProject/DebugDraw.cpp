@@ -9,7 +9,7 @@ void DebugDraw::DrawSolidRect(const RectF& bbox, D3DCOLOR color)
 	if (!Instance().isInDebugMode) return;
 
 	static const auto& cam = Camera::Instance();
-	const auto drawablePos = cam.GetPositionInViewPort({ bbox.left, bbox.top, 0.0f });
+	const auto drawablePos = cam.GetPositionInViewPort( bbox.GetTopLeft() );
 
 	static const auto bboxTexture = Textures::Get(TextureId::Bbox);
 	Game::Instance().Draw(drawablePos, bboxTexture, bbox.GetOriginRect(), { 1.0f, 1.0f }, color);
@@ -20,7 +20,7 @@ void DebugDraw::DrawRectOutLine(const RectF& bbox, D3DCOLOR color)
 	if (!Instance().isInDebugMode) return;
 
 	static std::vector<Vector2> points(5);
-	const auto drawablePos = Camera::Instance().GetPositionInViewPort({ bbox.left, bbox.top, 0.0f });
+	const auto drawablePos = Camera::Instance().GetPositionInViewPort( bbox.GetTopLeft() );
 
 	points[0] =                    { drawablePos.x   , drawablePos.y    };
 	points[1] = points[0] + Vector2{ bbox.GetWidth() , 0.0f             };
@@ -41,7 +41,7 @@ bool DebugDraw::IsInDebugMode()
 	return Instance().isInDebugMode;
 }
 
-void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color)
+void DebugDraw::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color)
 {
 	if (!Instance().isInDebugMode) return;
 
@@ -49,7 +49,7 @@ void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR 
 	Game::Instance().DrawString(str, drawablePos, color);
 }
 
-void DebugDraw::DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font)
+void DebugDraw::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color, UINT size, LPCSTR font)
 {
 	if (!Instance().isInDebugMode) return;
 

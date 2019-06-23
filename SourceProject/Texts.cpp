@@ -20,7 +20,7 @@ void Texts::LoadResources(const Json::Value& root)
 	}
 }
 
-void Texts::DrawString(const std::string& str, Vector3 drawablePos)
+void Texts::DrawString(const std::string& str, Vector2 drawablePos)
 {
 	for (UINT i = 0; i < str.size(); i++)
 	{
@@ -33,7 +33,7 @@ void Texts::DrawString(const std::string& str, Vector3 drawablePos)
 	}
 }
 
-UINT Texts::DrawSymbol(TextId id, const Vector3& drawablePos)
+UINT Texts::DrawSymbol(TextId id, const Vector2& drawablePos)
 {
 	assert(Instance().textDictionary.count(id) == 1);
 	const Rect& rect = Instance().textDictionary.at(id);

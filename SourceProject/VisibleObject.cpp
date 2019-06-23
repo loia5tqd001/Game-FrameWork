@@ -2,7 +2,7 @@
 #include "VisibleObject.h"
 #include "Camera.h"
 
-VisibleObject::VisibleObject(State initState, Vector3 pos, Vector2 vel, FLOAT nx) :
+VisibleObject::VisibleObject(State initState, Vector2 pos, Vector2 vel, FLOAT nx) :
 	GameObject(pos, vel),
 	curState(initState), 
 	nx(nx) 
@@ -37,7 +37,7 @@ void VisibleObject::Render() const
 
 	if (!( DebugDraw::IsInDebugMode() && Window::Instance().IsKeyPressed(VK_SHIFT) )) // Press shift in debug mode will hide object's figure
 	{
-		const Vector3 drawablePosition = Camera::Instance().GetPositionInViewPort( pos );
+		const auto drawablePosition = Camera::Instance().GetPositionInViewPort( pos );
 		animations.at(curState).Render( drawablePosition, { nx, 1.0f} ); // draw object's actual image
 	}
 	

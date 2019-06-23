@@ -31,7 +31,7 @@ void Animation::Update(float dt)
 	}
 }
 
-void Animation::Render(const Vector3& pos, const Vector2& vtScale, int alpha) const
+void Animation::Render(const Vector2& pos, const Vector2& vtScale, int alpha) const
 {
 	sprite.Draw(pos, curFrame, vtScale, alpha);
 }

@@ -28,7 +28,7 @@ void DemoScene::LoadResources()
 
 	map = std::make_unique<Map>( root );
 	grid = std::make_unique<Grid>( root );
-	mario = std::make_unique<Mario>( Vector3(10.0f, 10.0f, 0.0f) );
+	mario = std::make_unique<Mario>( Vector2(10.0f, 10.0f) );
 }
 
 void DemoScene::Update(float dt)

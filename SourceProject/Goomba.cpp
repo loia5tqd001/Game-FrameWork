@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Goomba.h"
 
-Goomba::Goomba(const Vector3 & spawnPos, const Vector2 & vel) :
+Goomba::Goomba(const Vector2 & spawnPos, const Vector2 & vel) :
 	VisibleObject(State::GoombaMoving, spawnPos, vel)
 {
 	animations.emplace(State::GoombaMoving, Animation(SpriteId::GoombaMoving, 0.1f));

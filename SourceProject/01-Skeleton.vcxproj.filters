@@ -155,9 +155,6 @@
     <ClInclude Include="Vector2.h">
       <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Framework\_MyUtils</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractScene.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "InvisibleObject.h"
 
-InvisibleObject::InvisibleObject(Vector3 pos, UINT w, UINT h, Vector2 vel) :
+InvisibleObject::InvisibleObject(Vector2 pos, UINT w, UINT h, Vector2 vel) :
 	GameObject(pos, vel), 
 	width(w), 
 	height(h) 

@@ -16,7 +16,7 @@ private:
 	void HandleCollisions(float dt, const std::vector<GameObject*>& coObjects);
 
 public:
-	Mario(const Vector3 & spawnPos);
+	Mario(const Vector2 & spawnPos);
 
 	RectF GetBBox() const override;
 

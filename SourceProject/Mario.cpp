@@ -9,7 +9,7 @@
 
 #include "Goomba.h"
 
-Mario::Mario(const Vector3 & spawnPos) : 
+Mario::Mario(const Vector2 & spawnPos) : 
 	VisibleObject(State::MarioWalking, spawnPos)
 {
 	animations.emplace(State::MarioIdle   , Animation(SpriteId::MarioBigIdle   , 0.1f));
@@ -21,7 +21,7 @@ Mario::Mario(const Vector3 & spawnPos) :
 
 RectF Mario::GetBBox() const
 {
-	return VisibleObject::GetBBox().Trim(1.5f, 0, 1.5f, 0);
+	return VisibleObject::GetBBox().Trim(2, 0, 2, 0);
 }
 
 void Mario::OnKeyDown(BYTE keyCode)
@@ -155,6 +155,6 @@ void Mario::Render() const
 {
 	VisibleObject::Render();
 
-	const Vector3 drawablePos = Camera::Instance().GetPositionInViewPort( pos ) - Vector3{ 14.0f, 10.0f, 0.0f};
+	const Vector2 drawablePos = Camera::Instance().GetPositionInViewPort( pos ) - Vector2{ 14.0f, 10.0f };
 	Texts::DrawString("mario", drawablePos );
 }

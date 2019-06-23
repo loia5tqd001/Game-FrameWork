@@ -19,8 +19,8 @@ public:
 
 	static void DrawSolidRect(const RectF& bbox, D3DCOLOR color);
 	static void DrawRectOutLine(const RectF& bbox, D3DCOLOR color);
-	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color);
-	static void DrawString(const std::string& str, const Vector3& pos, D3DCOLOR color, UINT size, LPCSTR font);
+	static void DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color);
+	static void DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color, UINT size, LPCSTR font);
 
 private:
 	DebugDraw() = default;
