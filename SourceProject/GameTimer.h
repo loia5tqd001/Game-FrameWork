@@ -7,45 +7,42 @@ private:
 	std::chrono::steady_clock::time_point last = std::chrono::steady_clock::now();
 	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 	float deltaTime = 0.0f;
+	unsigned int fps = 0u;
 
 private:
 	GameTimer() = default;
-
 	static GameTimer& Instance()
 	{
 		static GameTimer instance;
 		return instance;
 	}
-
-public:
-	static void BeginFrame()
-	{
-		Instance().last = Instance().now;
-		Instance().now = std::chrono::steady_clock::now();
-
-		std::chrono::duration<float> duration = Instance().now - Instance().last;
-		Instance().deltaTime = duration.count();
-	}
-
-	static int GetFps()
+	void CalculateFps()
 	{
 		static float timePassed = 0.0f;
-		static int fps = 0;
-		static int nFrame = 0;
+		static unsigned int nFramesPassed = 0u;
 
-		nFrame++;
-		timePassed += DeltaTime();
+		nFramesPassed++;
+		timePassed += deltaTime;
 
 		if (timePassed >= 1.0f)
 		{
-			fps = nFrame;
-			nFrame = 0;
+			fps = nFramesPassed;
+			nFramesPassed = 0;
 			timePassed -= 1.0f;
 		}
-
-		return fps;
+	}
+	void Mark()
+	{
+		last = now; 
+		now = std::chrono::steady_clock::now();
+		std::chrono::duration<float> duration = now - last;
+		deltaTime = duration.count();
+		CalculateFps();
 	}
 
-	inline static float DeltaTime() { return Instance().deltaTime; }
-	inline static void  DebugFps () { Debug::Out("Fps is", GetFps()); }
+public:
+	inline static void  BeginFrame() { Instance().Mark()              ; }
+	inline static auto  GetFps    () { return Instance().fps          ; }
+	inline static float DeltaTime () { return Instance().deltaTime    ; }
+	inline static void  DebugFps  () { Debug::Out("Fps is", GetFps()) ; }
 };
