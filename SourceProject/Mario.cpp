@@ -31,6 +31,10 @@ void Mario::OnKeyDown(BYTE keyCode)
 		case VK_SPACE:
 			SetState(State::MarioJump);
 			break;
+
+		case 'Q':
+			OnFlashing(false);
+			break;
 	}
 }
 
@@ -87,9 +91,43 @@ void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects
 			{
 				goomba->SetState(State::GoombaDie);
 				vel.y = -JUMP_DEFLECT_SPEED;
+				OnFlashing(true);
 			}
 		}
 	}
+}
+
+void Mario::OnFlashing(std::optional<bool> setFlashing)
+{
+	static bool  isFlashing = false;
+	static float timePassed;
+	static UINT  nFrameUnrendered;
+
+	if (setFlashing.has_value()) {
+		isFlashing = setFlashing.value();
+		timePassed = 0.0f;
+		nFrameUnrendered = 0;
+	}
+
+	if (isFlashing == false) { // currently not in flashing
+		shouldRenderImage = true;
+	} 
+	else if ((timePassed += GameTimer::DeltaTime()) <= 1.0f) { // if in flashing, accumulate timePassed, check if still in flashing
+	
+		// my flashing rule: render each 1 frame per 10:
+		if (++nFrameUnrendered >= 10) { 
+			shouldRenderImage = true;
+			nFrameUnrendered = 0;
+		}
+		else {
+			shouldRenderImage = false;
+		}
+	}
+	else { // after calculating timePassed, realise time to done flashing
+		shouldRenderImage = true;
+		timePassed = 0.0f;
+		isFlashing = false;
+	}	
 }
 
 void Mario::SetState(State state)
@@ -137,23 +175,14 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 	// update animations
 	animations.at(curState).Update(dt);
 
-	// === test collision
-	//static Window& wnd = Window::Instance();
-	//vel.x = vel.y = 0.0f;
-	//if (wnd.IsKeyPressed(VK_LEFT))
-	//	vel.x -= WALKING_SPEED;
-	//if (wnd.IsKeyPressed(VK_RIGHT))
-	//	vel.x += WALKING_SPEED;
-	//if (wnd.IsKeyPressed(VK_UP))
-	//	vel.y -= WALKING_SPEED;
-	//if (wnd.IsKeyPressed(VK_DOWN))
-	//	vel.y += WALKING_SPEED;
-	//HandleCollisions(dt, coObjects);
+	// recalculate if image should be rendered
+	OnFlashing();
 }
 
 void Mario::Render() const
 {
-	VisibleObject::Render();
+	if (shouldRenderImage)
+		VisibleObject::Render();
 
 	const Vector2 drawablePos = Camera::Instance().GetPositionInViewPort( pos ) - Vector2{ 14.0f, 10.0f };
 	Texts::DrawString("mario", drawablePos );
