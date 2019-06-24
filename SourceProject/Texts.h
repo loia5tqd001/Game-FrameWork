@@ -15,8 +15,6 @@ public:
 
 private:
 	Texts() : ISingleton(NULL) {}
-
-public:
 	static Texts& Instance() 
 	{ 
 		static Texts instance; 

@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Game.h"
-#include "Sounds.h"
 
 Game::~Game()
 {
@@ -33,11 +32,6 @@ void Game::DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const
 	lineDraw->End();
 }
 
-void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const
-{
-	Draw(pos, texture, portion, vtScale, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-}
-
 void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
 {
 	static D3DXMATRIX oldMt;
@@ -64,7 +58,6 @@ void Game::InitGame()
 {
 	wnd.InitWindow();
 	InitDirectDevice();
-	Sounds::Instance().InitDirectSound();
 	sceneManager.SetScene(Scene::Demo);
 }
 
@@ -121,7 +114,7 @@ void Game::Run()
 	{
 		GameTimer::BeginFrame();
 
-		sceneManager.Update(GameTimer::DeltaTime());
+		sceneManager.Update(GameTimer::Dt());
 		Render();
 
 		wnd.SetTitleToFps();

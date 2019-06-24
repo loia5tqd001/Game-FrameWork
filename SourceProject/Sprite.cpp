@@ -12,7 +12,7 @@ Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames) :
 void Sprite::Draw(const Vector2& pos, UINT frameIndex, const Vector2& vtScale, int alpha) const
 {
 	assert(frameIndex <= frames.size());
-	Game::Instance().Draw(pos, texture, frames[frameIndex], vtScale, alpha);
+	Game::Instance().Draw(pos, texture, frames[frameIndex], vtScale, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 Rect Sprite::GetFrameSize(UINT frameIndex, const Vector2 & vtScale) const

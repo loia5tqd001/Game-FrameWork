@@ -9,8 +9,8 @@ private:
 private:
 	void AddTexture(TextureId id, LPCSTR filePath, D3DCOLOR transparentColor);
 	void AddTexture(TextureId id, const Json::Value& root);
-	const Json::Value&       GetTextureInfoFromTextureId(TextureId id, const Json::Value& root) const;
-	const LPDIRECT3DTEXTURE9 GetTexture(TextureId id) const;
+	const auto& GetTextureInfoFromTextureId(TextureId id, const Json::Value& root) const;
+	const auto& GetTexture(TextureId id) const;
 
 public:
 	static void LoadResources(const Json::Value& root);
@@ -18,8 +18,6 @@ public:
 
 private:
 	Textures() : ISingleton(NULL) {}
-
-public:
 	static Textures& Instance()
 	{
 		static Textures instance;

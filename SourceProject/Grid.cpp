@@ -127,7 +127,7 @@ void Grid::SpawnObject(std::unique_ptr<GameObject> obj)
 std::vector<GameObject*> Grid::GetObjectsNear(GameObject* objectInInterest) const
 {
 	std::unordered_set<GameObject*> result;
-	float dx, dy; objectInInterest->GetDxDy(GameTimer::DeltaTime(), dx, dy);
+	float dx, dy; objectInInterest->GetDxDy(GameTimer::Dt(), dx, dy);
 
 	Area area = CalcCollidableArea( objectInInterest->GetBBox().GetBroadPhase(dx, dy) );
 
@@ -203,7 +203,7 @@ void Grid::UpdateCells()
 
 			// Always reupdate objects on screen even on the case they move to new cell when haven't totally left old cell
 			// Objects offscreen should be updated when totally leave their old cell
-			if (cam.IsIntersect(oBbox) || !oBbox.IsIntersect(cell.GetBBox()))
+			if (oBbox.IsIntersect( cam.GetBBox() ) || !oBbox.IsIntersect( cell.GetBBox() ))
 			{
 				shouldBeUpdatedObjects.emplace(o);	
 				return true;

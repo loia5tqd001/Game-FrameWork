@@ -29,7 +29,6 @@ public:
 
 	void DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color) const;
 	void DrawLines(const std::vector<Vector2>& points, D3DCOLOR color) const;
-	void Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, int alpha) const;
 	void Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, D3DCOLOR color = 0xFFFFFFFF) const;
 
 private:

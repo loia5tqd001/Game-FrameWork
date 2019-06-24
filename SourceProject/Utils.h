@@ -5,7 +5,7 @@ struct Utils
 	template<typename T>
 	static void Clamp(T& toClamp, T low, T high)
 	{
-		assert(low  < high || toClamp == low || toClamp == high); // e.g: toClamp == low means clamp right only
+		assert(low < high || toClamp == low || toClamp == high); // e.g: toClamp == low means clamp right only
 		     if (toClamp < low ) toClamp = low ;
 		else if (toClamp > high) toClamp = high;
 	}
@@ -13,7 +13,7 @@ struct Utils
 	template<typename T, typename Functor>
 	static void Clamp(T& toClamp, T low, T high, Functor action)
 	{
-		assert(low  < high || toClamp == low || toClamp == high);
+		assert(low < high || toClamp == low || toClamp == high);
 		     if (toClamp < low ) toClamp = low , action();
 		else if (toClamp > high) toClamp = high, action();
 	}

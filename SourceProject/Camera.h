@@ -13,14 +13,10 @@ public:
 	void  MoveTo(const Vector2& newPos);
 	void  MoveBy(const Vector2& dist);
 	void  CenterTo(const Vector2& center);
-
 	void  ClampWithin(const RectF& theBox);
+	const RectF GetBBox() const;
 
-	const Vector2& GetPosition() const;
-	const RectF    GetBBox    () const;
-
-	bool    IsIntersect(const RectF& box) const;
-	Vector2 GetPositionInViewPort (const Vector2& pos) const;
+	Vector2 GetPositionInViewPort(const Vector2& objPos) const;
 
 private:
 	Camera() : ISingleton(NULL) {}

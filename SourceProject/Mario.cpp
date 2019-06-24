@@ -112,7 +112,7 @@ void Mario::OnFlashing(std::optional<bool> setFlashing)
 	if (isFlashing == false) { // currently not in flashing
 		shouldRenderImage = true;
 	} 
-	else if ((timePassed += GameTimer::DeltaTime()) <= 1.0f) { // if in flashing, accumulate timePassed, check if still in flashing
+	else if ((timePassed += GameTimer::Dt()) <= 1.0f) { // if in flashing, accumulate timePassed, check if still in flashing
 	
 		// my flashing rule: render each 1 frame per 10:
 		if (++nFrameUnrendered >= 10) { 

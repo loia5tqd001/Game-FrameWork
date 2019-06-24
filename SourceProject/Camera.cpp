@@ -23,23 +23,13 @@ void Camera::ClampWithin(const RectF& theBox)
 	Utils::Clamp(pos.y, theBox.top, theBox.bottom - height);
 }
 
-const Vector2 & Camera::GetPosition() const
-{
-	return pos;
-}
-
 const RectF Camera::GetBBox() const
 {
 	return { pos.x, pos.y, width, height };
 }
 
-bool Camera::IsIntersect(const RectF & box) const
+Vector2 Camera::GetPositionInViewPort(const Vector2 & objPos) const
 {
-	return GetBBox().IsIntersect(box);
-}
-
-Vector2 Camera::GetPositionInViewPort(const Vector2 & pos) const
-{
-	return pos - GetPosition();
+	return objPos - pos;
 }
 

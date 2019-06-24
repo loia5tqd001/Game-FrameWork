@@ -2,19 +2,6 @@
 #include "Sounds.h"
 #include "Window.h"
 
-void Sounds::InitDirectSound()
-{
-	if (dsound.Initialize(Window::Instance().GetHWnd(), DSSCL_PRIORITY) != DS_OK)
-	{
-		ThrowMyException("Init CSoundManager failed");
-	}
-
-	if (dsound.SetPrimaryBufferFormat(2, 22050, 16) != DS_OK)
-	{
-		ThrowMyException("Set primary buffer format for CSoundManager failed");
-	}
-}
-
 LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root) const
 {
 	static auto matchSoundIdPred = [&](const Json::Value& sound) { return sound[0].asUInt() == (UINT)id; };
@@ -78,6 +65,12 @@ bool Sounds::IsPlaying(SoundId id)
 
 void Sounds::LoadResources(const Json::Value& root)
 {
+	if (Instance().dsound.Initialize(Window::Instance().GetHWnd(), DSSCL_PRIORITY) != DS_OK)
+		ThrowMyException("Init CSoundManager failed");
+
+	if (Instance().dsound.SetPrimaryBufferFormat(2, 22050, 16) != DS_OK)
+		ThrowMyException("Set primary buffer format for CSoundManager failed");
+
 	for (UINT i = 0; i < (UINT)SoundId::Count; i++)
 		Instance().AddSound( SoundId(i), root );
 }

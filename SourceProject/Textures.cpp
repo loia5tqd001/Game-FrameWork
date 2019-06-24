@@ -34,7 +34,7 @@ void Textures::AddTexture(TextureId id, LPCSTR texturePath, D3DCOLOR transparent
 	textureDictionary.emplace(id, texture);
 }
 
-const Json::Value & Textures::GetTextureInfoFromTextureId(TextureId id, const Json::Value & root) const
+const auto & Textures::GetTextureInfoFromTextureId(TextureId id, const Json::Value & root) const
 {
 	static auto matchTextureIdPred = [&id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
 
@@ -68,7 +68,7 @@ void Textures::AddTexture(TextureId id, const Json::Value& root)
 	AddTexture(id, texturePath, transparentColor);
 }
 
-const LPDIRECT3DTEXTURE9 Textures::GetTexture(TextureId id) const
+const auto & Textures::GetTexture(TextureId id) const
 {
 	assert(textureDictionary.count(id) == 1);
 	return textureDictionary.at(id);

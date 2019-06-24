@@ -41,8 +41,7 @@ private:
 	}
 
 public:
-	inline static void  BeginFrame() { Instance().Mark()              ; }
-	inline static auto  GetFps    () { return Instance().fps          ; }
-	inline static float DeltaTime () { return Instance().deltaTime    ; }
-	inline static void  DebugFps  () { Debug::Out("Fps is", GetFps()) ; }
+	inline static void  BeginFrame() {        Instance().Mark()   ; }
+	inline static auto  GetFps    () { return Instance().fps      ; }
+	inline static float Dt        () { return Instance().deltaTime; }
 };
