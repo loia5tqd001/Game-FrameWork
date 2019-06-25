@@ -110,21 +110,21 @@ void Mario::OnFlashing(std::optional<bool> setFlashing)
 	}
 
 	if (isFlashing == false) { // currently not in flashing
-		shouldRenderImage = true;
+		shouldDrawImage = true;
 	} 
 	else if ((timePassed += GameTimer::Dt()) <= 1.0f) { // if in flashing, accumulate timePassed, check if still in flashing
 	
 		// my flashing rule: render each 1 frame per 10:
 		if (++nFrameUnrendered >= 10) { 
-			shouldRenderImage = true;
+			shouldDrawImage = true;
 			nFrameUnrendered = 0;
 		}
 		else {
-			shouldRenderImage = false;
+			shouldDrawImage = false;
 		}
 	}
 	else { // after calculating timePassed, realise time to done flashing
-		shouldRenderImage = true;
+		shouldDrawImage = true;
 		timePassed = 0.0f;
 		isFlashing = false;
 	}	
@@ -181,8 +181,7 @@ void Mario::Update(float dt, const std::vector<GameObject*>& coObjects)
 
 void Mario::Render() const
 {
-	if (shouldRenderImage)
-		VisibleObject::Render();
+	VisibleObject::Render();
 
 	const Vector2 drawablePos = Camera::Instance().GetPositionInViewPort( pos ) - Vector2{ 14.0f, 10.0f };
 	Texts::DrawString("mario", drawablePos );

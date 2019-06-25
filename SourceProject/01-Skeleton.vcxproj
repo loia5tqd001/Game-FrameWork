@@ -82,11 +82,11 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\DirectX SDK\Include;$(SolutionDir)Dependencies\DirectX SDK\Sound Util;$(SolutionDir)Dependencies\JsonCpp\json;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Sound Util;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\DirectX SDK\Include;$(SolutionDir)Dependencies\DirectX SDK\Sound Util;$(SolutionDir)Dependencies\JsonCpp\json;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\JsonCpp;$(SolutionDir)Dependencies\DirectX SDK\Sound Util;$(SolutionDir)Dependencies\DirectX SDK\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\DirectX SDK\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

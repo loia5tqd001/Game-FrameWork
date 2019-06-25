@@ -8,6 +8,7 @@ protected:
 	FLOAT nx      ; 
 	State curState;
 	std::unordered_map<State, Animation> animations;
+	bool shouldDrawImage = true;
 
 public:
 	VisibleObject(State initState, Vector2 pos, Vector2 vel = { 0.0f, 0.0f }, FLOAT nx = 1.0f);

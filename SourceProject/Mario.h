@@ -11,9 +11,6 @@ public:
 	static constexpr float JUMP_DEFLECT_SPEED =   50.0f;
 
 private:
-	bool shouldRenderImage = true;
-
-private:
 	void ProcessInput();
 	void HandleNoCollisions(float dt);
 	void HandleCollisions(float dt, const std::vector<GameObject*>& coObjects);
