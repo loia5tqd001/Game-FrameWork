@@ -3,7 +3,8 @@
 
 void Camera::MoveTo(const Vector2 & newPos)
 {
-	pos = newPos;
+	pos.x = floor(newPos.x);
+	pos.y = floor(newPos.y);
 }
 
 void Camera::MoveBy(const Vector2 & dist)
