@@ -19,16 +19,11 @@ void DebugDraw::DrawRectOutLine(const RectF& bbox, D3DCOLOR color)
 {
 	if (!Instance().isInDebugMode) return;
 
-	static std::vector<Vector2> points(5);
-	const auto drawablePos = Camera::Instance().GetPositionInViewPort( bbox.GetTopLeft() );
+	const RectF left = { bbox.left, bbox.top, bbox.left + 1, bbox.bottom  };
+	const RectF top  = { bbox.left, bbox.top, bbox.right   , bbox.top + 1 };
 
-	points[0] =                    { drawablePos.x   , drawablePos.y    };
-	points[1] = points[0] + Vector2{ bbox.GetWidth() , 0.0f             };
-	points[2] = points[0] + Vector2{ bbox.GetWidth() , bbox.GetHeight() };
-	points[3] = points[0] + Vector2{ 0.0f            , bbox.GetHeight() };
-	points[4] = points[0]                                                ;
-
-	Game::Instance().DrawLines(points, color);
+	if (bbox.left != 0.0f)	DrawSolidRect( left , color );
+	if (bbox.top  != 0.0f)  DrawSolidRect( top  , color );
 }
 
 void DebugDraw::ToggleDebugMode()
