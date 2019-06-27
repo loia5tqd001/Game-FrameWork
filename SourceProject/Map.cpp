@@ -21,11 +21,11 @@ void Map::LoadResources(const Json::Value& root)
 	tiles.reserve(height * width);
 
 	const Json::Value& data = tileMap["data"];
-	for (UINT i = 0; i < height; i++)
-	for (UINT j = 0; j < width ; j++)
+	for (UINT y = 0; y < height; y++)
+	for (UINT x = 0; x < width ; x++)
 	{
-		Tile tile; tile.position = { j * tileSize, i * tileSize };
-		const UINT num = data[i * width + j].asUInt();
+		Tile tile; tile.position = { x * tileSize, y * tileSize };
+		const UINT num = data[y * width + x].asUInt();
 		if (num != 0)
 		{
 			tile.portion.left   = ((num - 1) % columns) * tileSize;
@@ -42,15 +42,21 @@ void Map::Render() const
 	if (DebugDraw::IsInDeepDebug()) return;
 
 	const auto& cam = Camera::Instance();
+	const auto camBbox = cam.GetBBox();
 
-	for (const auto& tile : tiles)
+	const auto xs = UINT(max(0         , camBbox.left   / tileSize));
+	const auto xe =	UINT(min(width  - 1, camBbox.right  / tileSize));
+	const auto ys =	UINT(max(0         , camBbox.top    / tileSize));
+	const auto ye = UINT(min(height - 1, camBbox.bottom / tileSize));
+
+	for (UINT y = ys; y <= ye; y++)
+	for (UINT x = xs; x <= xe; x++)
 	{
-		if (tile.IsInvisible()) continue;
+		const auto& tile = tiles[y * width + x];
 
-		if (cam.GetBBox().IsIntersect(tile.GetBBox()))
-		{
-			auto drawablePos = cam.GetPositionInViewPort(tile.position);
-			Game::Instance().Draw(drawablePos, texture, tile.portion);
-		}
+		if (tile.IsInvisible()) continue;
+		
+		const auto drawablePos = cam.GetPositionInViewPort(tile.position);
+		Game::Instance().Draw(drawablePos, texture, tile.portion);
 	}
 }

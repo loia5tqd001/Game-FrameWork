@@ -6,7 +6,7 @@ Sách game: \
 https://drive.google.com/file/d/1OLmspsOMVon9o5f_wSlsId-BOuqm-Ze_/view?usp=sharing \
 Project tutorial thầy Dũng: \
 https://github.com/dungdna2000 \
-Project hoàn thiện nhất - của team chủ nhân blog hướng dẫn học game \
+Project của team chủ nhân blog hướng dẫn học game \
 https://github.com/loctho1995/DirectX-Contra/tree/master/MyFrameWork/MyFrameWork \
 Có vẻ là qua môn thầy Dũng - cựu chủ tịch CLB Game UIT \
 https://github.com/danhph/UIT-SE102-Game-Project \
@@ -18,7 +18,7 @@ Có vẻ là 10 điểm thầy Dũng \
 https://github.com/catrom/Castlevania \
 9 điểm thầy Dũng - làm trong vài ngày qua môn \
 https://github.com/PhanVinhLong/GameDevIntro \
-10 điểm thầy Dũng - Được thầy Dũng mời về công ty làm nhưng bận học nên từ chối =)) \
+10 điểm thầy Dũng - Được thầy Dũng mời về công ty làm nhưng bận học nên từ chối \
 https://github.com/NearHuscarl/Castlevania
 
 
