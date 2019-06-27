@@ -9,7 +9,6 @@ private:
 	LPDIRECT3DDEVICE9  d3ddv         = NULL                    ;				
 	LPDIRECT3DSURFACE9 backBuffer	 = NULL                    ;		
 	LPD3DXSPRITE	   spriteHandler = NULL                    ;
-	LPD3DXFONT         fontDraw      = NULL                    ;
 	Window&            wnd           = Window::Instance()      ;
 	SceneManager&      sceneManager  = SceneManager::Instance();
 
@@ -22,10 +21,9 @@ public:
 	void InitGame();
 	void Run     ();
 
-	CONST LPDIRECT3DDEVICE9 GetDirect3DDevice() const { return d3ddv; }
+	CONST LPDIRECT3DDEVICE9 GetDirect3DDevice() const { return d3ddv         ; }
+	CONST LPD3DXSPRITE      GetSpriteHandler () const { return spriteHandler ; }
 
-	void AdjustFontString(UINT size, LPCSTR font);
-	void DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color) const;
 	void Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, D3DCOLOR color = 0xFFFFFFFF) const;
 
 private:

@@ -8,6 +8,7 @@ private:
 	std::unique_ptr<AbstractScene> curScene;
 
 public:
+	void LoadResources();
 	void SetScene(Scene scene);
 	void Update(float dt);
 	void Draw();

@@ -4,11 +4,12 @@
 
 enum class TextureId
 {
-	Bbox  = 0,
-	Mario = 1,
-	Misc  = 2,
-	Enemy = 3,
-	Map   = 4,
+	Bbox     = 0,
+	Mario    = 1,
+	Misc     = 2,
+	Enemy    = 3,
+	Map      = 4,
+	Greeting = 5,
 	Count
 };
 
@@ -31,6 +32,7 @@ enum class SoundId
 	Test,
 	MarioJump,
 	MarioMusic,
+	Greeting,
 	Count
 };
 
@@ -106,7 +108,8 @@ enum class Scene
 {
 	Demo,
 	Intro,
-	GamePlay
+	GamePlay,
+	Greeting,
 };
 
 

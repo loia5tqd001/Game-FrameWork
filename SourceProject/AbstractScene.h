@@ -7,7 +7,7 @@ public:
 	AbstractScene(const AbstractScene&) = delete;
 	virtual ~AbstractScene() = default;
 
-	Json::Value GetRootJson(LPCSTR jsonPath) const;
+	static Json::Value GetRootJson(LPCSTR jsonPath);
 
 	virtual void LoadResources () = 0;
 	virtual void Update(float dt) = 0;

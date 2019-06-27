@@ -39,6 +39,8 @@ void Map::LoadResources(const Json::Value& root)
 
 void Map::Render() const
 {
+	if (DebugDraw::IsInDeepDebug()) return;
+
 	const auto& cam = Camera::Instance();
 
 	for (const auto& tile : tiles)

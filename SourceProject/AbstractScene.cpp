@@ -2,7 +2,7 @@
 #include "AbstractScene.h"
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
-Json::Value AbstractScene::GetRootJson(LPCSTR jsonPath) const
+Json::Value AbstractScene::GetRootJson(LPCSTR jsonPath)
 {
 	std::ifstream jsonFile(jsonPath);
 

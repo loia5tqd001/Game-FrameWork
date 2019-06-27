@@ -108,6 +108,12 @@
     <ClCompile Include="Map.cpp">
       <Filter>Development\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="GreetingScene.cpp">
+      <Filter>Development\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Framework\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -208,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Development\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GreetingScene.h">
+      <Filter>Development\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Framework\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

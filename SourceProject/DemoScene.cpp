@@ -19,12 +19,7 @@ DemoScene::DemoScene()
 
 void DemoScene::LoadResources()
 {
-	const auto root = GetRootJson("Resources\\db.json");
-
-	Textures::LoadResources(root);
-	Sprites::LoadResources(root);
-	Sounds::LoadResources(root);
-	Texts::LoadResources(root);
+	const auto root = GetRootJson("Resources\\Data\\demo.json");
 
 	map = std::make_unique<Map>( root );
 	grid = std::make_unique<Grid>( root );

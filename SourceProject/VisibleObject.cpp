@@ -35,10 +35,7 @@ void VisibleObject::Render() const
 	assert(animations.count(curState) == 1);
 	assert(std::abs(nx) == 1.0f);
 
-	// Press shift in debug mode will hide object's figure
-	const bool isInPureDebug = DebugDraw::IsInDebugMode() && Window::Instance().IsKeyPressed(VK_SHIFT);
-
-	if (shouldDrawImage && !isInPureDebug) 
+	if (shouldDrawImage && !DebugDraw::IsInDeepDebug()) 
 	{
 		const auto drawablePosition = Camera::Instance().GetPositionInViewPort( pos );
 		animations.at(curState).Render( drawablePosition, { nx, 1.0f} ); // draw object's actual image

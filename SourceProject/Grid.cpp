@@ -239,7 +239,9 @@ void Grid::RenderCells() const
 		const Cell& cell      = cells[cellIndex] ;
 		const RectF cellBbox  = cell.GetBBox()   ;
 
-		DebugDraw::DrawRectOutLine( cellBbox, Colors::GridDebug );		
+		DebugDraw::DrawRectOutLine( cellBbox, Colors::Gray );	// cells outline
+
+		DebugDraw::DrawSolidRect( cellBbox.Clone().Trim(0, 0, 115, 123), Colors::Gray ); // background for string
 
 		const Vector2 cellDrawPosition = cellBbox.GetTopLeft() + Vector2{ 2.5f, 0.5f };
 
@@ -248,6 +250,6 @@ void Grid::RenderCells() const
 			<< "static: " << cell.staticObjects.size() << "\n"
 			<< "moving: " << cell.movingObjects.size();
 
-		DebugDraw::DrawString( os.str(), cellDrawPosition, Colors::GridDebug );
+		DebugDraw::DrawString( os.str(), cellDrawPosition, Colors::White ); // actual string
 	}
 }

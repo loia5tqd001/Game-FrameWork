@@ -16,6 +16,7 @@ struct RectF
 	float    GetWidth  () const { return right - left                              ; }
 	float    GetHeight () const { return bottom - top                              ; }
 	bool     IsNone    () const { return left == right                             ; }
+	RectF    Clone     () const { return *this                                     ; }
 
 	RectF GetOriginRect() const
 	{
