@@ -9,6 +9,11 @@ Game::~Game()
 	if (d3d != NULL) d3d->Release();
 }
 
+void Game::FillColor(D3DCOLOR color) const
+{
+	d3ddv->ColorFill(backBuffer, NULL, color); 
+}
+
 void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
 {
 	static D3DXMATRIX oldMt;
@@ -49,7 +54,7 @@ void Game::InitDirectDevice()
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = wnd.GetHeight();
 	d3dpp.BackBufferWidth  = wnd.GetWidth();
-	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; to turn off vsync
+	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //to turn off vsync
 
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 	d3d->CreateDevice(

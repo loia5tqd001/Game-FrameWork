@@ -114,6 +114,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Framework\Source</Filter>
     </ClCompile>
+    <ClCompile Include="TransitionScene.cpp">
+      <Filter>Development\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionScene.h">
+      <Filter>Development\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

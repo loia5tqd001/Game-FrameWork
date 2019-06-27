@@ -6,6 +6,7 @@
 #include "Texts.h"
 
 #include "GreetingScene.h"
+#include "TransitionScene.h"
 #include "DemoScene.h"
 
 void SceneManager::LoadResources()
@@ -24,6 +25,10 @@ void SceneManager::SetScene(Scene scene)
 	{
 		case Scene::Greeting:
 			curScene = std::make_unique<GreetingScene>();
+			break;
+
+		case Scene::Transition:
+			curScene = std::make_unique<TransitionScene>();
 			break;
 
 		case Scene::Demo:

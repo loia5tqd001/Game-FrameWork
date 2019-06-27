@@ -106,10 +106,11 @@ enum class State
 
 enum class Scene
 {
+	Greeting,
+	Transition,
 	Demo,
 	Intro,
 	GamePlay,
-	Greeting,
 };
 
 

@@ -168,6 +168,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="TransitionScene.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="TransitionScene.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DebugOut.h" />
     <ClInclude Include="DemoScene.h" />
