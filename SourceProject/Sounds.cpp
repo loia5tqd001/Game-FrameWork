@@ -25,7 +25,7 @@ void Sounds::AddSound(SoundId id, const Json::Value& root)
 	LPSTR strWaveFileName = GetWaveFileNameFromSoundId(id, root);
 	CSound* waveSound;
 
-	if (dsound.Create(&waveSound, strWaveFileName, DSBCAPS_GLOBALFOCUS) != S_OK)
+	if (dsound.Create(&waveSound, strWaveFileName, DSBCAPS_CTRLVOLUME | DSBCAPS_GLOBALFOCUS) != S_OK)
 	{
 		ThrowMyException("Create CSound failed!");
 	}
@@ -37,6 +37,24 @@ bool Sounds::IsPlaying(SoundId id)
 {
 	assert(soundDictionary.count(id) == 1);
 	return soundDictionary.at(id).IsSoundPlaying();
+}
+
+int Sounds::LinearToLogVol(float fLevel)
+{
+	if (fLevel <= 0.0f) 
+		return DSBVOLUME_MIN;
+	else if (fLevel >= 1.0f)
+		return DSBVOLUME_MAX;
+	return int (-2000 * log10( 1.0f / fLevel ));
+}
+
+float Sounds::LogToLinearVol(int iLevel)
+{
+	if (iLevel <= -9600)
+		return 0.0f;
+	else if (iLevel >= 0)
+		return 1.0f;
+	return (float) pow(10, double(iLevel) + 2000 / 2000) / 10.0f;
 }
 
 void Sounds::LoadResources(const Json::Value& root)
@@ -65,11 +83,11 @@ void Sounds::Invoke(Action action, std::any arg)
 	switch (action)
 	{
 		case Action::PlayOnce:
-			if (!IsMute()) soundDict.at(id).Play();
+			if (!IsMute()) soundDict.at(id).Play(0, 0, LinearToLogVol(Instance().liVolume) );
 			break;
 
 		case Action::PlayLoop:
-			if (!IsMute()) soundDict.at(id).Play(0, DSBPLAY_LOOPING);
+			if (!IsMute()) soundDict.at(id).Play(0, DSBPLAY_LOOPING, LinearToLogVol(Instance().liVolume) );
 			break;
 
 		case Action::StopAt:

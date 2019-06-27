@@ -57,6 +57,14 @@ void SceneManager::OnKeyDown(BYTE keyCode)
 		case VK_CONTROL:
 			DebugDraw::ToggleDebugMode();
 			break;
+
+		case VK_OEM_PLUS:
+			Sounds::Instance().VolumeUp();
+
+			break;
+		case VK_OEM_MINUS:
+			Sounds::Instance().VolumeDown();
+			break;
 	}	
 
 	curScene->OnKeyDown(keyCode);
