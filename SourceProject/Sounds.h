@@ -1,7 +1,7 @@
 #pragma once
 #include "enums.h"
 
-enum class Action { PlayOnce, PlayLoop, StopOnce, StopAll };
+enum class Action { PlayOnce, PlayLoop, StopAt, StopAll, SetMuteMode };
 
 class Sounds : ISingleton
 {
@@ -14,17 +14,13 @@ private:
 	LPSTR GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root) const;
 	void AddSound (SoundId id, const Json::Value& root);
 	bool IsPlaying(SoundId id);				  
-	void PlayOnce (SoundId id);
-	void PlayLoop (SoundId id);
-	void StopAt   (SoundId id);
-	void StopAll  ();
 
 public:
 	static void LoadResources(const Json::Value& root);
-	static void Invoke(Action action, SoundId id = SoundId::Count); // ::Count indicates invalid SoundId (case SoundId is needless)
-	static void SetMuteMode(bool isMute);
-	static bool IsMute();
-	static bool IsPlayingAt(SoundId id);
+	static void Invoke(Action action, std::any arg = NULL); 
+
+	inline static bool IsMute     (          ) { return Instance().isMute       ; }
+	inline static bool IsPlayingAt(SoundId id) { return Instance().IsPlaying(id); }
 
 private:
 	Sounds() : ISingleton(NULL) {}
@@ -34,4 +30,8 @@ private:
 		return instance;
 	}
 };
+
+// SetVolume module: I gave up on calculating amplitude percentage. Some resources:
+// https://www.gamedev.net/forums/topic/358422-converting-decibel-to-percent/
+// https://stackoverflow.com/questions/6571894/calculate-decibel-from-amplitude-android-media-recorder
 

@@ -56,7 +56,7 @@ void DemoScene::Draw()
 
 void DemoScene::ToggleMuteMode() const
 {
-	Sounds::SetMuteMode( !Sounds::IsMute() );
+	Sounds::Invoke(Action::SetMuteMode, !Sounds::IsMute());
 
 	if (Sounds::IsMute()) 
 		Sounds::Invoke(Action::StopAll);
@@ -66,10 +66,14 @@ void DemoScene::ToggleMuteMode() const
 
 void DemoScene::OnKeyDown(BYTE keyCode)
 {
-	mario->OnKeyDown(keyCode);
+	switch (keyCode)
+	{
+		case 'M':
+			ToggleMuteMode();
+			break;
+	}
 
-	if (keyCode == 'M')
-		ToggleMuteMode();
+	mario->OnKeyDown(keyCode);
 }
 
 

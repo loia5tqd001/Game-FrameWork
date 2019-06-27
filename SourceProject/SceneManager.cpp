@@ -52,8 +52,12 @@ void SceneManager::Draw()
 
 void SceneManager::OnKeyDown(BYTE keyCode)
 {
-	if (keyCode == VK_CONTROL) 
-		DebugDraw::ToggleDebugMode();
+	switch (keyCode)
+	{
+		case VK_CONTROL:
+			DebugDraw::ToggleDebugMode();
+			break;
+	}	
 
 	curScene->OnKeyDown(keyCode);
 }

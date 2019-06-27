@@ -12,8 +12,8 @@ private:
 	std::unique_ptr<Mario> mario;
 
 private:
-	void ToggleMuteMode() const;
 	void LoadResources () override;
+	void ToggleMuteMode() const;
 
 public:
 	DemoScene();

@@ -25,36 +25,12 @@ void Sounds::AddSound(SoundId id, const Json::Value& root)
 	LPSTR strWaveFileName = GetWaveFileNameFromSoundId(id, root);
 	CSound* waveSound;
 
-	if (dsound.Create(&waveSound, strWaveFileName) != S_OK)
+	if (dsound.Create(&waveSound, strWaveFileName, DSBCAPS_GLOBALFOCUS) != S_OK)
 	{
 		ThrowMyException("Create CSound failed!");
 	}
 
 	soundDictionary.emplace(id, *waveSound);
-}
-
-void Sounds::PlayOnce(SoundId id)
-{
-	assert(soundDictionary.count(id) == 1);
-	if (!isMute) soundDictionary.at(id).Play();
-}
-
-void Sounds::PlayLoop(SoundId id)
-{
-	assert(soundDictionary.count(id) == 1);
-	if (!isMute) soundDictionary.at(id).Play(0, DSBPLAY_LOOPING);
-}
-
-void Sounds::StopAt(SoundId id)
-{
-	assert(soundDictionary.count(id) == 1);
-	soundDictionary.at(id).Stop();
-}
-
-void Sounds::StopAll()
-{
-	for (auto& [_, sound] : soundDictionary)
-		sound.Stop();
 }
 
 bool Sounds::IsPlaying(SoundId id)
@@ -75,40 +51,38 @@ void Sounds::LoadResources(const Json::Value& root)
 		Instance().AddSound( SoundId(i), root );
 }
 
-void Sounds::Invoke(Action action, SoundId id)
+void Sounds::Invoke(Action action, std::any arg)
 {
+	static auto& soundDict = Instance().soundDictionary;
+	static SoundId id;
+
+	if (arg.type() == typeid(SoundId))
+	{
+		id = std::any_cast<SoundId>( arg );
+		assert(soundDict.count( id ) == 1);
+	}
+
 	switch (action)
 	{
 		case Action::PlayOnce:
-			Instance().PlayOnce(id);
+			if (!IsMute()) soundDict.at(id).Play();
 			break;
 
 		case Action::PlayLoop:
-			Instance().PlayLoop(id);
+			if (!IsMute()) soundDict.at(id).Play(0, DSBPLAY_LOOPING);
 			break;
 
-		case Action::StopOnce:
-			Instance().StopAt(id);
+		case Action::StopAt:
+			soundDict.at(id).Stop();
 			break;
 
 		case Action::StopAll:
-			assert(id == SoundId::Count);
-			Instance().StopAll();
+			for (auto& [_, sound] : soundDict) sound.Stop();
 			break;
+
+		case Action::SetMuteMode:
+			Instance().isMute = std::any_cast<bool>(arg);
+			break;
+
 	}
-}
-
-void Sounds::SetMuteMode(bool isMute)
-{
-	Instance().isMute = isMute;
-}
-
-bool Sounds::IsMute()
-{
-	return Instance().isMute;
-}
-
-bool Sounds::IsPlayingAt(SoundId id)
-{
-	return Instance().IsPlaying(id);
 }
