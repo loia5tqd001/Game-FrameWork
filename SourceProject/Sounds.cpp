@@ -1,24 +1,20 @@
 #include "pch.h"
 #include "Sounds.h"
+#include "Textures.h"
 #include "Window.h"
+#include "Game.h"
 
-bool                                Sounds::isMute           = false;
-float                               Sounds::liVolume         = 1.0f ;
-CSoundManager                       Sounds::dsound                  ;
-std::unordered_map<SoundId, CSound> Sounds::soundDictionary         ;
+bool                                Sounds::isMute            = false;
+float                               Sounds::liVolume          = 1.0f ;
+float                               Sounds::displayTimeRemain = 0.0f ;
+CSoundManager                       Sounds::dsound                   ;
+std::unordered_map<SoundId, CSound> Sounds::soundDictionary          ;
 
 int Sounds::LinearToLogVol(float fLevel)
 {
 	if (fLevel <= 0.0f) return DSBVOLUME_MIN;
 	if (fLevel >= 1.0f) return DSBVOLUME_MAX;
 	return int (-2000 * log10( 1.0f / fLevel ));
-}
-
-float Sounds::LogToLinearVol(int iLevel)
-{
-	if (iLevel <= -9600) return 0.0f;
-	if (iLevel >= 0)     return 1.0f;
-	return (float) pow(10, double(iLevel) + 2000 / 2000) / 10.0f;
 }
 
 LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root)
@@ -52,8 +48,23 @@ void Sounds::AddSoundToDict(SoundId id, const Json::Value& root)
 	soundDictionary.emplace(id, *waveSound);
 }
 
+bool Sounds::CheckHoldingVolume()
+{
+	displayTimeRemain = 2.0f; // reset display time remain to 2 seconds every when pressing +/-
+
+	static constexpr float thresholdHoldingTime = 0.05f;
+
+	static float timePressed = 0.0f; // time period has holded +/-
+	timePressed += GameTimer::Dt();
+
+	if (timePressed < thresholdHoldingTime) return false;
+	else timePressed -= thresholdHoldingTime; return true;
+}
+
 void Sounds::VolumeUp()
 {
+	if (CheckHoldingVolume() == false) return;
+
 	liVolume = min(1.0f, liVolume + 0.01f);
 	for (auto& [_, sound] : soundDictionary)
 		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
@@ -61,13 +72,23 @@ void Sounds::VolumeUp()
 
 void Sounds::VolumeDown()
 {
+	if (CheckHoldingVolume() == false) return;
+
 	liVolume = max(0.0f, liVolume - 0.01f);
 	for (auto& [_, sound] : soundDictionary)
 		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
 }
 
-void Sounds::Draw()
+void Sounds::SetMute(bool ismute)
 {
+	isMute = ismute;
+	if (isMute) 
+	{
+		for (auto& [_, sound] : soundDictionary)
+			sound.GetBuffer(0)->SetVolume(DSBVOLUME_MIN);
+	}
+
+	CheckHoldingVolume();
 }
 
 bool Sounds::IsPlayingAt(SoundId id)
@@ -112,6 +133,40 @@ void Sounds::StopAll()
 		sound.Stop();
 }
 
+void Sounds::HandleInput()
+{
+	static auto& wnd = Window::Instance();
+
+	if (wnd.IsKeyPressed(VK_OEM_PLUS) || wnd.IsKeyPressed(VK_ADD)) {
+		Sounds::VolumeUp();
+	}
+	else if (wnd.IsKeyPressed(VK_OEM_MINUS) || wnd.IsKeyPressed(VK_SUBTRACT)) {
+		Sounds::VolumeDown();
+	}
+}
+
+void Sounds::Draw()
+{
+	if (displayTimeRemain <= 0.0f) return;
+	displayTimeRemain -= GameTimer::Dt();
+
+	static Font fontDraw(8, "Segoe MDL2 Assets Regular");
+	static auto texture = Textures::Get(TextureId::Bbox);	
+	static const RectF bgArea       = { 286.0f, 50.0f, 300.0f, 100.0f }; // gray background of displaying volume
+	static const RectF volBarArea   = { 290.0f, 52.0f, 296.0f, 92.0f  }; // white background of displaying volume bar
+	static const RectF bgNumberArea = { 286.0f, 92.0f, 300.0f, 100.0f }; // area of displaying volume number
+
+	const float yPartition = floor(50.0f + 42 - liVolume * 40.0f);
+	const RectF fullPart   = { 290.0f, yPartition, 296.0f, 92.0f };
+	const auto colorFullPart = isMute ? Colors::DimRed : Colors::DimBlue;
+	const auto colorNumber   = isMute ? Colors::DimRed : Colors::White;
+
+	Game::Instance().Draw(bgArea    , Colors::DimGray); // gray background of displaying volume
+	Game::Instance().Draw(volBarArea, Colors::White  ); // white background of displaying volume bar
+	Game::Instance().Draw(fullPart  , colorFullPart  ); // display how full volume bar
+
+	fontDraw.DrawStringWithin( std::to_string(int(liVolume * 100)), bgNumberArea, colorNumber ); // area of displaying volume number
+}
 
 
 

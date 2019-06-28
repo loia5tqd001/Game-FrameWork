@@ -1,12 +1,19 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "Window.h"
 #include "Sounds.h"
 #include "Sprites.h"
 #include "Texts.h"
 #include "GreetingScene.h"
 #include "TransitionScene.h"
 #include "DemoScene.h"
+
+void SceneManager::ToggleMuteMode() const
+{
+	Sounds::SetMute( !Sounds::IsMute() );
+
+	if (!Sounds::IsMute() && curScene->HasMusic())
+		Sounds::PlayLoop(curScene->GetBgMusic());
+}
 
 void SceneManager::LoadResources()
 {
@@ -41,17 +48,14 @@ void SceneManager::SetScene(Scene scene)
 
 void SceneManager::Update(float dt)
 {
-	if (Window::Instance().IsKeyPressed(VK_OEM_PLUS))
-		Sounds::VolumeUp();
-	else if (Window::Instance().IsKeyPressed(VK_OEM_MINUS))
-		Sounds::VolumeDown();
-
 	curScene->Update(dt);
+	Sounds::HandleInput();
 }
 
 void SceneManager::Draw()
 {
 	curScene->Draw();
+	Sounds::Draw();
 }
 
 void SceneManager::OnKeyDown(BYTE keyCode)
@@ -61,6 +65,10 @@ void SceneManager::OnKeyDown(BYTE keyCode)
 		case VK_CONTROL:
 			DebugDraw::ToggleDebugMode();
 			break;
+
+		case 'M':
+			ToggleMuteMode();
+			break;			
 	}	
 
 	curScene->OnKeyDown(keyCode);

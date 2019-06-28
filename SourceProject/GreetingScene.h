@@ -12,5 +12,6 @@ public:
 	void LoadResources() override;
 	void Update(float dt) override;
 	void Draw() override;	
+	void OnKeyDown(BYTE keyCode) override;
 };
 

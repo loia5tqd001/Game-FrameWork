@@ -26,6 +26,11 @@ void Font::AdjustFont(UINT size, LPCSTR font)
 		ThrowMyException("Create font", font, "with size of", size, "unsuccessfully");
 }
 
+void Font::DrawStringWithin(const std::string& str, const RectF& area, D3DCOLOR color, DWORD format) const
+{
+	fontDraw->DrawText(spriteHandler, str.c_str(), -1, &(Rect)area, format, color);
+}
+
 void Font::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color) const
 {
 	static Rect rect;

@@ -25,6 +25,7 @@ public:
 	CONST LPD3DXSPRITE      GetSpriteHandler () const { return spriteHandler ; }
 
 	void FillColor(D3DCOLOR color) const;
+	void Draw(const RectF& area, D3DCOLOR color) const;
 	void Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, D3DCOLOR color = 0xFFFFFFFF) const;
 
 private:

@@ -10,7 +10,6 @@
 #include "Brick.h"
 #include "Goomba.h"
 
-
 DemoScene::DemoScene()
 {
 	LoadResources();
@@ -54,23 +53,8 @@ void DemoScene::Draw()
 	grid->RenderCells();
 }
 
-void DemoScene::ToggleMuteMode() const
-{
-	Sounds::SetMute( !Sounds::IsMute() );
-
-	if (Sounds::IsMute()) Sounds::StopAll();
-	else                  Sounds::PlayLoop(SoundId::MarioMusic);
-}
-
 void DemoScene::OnKeyDown(BYTE keyCode)
 {
-	switch (keyCode)
-	{
-		case 'M':
-			ToggleMuteMode();
-			break;
-	}
-
 	mario->OnKeyDown(keyCode);
 }
 

@@ -2,7 +2,6 @@
 #include "DebugDraw.h"
 #include "Game.h"
 #include "Camera.h"
-#include "Window.h"
 #include "Textures.h"
 
 void DebugDraw::DrawSolidRect(const RectF& bbox, D3DCOLOR color)

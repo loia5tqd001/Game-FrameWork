@@ -11,7 +11,7 @@ void Textures::AddTexture(TextureId id, LPCSTR texturePath, D3DCOLOR transparent
 	D3DXIMAGE_INFO info;
 	if (D3DXGetImageInfoFromFile(texturePath, &info) != D3D_OK)
 	{
-		ThrowMyException("Get image info from file failed", texturePath);
+		ThrowMyException("Get image info from file failed:", texturePath);
 	}
 
 	LPDIRECT3DTEXTURE9 texture;

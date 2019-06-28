@@ -7,6 +7,9 @@ class SceneManager
 private:
 	std::unique_ptr<AbstractScene> curScene;
 
+private:
+	void ToggleMuteMode() const;
+
 public:
 	void LoadResources();
 	void SetScene(Scene scene);

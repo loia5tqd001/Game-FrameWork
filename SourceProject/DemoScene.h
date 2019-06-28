@@ -13,7 +13,6 @@ private:
 
 private:
 	void LoadResources () override;
-	void ToggleMuteMode() const;
 
 public:
 	DemoScene();
@@ -21,5 +20,6 @@ public:
 	void Draw          () override;
 
 	void OnKeyDown(BYTE keyCode) override;
+	SoundId GetBgMusic() const override { return SoundId::MarioMusic; }
 };
 

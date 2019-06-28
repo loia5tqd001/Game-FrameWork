@@ -5,8 +5,6 @@
 #include "Sounds.h"
 #include "Textures.h"
 
-static const auto& wnd = Window::Instance();
-
 GreetingScene::GreetingScene()
 {
 	LoadResources();
@@ -16,6 +14,7 @@ GreetingScene::GreetingScene()
 void GreetingScene::LoadResources()
 {
 	const auto& greetingTexture = Textures::Get( TextureId::Greeting );
+	static const auto& wnd = Window::Instance();
 
 	std::vector<Rect> frames(1);
 	frames.at(0) = { 0u, 0u, wnd.GetWidth(), wnd.GetHeight() };
@@ -32,4 +31,15 @@ void GreetingScene::Update(float dt)
 void GreetingScene::Draw()
 {
 	rememberNote->Draw( Vector2{ 0.0f, 0.0f } , 0 );
+}
+
+void GreetingScene::OnKeyDown(BYTE keyCode)
+{
+	switch (keyCode)
+	{
+		case VK_RETURN:
+		case VK_SPACE:
+			Sounds::StopAt(SoundId::Greeting);
+			break;
+	}
 }

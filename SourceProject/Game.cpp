@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Game.h"
+#include "Textures.h"
 
 Game::~Game()
 {
@@ -12,6 +13,12 @@ Game::~Game()
 void Game::FillColor(D3DCOLOR color) const
 {
 	d3ddv->ColorFill(backBuffer, NULL, color); 
+}
+
+void Game::Draw(const RectF& area, D3DCOLOR color) const
+{
+	static const auto bboxTexture = Textures::Get(TextureId::Bbox);
+	Game::Instance().Draw(area.GetTopLeft(), bboxTexture, area.GetOriginRect(), { 1.0f, 1.0f }, color);
 }
 
 void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const
