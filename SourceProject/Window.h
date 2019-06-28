@@ -1,6 +1,6 @@
 #pragma once
 
-class Window : ISingleton
+class Window
 {
 private:
 	static constexpr char* WINDOW_CLASS_NAME = "MainWindow" ;
@@ -26,13 +26,10 @@ public:
 	const HWND GetHWnd  () const { return hWnd		   ;}
 
 private:
-	Window() : ISingleton(NULL) {}
+	Window() = default;
+	Window(const Window&) = delete;
 
 public:
-	static Window& Instance() 
-	{ 
-		static Window instance; 
-		return instance; 
-	}
+	static Window& Instance();
 };
 

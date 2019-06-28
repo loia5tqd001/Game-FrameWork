@@ -20,8 +20,8 @@
 #include <json/json.h>
 #include <dsutil.h>
 
-#include "ISingleton.h"
 #include "DebugOut.h"
+#include "Colors.h"
 #include "DebugDraw.h"
 #include "MyException.h"
 #include "GameTimer.h"

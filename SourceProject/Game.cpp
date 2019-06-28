@@ -36,6 +36,12 @@ void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 v
 	spriteHandler->SetTransform(&oldMt);
 }
 
+Game& Game::Instance()
+{ 
+	static Game instance; 
+	return instance; 
+}
+
 void Game::InitGame()
 {
 	wnd.InitWindow();

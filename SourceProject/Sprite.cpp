@@ -2,8 +2,13 @@
 #include "Sprite.h"
 #include "Game.h"
 
+Sprite::Sprite(Sprite&& other) noexcept :
+	texture( std::move(other.texture) ),
+	frames( std::move(other.frames) )
+{
+}
 
-Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames) : 
+Sprite::Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames) :
 	texture(texture), 
 	frames(frames) 
 {

@@ -141,7 +141,7 @@ void Mario::SetState(State state)
 			break;
 
 		case State::MarioJump:
-			Sounds::Invoke(Action::PlayOnce, SoundId::MarioJump);
+			Sounds::PlayAt(SoundId::MarioJump);
 			vel.y = -JUMP_SPEED;
 			break;
 

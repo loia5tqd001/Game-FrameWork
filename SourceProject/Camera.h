@@ -1,8 +1,7 @@
 #pragma once
 #include "Window.h"
-#include "GameObject.h"
 
-class Camera : ISingleton
+class Camera
 {
 private:
 	Vector2 pos; 
@@ -19,12 +18,9 @@ public:
 	Vector2 GetPositionInViewPort(const Vector2& objPos) const;
 
 private:
-	Camera() : ISingleton(NULL) {}
+	Camera() = default;
+	Camera(const Camera&) = delete;
 
 public:
-	static Camera& Instance()
-	{
-		static Camera instance;
-		return instance;
-	}
+	static Camera& Instance();
 };

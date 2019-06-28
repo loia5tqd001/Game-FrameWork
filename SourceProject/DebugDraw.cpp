@@ -65,3 +65,9 @@ void DebugDraw::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR 
 	Instance().fontDraw.AdjustFont(size, font);
 	Instance().fontDraw.DrawString(str, drawablePos, color);
 }
+
+DebugDraw& DebugDraw::Instance()
+{ 
+	static DebugDraw instance; 
+	return instance; 
+}

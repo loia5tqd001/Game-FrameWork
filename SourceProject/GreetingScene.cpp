@@ -10,7 +10,7 @@ static const auto& wnd = Window::Instance();
 GreetingScene::GreetingScene()
 {
 	LoadResources();
-	Sounds::Invoke(Action::PlayOnce, SoundId::Greeting);
+	Sounds::PlayAt(SoundId::Greeting);
 }
 
 void GreetingScene::LoadResources()

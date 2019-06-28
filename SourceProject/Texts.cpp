@@ -2,8 +2,13 @@
 #include "Texts.h"
 #include "Game.h"
 
+LPDIRECT3DTEXTURE9               Texts::texture;
+std::unordered_map<TextId, Rect> Texts::textDictionary;
+
 void Texts::LoadResources(const Json::Value& root)
 {
+	texture = Textures::Get(TextureId::Misc);
+
 	const auto& textsJson = root["texts"];
 	for (const auto& textJson : textsJson)
 	{
@@ -16,7 +21,7 @@ void Texts::LoadResources(const Json::Value& root)
 			textJson[4].asUInt()
 		};
 
-		Instance().textDictionary.emplace(id, frameOfText);
+		textDictionary.emplace(id, frameOfText);
 	}
 }
 
@@ -35,9 +40,9 @@ void Texts::DrawString(const std::string& str, Vector2 drawablePos)
 
 UINT Texts::DrawSymbol(TextId id, const Vector2& drawablePos)
 {
-	assert(Instance().textDictionary.count(id) == 1);
-	const Rect& rect = Instance().textDictionary.at(id);
+	assert(textDictionary.count(id) == 1);
+	const Rect& rect = textDictionary.at(id);
 
-	Game::Instance().Draw(drawablePos, Instance().texture, rect);
+	Game::Instance().Draw(drawablePos, texture, rect);
 	return rect.GetWidth();
 }

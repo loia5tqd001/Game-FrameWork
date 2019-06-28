@@ -2,6 +2,7 @@
 #include "Textures.h"
 #include "Game.h"
 
+std::unordered_map<TextureId, LPDIRECT3DTEXTURE9> Textures::textureDictionary;
 
 void Textures::AddTexture(TextureId id, LPCSTR texturePath, D3DCOLOR transparentColor)
 {
@@ -34,7 +35,7 @@ void Textures::AddTexture(TextureId id, LPCSTR texturePath, D3DCOLOR transparent
 	textureDictionary.emplace(id, texture);
 }
 
-const auto & Textures::GetTextureInfoFromTextureId(TextureId id, const Json::Value & root) const
+const auto & Textures::GetTextureInfoFromTextureId(TextureId id, const Json::Value & root)
 {
 	static auto matchTextureIdPred = [&id](const Json::Value& txt) { return txt[0].asUInt() == (UINT)id; };
 
@@ -68,21 +69,16 @@ void Textures::AddTexture(TextureId id, const Json::Value& root)
 	AddTexture(id, texturePath, transparentColor);
 }
 
-const auto & Textures::GetTexture(TextureId id) const
-{
-	assert(textureDictionary.count(id) == 1);
-	return textureDictionary.at(id);
-}
-
 void Textures::LoadResources(const Json::Value& root)
 {
 	for (UINT i = 0; i < (UINT)TextureId::Count; i++)
-		Instance().AddTexture( TextureId(i), root );
+		AddTexture( TextureId(i), root );
 }
 
 const LPDIRECT3DTEXTURE9 Textures::Get(TextureId id)
 {
-	return Instance().GetTexture(id);
+	assert(textureDictionary.count(id) == 1);
+	return textureDictionary.at(id);
 }
 
 

@@ -2,7 +2,6 @@
 #include "Window.h"
 #include "SceneManager.h"
 
-
 LRESULT Window::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -35,6 +34,12 @@ LRESULT Window::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void Window::ShowMessageBox(LPCSTR message, LPCSTR title, UINT type)
 { 
 	MessageBox(nullptr, message, title, type); 
+}
+
+Window& Window::Instance()
+{ 
+	static Window instance; 
+	return instance; 
 }
 
 void Window::InitWindow()

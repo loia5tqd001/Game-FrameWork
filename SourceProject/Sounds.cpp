@@ -2,7 +2,26 @@
 #include "Sounds.h"
 #include "Window.h"
 
-LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root) const
+bool                                Sounds::isMute           = false;
+float                               Sounds::liVolume         = 1.0f ;
+CSoundManager                       Sounds::dsound                  ;
+std::unordered_map<SoundId, CSound> Sounds::soundDictionary         ;
+
+int Sounds::LinearToLogVol(float fLevel)
+{
+	if (fLevel <= 0.0f) return DSBVOLUME_MIN;
+	if (fLevel >= 1.0f) return DSBVOLUME_MAX;
+	return int (-2000 * log10( 1.0f / fLevel ));
+}
+
+float Sounds::LogToLinearVol(int iLevel)
+{
+	if (iLevel <= -9600) return 0.0f;
+	if (iLevel >= 0)     return 1.0f;
+	return (float) pow(10, double(iLevel) + 2000 / 2000) / 10.0f;
+}
+
+LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root)
 {
 	static auto matchSoundIdPred = [&](const Json::Value& sound) { return sound[0].asUInt() == (UINT)id; };
 
@@ -18,7 +37,7 @@ LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root) co
 	return const_cast<LPSTR>(strWaveFileName);
 }
 
-void Sounds::AddSound(SoundId id, const Json::Value& root)
+void Sounds::AddSoundToDict(SoundId id, const Json::Value& root)
 {
 	assert(soundDictionary.count(id) == 0);
 
@@ -33,74 +52,66 @@ void Sounds::AddSound(SoundId id, const Json::Value& root)
 	soundDictionary.emplace(id, *waveSound);
 }
 
-bool Sounds::IsPlaying(SoundId id)
+void Sounds::VolumeUp()
+{
+	liVolume = min(1.0f, liVolume + 0.01f);
+	for (auto& [_, sound] : soundDictionary)
+		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+}
+
+void Sounds::VolumeDown()
+{
+	liVolume = max(0.0f, liVolume - 0.01f);
+	for (auto& [_, sound] : soundDictionary)
+		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+}
+
+void Sounds::Draw()
+{
+}
+
+bool Sounds::IsPlayingAt(SoundId id)
 {
 	assert(soundDictionary.count(id) == 1);
 	return soundDictionary.at(id).IsSoundPlaying();
 }
 
-int Sounds::LinearToLogVol(float fLevel)
-{
-	if (fLevel <= 0.0f) 
-		return DSBVOLUME_MIN;
-	else if (fLevel >= 1.0f)
-		return DSBVOLUME_MAX;
-	return int (-2000 * log10( 1.0f / fLevel ));
-}
-
-float Sounds::LogToLinearVol(int iLevel)
-{
-	if (iLevel <= -9600)
-		return 0.0f;
-	else if (iLevel >= 0)
-		return 1.0f;
-	return (float) pow(10, double(iLevel) + 2000 / 2000) / 10.0f;
-}
-
 void Sounds::LoadResources(const Json::Value& root)
 {
-	if (Instance().dsound.Initialize(Window::Instance().GetHWnd(), DSSCL_PRIORITY) != DS_OK)
+	if (dsound.Initialize(Window::Instance().GetHWnd(), DSSCL_PRIORITY) != DS_OK)
 		ThrowMyException("Init CSoundManager failed");
 
-	if (Instance().dsound.SetPrimaryBufferFormat(2, 22050, 16) != DS_OK)
+	if (dsound.SetPrimaryBufferFormat(2, 22050, 16) != DS_OK)
 		ThrowMyException("Set primary buffer format for CSoundManager failed");
 
 	for (UINT i = 0; i < (UINT)SoundId::Count; i++)
-		Instance().AddSound( SoundId(i), root );
+		AddSoundToDict( SoundId(i), root );
 }
 
-void Sounds::Invoke(Action action, std::any arg)
+void Sounds::PlayAt(SoundId id)
 {
-	static auto& soundDict = Instance().soundDictionary;
-	static SoundId id;
-
-	if (arg.type() == typeid(SoundId))
-	{
-		id = std::any_cast<SoundId>( arg );
-		assert(soundDict.count( id ) == 1);
-	}
-
-	switch (action)
-	{
-		case Action::PlayOnce:
-			if (!IsMute()) soundDict.at(id).Play(0, 0, LinearToLogVol(Instance().liVolume) );
-			break;
-
-		case Action::PlayLoop:
-			if (!IsMute()) soundDict.at(id).Play(0, DSBPLAY_LOOPING, LinearToLogVol(Instance().liVolume) );
-			break;
-
-		case Action::StopAt:
-			soundDict.at(id).Stop();
-			break;
-
-		case Action::StopAll:
-			for (auto& [_, sound] : soundDict) sound.Stop();
-			break;
-
-		case Action::SetMuteMode:
-			Instance().isMute = std::any_cast<bool>(arg);
-			break;
-
-	}
+	assert(soundDictionary.count(id) == 1);
+	if (!isMute) soundDictionary.at(id).Play(0, 0, LinearToLogVol( liVolume ));
 }
+
+void Sounds::PlayLoop(SoundId id)
+{
+	assert(soundDictionary.count(id) == 1);
+	if (!isMute) soundDictionary.at(id).Play(0, DSBPLAY_LOOPING, LinearToLogVol( liVolume ));
+}
+
+void Sounds::StopAt(SoundId id)
+{
+	assert(soundDictionary.count(id) == 1);
+	soundDictionary.at(id).Stop();
+}
+
+void Sounds::StopAll()
+{
+	for (auto& [_, sound] : soundDictionary)
+		sound.Stop();
+}
+
+
+
+

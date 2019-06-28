@@ -2,9 +2,9 @@
 #include "Sprites.h"
 #include "Textures.h"
 
+std::unordered_map<SpriteId, Sprite> Sprites::spriteDictionary;
 
-
-const auto & Sprites::GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value & root) const
+const auto & Sprites::GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value & root)
 {
 	static auto matchSpriteIdPred = [&](const Json::Value& sprite) { return sprite[0].asUInt() == (UINT)id; };
 
@@ -17,13 +17,13 @@ const auto & Sprites::GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value &
 	return *found;
 }
 
-const auto Sprites::GetTextureFromSpriteInfo(const Json::Value & spriteInfo) const
+const auto Sprites::GetTextureFromSpriteInfo(const Json::Value & spriteInfo)
 {
 	TextureId textureId = (TextureId)spriteInfo[1].asUInt();
 	return Textures::Get(textureId);
 }
 
-const auto Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo) const
+const auto Sprites::GetFramesFromSpriteInfo(const Json::Value & spriteInfo)
 {
 	const LONG left         = spriteInfo[2].asInt ();
 	const LONG top          = spriteInfo[3].asInt ();
@@ -60,19 +60,15 @@ void Sprites::AddSprite(SpriteId id, const Json::Value& root)
 	spriteDictionary.emplace(id, std::move(sprite));
 }
 
-const auto & Sprites::GetSprite(SpriteId id) const
+void Sprites::LoadResources(const Json::Value& root)
+{
+	for (UINT i = 0; i < (UINT)SpriteId::Count; i++)
+		AddSprite( SpriteId(i), root );
+}
+
+const Sprite & Sprites::Get(SpriteId id)
 {
 	assert(spriteDictionary.count(id) == 1);
 	return spriteDictionary.at(id);
 }
 
-void Sprites::LoadResources(const Json::Value& root)
-{
-	for (UINT i = 0; i < (UINT)SpriteId::Count; i++)
-		Instance().AddSprite( SpriteId(i), root );
-}
-
-const Sprite& Sprites::Get(SpriteId id)
-{
-	return Instance().GetSprite(id);
-}

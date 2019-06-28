@@ -4,8 +4,7 @@
 class InvisibleObject : public GameObject
 {
 protected:
-	UINT width;
-	UINT height;
+	UINT width, height;
 
 public:
 	InvisibleObject(Vector2 pos, UINT w, UINT h, Vector2 vel = { 0.0f, 0.0f });

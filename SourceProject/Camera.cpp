@@ -34,3 +34,9 @@ Vector2 Camera::GetPositionInViewPort(const Vector2 & objPos) const
 	return objPos - pos;
 }
 
+Camera& Camera::Instance()
+{
+	static Camera instance;
+	return instance;
+}
+

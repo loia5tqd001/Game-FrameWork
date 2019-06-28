@@ -2,29 +2,18 @@
 #include "enums.h"
 #include "Sprite.h"
 
-
-class Sprites : ISingleton
+class Sprites 
 {
 private:
-	std::unordered_map<SpriteId, Sprite> spriteDictionary;
+	static std::unordered_map<SpriteId, Sprite> spriteDictionary;
 
 private:
-	void  AddSprite(SpriteId id, const Json::Value& root);
-	const auto& GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value& root) const;
-	const auto  GetTextureFromSpriteInfo (const Json::Value& spriteInfo       ) const;
-	const auto  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo       ) const;
-	const auto& GetSprite                (SpriteId id                         ) const;
+	static void  AddSprite(SpriteId id, const Json::Value& root);
+	static const auto& GetSpriteInfoFromSpriteId(SpriteId id, const Json::Value& root);
+	static const auto  GetTextureFromSpriteInfo (const Json::Value& spriteInfo       );
+	static const auto  GetFramesFromSpriteInfo  (const Json::Value& spriteInfo       );
 
 public:
 	static void LoadResources(const Json::Value& root);
 	static const Sprite& Get(SpriteId id);
-
-private:
-	Sprites() : ISingleton(NULL) {}
-	static Sprites& Instance()
-	{
-		static Sprites instance;
-		return instance;
-	}
-
 };

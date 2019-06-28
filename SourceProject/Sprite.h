@@ -1,6 +1,5 @@
 #pragma once
 
-
 class Sprite
 {
 private:
@@ -8,6 +7,8 @@ private:
 	const std::vector<Rect>  frames;
 
 public:
+	Sprite(const Sprite&) = delete;
+	Sprite(Sprite&& other) noexcept; // for forcing move semantic
 	Sprite(LPDIRECT3DTEXTURE9 texture, const std::vector<Rect>& frames);
 
 	UINT GetNumberOfFrames() const { return frames.size(); }

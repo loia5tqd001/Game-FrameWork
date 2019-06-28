@@ -146,9 +146,6 @@
     <ClInclude Include="GameTimer.h">
       <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
-    <ClInclude Include="ISingleton.h">
-      <Filter>Framework\_MyUtils</Filter>
-    </ClInclude>
     <ClInclude Include="MyException.h">
       <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
@@ -226,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="TransitionScene.h">
       <Filter>Development\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

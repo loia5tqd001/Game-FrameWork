@@ -14,7 +14,7 @@
 DemoScene::DemoScene()
 {
 	LoadResources();
-	Sounds::Invoke(Action::PlayLoop, SoundId::MarioMusic);
+	Sounds::PlayLoop(SoundId::MarioMusic);
 }
 
 void DemoScene::LoadResources()
@@ -56,12 +56,10 @@ void DemoScene::Draw()
 
 void DemoScene::ToggleMuteMode() const
 {
-	Sounds::Invoke(Action::SetMuteMode, !Sounds::IsMute());
+	Sounds::SetMute( !Sounds::IsMute() );
 
-	if (Sounds::IsMute()) 
-		Sounds::Invoke(Action::StopAll);
-	else                  
-		Sounds::Invoke(Action::PlayLoop, SoundId::MarioMusic);
+	if (Sounds::IsMute()) Sounds::StopAll();
+	else                  Sounds::PlayLoop(SoundId::MarioMusic);
 }
 
 void DemoScene::OnKeyDown(BYTE keyCode)

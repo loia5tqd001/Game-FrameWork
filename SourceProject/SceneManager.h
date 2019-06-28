@@ -2,7 +2,7 @@
 #include "AbstractScene.h"
 #include "enums.h"
 
-class SceneManager : ISingleton
+class SceneManager
 {
 private:
 	std::unique_ptr<AbstractScene> curScene;
@@ -17,13 +17,10 @@ public:
 	void OnKeyUp(BYTE keyCode);
 
 private:
-	SceneManager() : ISingleton(NULL) {}
+	SceneManager() = default;
+	SceneManager(const SceneManager&) = delete;
 
 public:
-	static SceneManager& Instance()
-	{
-		static SceneManager instance;
-		return instance;
-	}
+	static SceneManager& Instance();
 };
 

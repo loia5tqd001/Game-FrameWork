@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "SceneManager.h"
 
-class Game : ISingleton
+class Game 
 {
 private:
 	LPDIRECT3D9        d3d           = NULL                    ;						
@@ -28,12 +28,9 @@ public:
 	void Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale = { 1.0f, 1.0f }, D3DCOLOR color = 0xFFFFFFFF) const;
 
 private:
-	Game() : ISingleton(NULL) {}
+	Game() = default;
+	Game(const Game&) = delete;
 
 public:
-	static Game& Instance() 
-	{ 
-		static Game instance; 
-		return instance; 
-	}
+	static Game& Instance();
 };
