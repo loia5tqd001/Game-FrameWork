@@ -106,6 +106,18 @@ public:
 
 
 //-----------------------------------------------------------------------------
+// Desc: Util functions to convert linear volume to logarithmic volume and vice versa.
+//       NOTE: lVolume used in IDirectSoundBuffer::SetVolume() is logarithmic volume not linear volume.
+//       Learn more here: http://bit.ly/set-volume-the-right-way
+//-----------------------------------------------------------------------------
+int LinearToLogVol(float fLevel);
+float LogToLinearVol(int iLevel);
+
+
+
+
+
+//-----------------------------------------------------------------------------
 // Name: class GStreamingSound
 // Desc: Encapsulates functionality to play a wave file with DirectSound.  
 //       The Create() method loads a chunk of wave file into the buffer, 

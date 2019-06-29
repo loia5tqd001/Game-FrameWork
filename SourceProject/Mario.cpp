@@ -97,7 +97,7 @@ void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects
 	}
 }
 
-void Mario::OnFlashing(std::optional<bool> setFlashing)
+void Mario::OnFlashing(std::optional<bool> setFlashing) // NOTE: Don't use this when vsync is off
 {
 	static bool  isFlashing = false;
 	static float timePassed;

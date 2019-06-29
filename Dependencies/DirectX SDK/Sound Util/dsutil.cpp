@@ -10,6 +10,7 @@
 #define STRICT
 #include "dsutil.h"
 #include <stdio.h>
+#include <math.h>
 int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
 
 
@@ -1649,3 +1650,33 @@ HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote 
 
 
 
+//-----------------------------------------------------------------------------
+// Name: LinearToLogVol()
+// Desc: Convert linear volume (0.0f - 1.0f) or (0% to 100%) to logarithmic
+//       volume (-10000 to 0) used in IDirectSoundBuffer::SetVolume()
+//-----------------------------------------------------------------------------
+int LinearToLogVol(float fLevel)
+{
+	if (fLevel <= 0.0f) 
+		return DSBVOLUME_MIN;
+	else if (fLevel >= 1.0f)
+		return DSBVOLUME_MAX;
+	return int (-2000 * log10( 1.0f / fLevel ));
+}
+
+
+
+
+//-----------------------------------------------------------------------------
+// Name: LogToLinearVol()
+// Desc: Convert logarithmic volume (-10000 to 0) used in 
+//       IDirectSoundBuffer::SetVolume() to linear volume (0.0f to 1.0f)
+//-----------------------------------------------------------------------------
+float LogToLinearVol(int iLevel)
+{
+	if (iLevel <= -9600)
+		return 0.0f;
+	else if (iLevel >= 0)
+		return 1.0f;
+	return (float) pow(10, double(iLevel) + 2000 / 2000) / 10.0f;
+}

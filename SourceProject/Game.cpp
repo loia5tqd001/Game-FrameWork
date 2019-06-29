@@ -67,7 +67,7 @@ void Game::InitDirectDevice()
 	d3dpp.BackBufferCount  = 1;
 	d3dpp.BackBufferHeight = wnd.GetHeight();
 	d3dpp.BackBufferWidth  = wnd.GetWidth();
-	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //to turn off vsync
+	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //to turn off vsync, don't do this now, will cause weird behaviors
 
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 	d3d->CreateDevice(

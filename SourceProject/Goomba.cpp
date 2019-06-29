@@ -14,7 +14,7 @@ void Goomba::Update(float dt, const std::vector<GameObject*>& coObjects)
 
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;
-	pos.Neutralize(); // fix flickering, but will cause collision issue in cases
+	pos.Neutralize(); // HACK: fix flickering, but will cause weird behaviors in cases. NOTE: Don't call this when vsync is off, will cause lag
 
 	Utils::Clamp(pos.x, 0.0f, 624.0f, [this]() {vel.x = -vel.x; });
 

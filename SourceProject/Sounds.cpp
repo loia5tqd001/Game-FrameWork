@@ -10,13 +10,6 @@ float                               Sounds::displayTimeRemain = 0.0f ;
 CSoundManager                       Sounds::dsound                   ;
 std::unordered_map<SoundId, CSound> Sounds::soundDictionary          ;
 
-int Sounds::LinearToLogVol(float fLevel)
-{
-	if (fLevel <= 0.0f) return DSBVOLUME_MIN;
-	if (fLevel >= 1.0f) return DSBVOLUME_MAX;
-	return int (-2000 * log10( 1.0f / fLevel ));
-}
-
 LPSTR Sounds::GetWaveFileNameFromSoundId(SoundId id, const Json::Value& root)
 {
 	static auto matchSoundIdPred = [&](const Json::Value& sound) { return sound[0].asUInt() == (UINT)id; };
@@ -50,33 +43,36 @@ void Sounds::AddSoundToDict(SoundId id, const Json::Value& root)
 
 bool Sounds::CheckHoldingVolume()
 {
-	displayTimeRemain = 2.0f; // reset display time remain to 2 seconds every when pressing +/-
+	displayTimeRemain = 2.0f; // reset display volume bar time remain to 2 seconds every when pressing +/-
 
-	static constexpr float thresholdHoldingTime = 0.05f;
-
-	static float timePressed = 0.0f; // time period has holded +/-
+	static float timePressed = 0.0f; // time period has holded +/- 
 	timePressed += GameTimer::Dt();
 
-	if (timePressed < thresholdHoldingTime) return false;
+	static constexpr float thresholdHoldingTime = 0.05f;
+	if (timePressed < thresholdHoldingTime) return false; // avoid holding +/- lead to volume fluctuating too fast
 	else timePressed -= thresholdHoldingTime; return true;
 }
 
 void Sounds::VolumeUp()
 {
-	if (CheckHoldingVolume() == false) return;
-
+	if (CheckHoldingVolume() == false) return; // avoid holding (+) too fast
 	liVolume = min(1.0f, liVolume + 0.01f);
-	for (auto& [_, sound] : soundDictionary)
-		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+
+	if (!isMute) {
+		for (auto& [_, sound] : soundDictionary)
+			sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+	}
 }
 
 void Sounds::VolumeDown()
 {
-	if (CheckHoldingVolume() == false) return;
-
+	if (CheckHoldingVolume() == false) return; // avoid holding (-) too fast
 	liVolume = max(0.0f, liVolume - 0.01f);
-	for (auto& [_, sound] : soundDictionary)
-		sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+
+	if (!isMute) {
+		for (auto& [_, sound] : soundDictionary)
+			sound.GetBuffer(0)->SetVolume( LinearToLogVol(liVolume) );
+	}
 }
 
 void Sounds::SetMute(bool ismute)
