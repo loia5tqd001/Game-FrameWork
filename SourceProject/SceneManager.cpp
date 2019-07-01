@@ -23,6 +23,7 @@ void SceneManager::LoadResources()
 	Sprites::LoadResources(root);
 	Sounds::LoadResources(root);
 	Texts::LoadResources(root);
+	Font::AddCustomFonts();
 }
 
 void SceneManager::SetScene(Scene scene)

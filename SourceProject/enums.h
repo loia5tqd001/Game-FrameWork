@@ -113,6 +113,14 @@ enum class Scene
 	GamePlay,
 };
 
+struct CustomFonts
+{
+	static constexpr unsigned int nFonts = 1;
+	static constexpr char* fonts[] =
+	{
+		"Resources\\Fonts\\prstartk.ttf"
+	};
+};
 
 
 

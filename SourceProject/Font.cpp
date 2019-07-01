@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Font.h"
 #include "Game.h"
+#include "enums.h"
 
 Font::Font(UINT size, LPCSTR font) : spriteHandler( Game::Instance().GetSpriteHandler() )
 {
@@ -13,6 +14,14 @@ Font::~Font()
 	{
 		fontDraw->Release();
 		fontDraw = nullptr;
+	}
+}
+
+void Font::AddCustomFonts()
+{
+	for (UINT i = 0; i < CustomFonts::nFonts; i++)
+	{
+		assert( AddFontResourceEx(CustomFonts::fonts[i], FR_PRIVATE, NULL) );
 	}
 }
 
