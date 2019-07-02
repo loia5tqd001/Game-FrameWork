@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "GameObject.h"
-
 
 void GameObject::RenderBoundingBox() const
 {

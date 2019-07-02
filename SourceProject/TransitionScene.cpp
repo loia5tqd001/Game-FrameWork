@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "TransitionScene.h"
-#include "Game.h"
-#include "SceneManager.h"
 
 void TransitionScene::Update(float dt)
 {

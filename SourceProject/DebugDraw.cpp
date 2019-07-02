@@ -1,8 +1,4 @@
 #include "pch.h"
-#include "DebugDraw.h"
-#include "Game.h"
-#include "Camera.h"
-#include "Textures.h"
 
 void DebugDraw::DrawSolidRect(const RectF& bbox, D3DCOLOR color)
 {
@@ -44,7 +40,7 @@ bool DebugDraw::IsInDebugMode()
 
 bool DebugDraw::IsInDeepDebug()
 {
-	return IsInDebugMode() && Window::Instance().IsKeyPressed(VK_SHIFT);
+	return IsInDebugMode() && !Settings::Instance().IsOpening() && Window::Instance().IsKeyPressed(VK_SHIFT);
 }
 
 void DebugDraw::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color)

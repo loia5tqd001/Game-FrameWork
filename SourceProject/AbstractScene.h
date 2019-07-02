@@ -1,16 +1,22 @@
 #pragma once
-#include "enums.h"
 
 class AbstractScene
 {
+private:
+	bool isPause = Settings::Instance().IsOpening();
+
 public:
-	AbstractScene() noexcept = default;
+	AbstractScene() = default;
 	AbstractScene(const AbstractScene&) = delete;
 	virtual ~AbstractScene() = default;
 
 	static Json::Value GetRootJson(LPCSTR jsonPath);
-	virtual SoundId GetBgMusic() const { return SoundId::Count; }// invalid music
+
+	virtual SoundId GetBgMusic() const { return SoundId::Count; } // invalid music
 	bool HasMusic() const { return GetBgMusic() != SoundId::Count; }
+
+	void TogglePause() { isPause = !isPause; }
+	inline bool IsPause() const { return isPause; }
 
 	virtual void LoadResources () = 0;
 	virtual void Update(float dt) = 0;

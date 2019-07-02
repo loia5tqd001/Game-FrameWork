@@ -1,9 +1,6 @@
 #include "pch.h"
-#include "Grid.h"
-#include "Camera.h"
 #include "Brick.h"
 #include "Goomba.h"
-
 
 Grid::Grid(const Json::Value& root)
 {
@@ -247,8 +244,8 @@ void Grid::RenderCells() const
 
 		static std::ostringstream os; os.str("");
 		os << "index: " << cellIndex << "\n"
-			<< "static: " << cell.staticObjects.size() << "\n"
-			<< "moving: " << cell.movingObjects.size();
+		   << "static: " << cell.staticObjects.size() << "\n"
+		   << "moving: " << cell.movingObjects.size();
 
 		DebugDraw::DrawString( os.str(), cellDrawPosition, Colors::White ); // actual string
 	}

@@ -1,8 +1,4 @@
 #include "pch.h"
-#include "Map.h"
-#include "Camera.h"
-#include "Game.h"
-
 
 Map::Map(const Json::Value & root) :
 	texture( Textures::Get(TextureId::Map) )

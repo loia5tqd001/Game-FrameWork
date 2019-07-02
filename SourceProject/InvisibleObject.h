@@ -1,5 +1,4 @@
 #pragma once
-#include "GameObject.h"
 
 class InvisibleObject : public GameObject
 {

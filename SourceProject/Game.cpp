@@ -1,6 +1,7 @@
 #include "pch.h"
-#include "Game.h"
-#include "Textures.h"
+
+static auto& wnd = Window::Instance();
+static auto& sceneManager = SceneManager::Instance();
 
 Game::~Game()
 {
@@ -15,10 +16,23 @@ void Game::FillColor(D3DCOLOR color) const
 	d3ddv->ColorFill(backBuffer, NULL, color); 
 }
 
-void Game::Draw(const RectF& area, D3DCOLOR color) const
+void Game::DrawSolidRect(const RectF& area, D3DCOLOR color) const
 {
 	static const auto bboxTexture = Textures::Get(TextureId::Bbox);
 	Game::Instance().Draw(area.GetTopLeft(), bboxTexture, area.GetOriginRect(), { 1.0f, 1.0f }, color);
+}
+
+void Game::DrawOutLine(const RectF& rect, UINT thickness, D3DCOLOR color) const
+{
+	const RectF left   = { rect.left             , rect.top               , rect.left  + thickness, rect.bottom - thickness };
+	const RectF top    = { rect.left  + thickness, rect.top               , rect.right            , rect.top    + thickness };
+	const RectF right  = { rect.right - thickness, rect.top    + thickness, rect.right            , rect.bottom             };
+	const RectF bottom = { rect.left             , rect.bottom - thickness, rect.right - thickness, rect.bottom             };
+
+	DrawSolidRect(left  , color);
+	DrawSolidRect(top   , color);
+	DrawSolidRect(right , color);
+	DrawSolidRect(bottom, color);	
 }
 
 void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 vtScale, D3DCOLOR color) const

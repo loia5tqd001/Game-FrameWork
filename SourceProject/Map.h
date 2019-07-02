@@ -1,6 +1,4 @@
 #pragma once
-#include "GameObject.h"
-#include "Textures.h"
 
 struct Tile
 {

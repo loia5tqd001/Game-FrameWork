@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Sprites.h"
-#include "Textures.h"
 
 std::unordered_map<SpriteId, Sprite> Sprites::spriteDictionary;
 

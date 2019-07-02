@@ -1,19 +1,16 @@
 #include "pch.h"
 #include "DemoScene.h"
-#include "Camera.h"
-
-#include "Textures.h"
-#include "Sprites.h"
-#include "Sounds.h"
-#include "Texts.h"
-
 #include "Brick.h"
 #include "Goomba.h"
+
+static auto& cam = Camera::Instance();
 
 DemoScene::DemoScene()
 {
 	LoadResources();
-	Sounds::PlayLoop(SoundId::MarioMusic);
+
+	if (!IsPause()) 
+		Sounds::PlayLoop(SoundId::MarioMusic);
 }
 
 void DemoScene::LoadResources()
@@ -31,8 +28,8 @@ void DemoScene::Update(float dt)
 
 	mario->Update(dt, grid->GetObjectsInViewPort());
 
-	Camera::Instance().CenterTo( mario->GetBBox().GetCenter() );
-	Camera::Instance().ClampWithin({ 0.0f, 0.0f, grid->GetWidthInPixel(), grid->GetHeightInPixel() });
+	cam.CenterTo( mario->GetBBox().GetCenter() );
+	cam.ClampWithin({ 0.0f, 0.0f, grid->GetWidthInPixel(), grid->GetHeightInPixel() });
 
 	for (auto& obj : grid->GetObjectsInViewPort())
 	{
@@ -55,6 +52,13 @@ void DemoScene::Draw()
 
 void DemoScene::OnKeyDown(BYTE keyCode)
 {
+	switch (keyCode)
+	{
+		case VK_CONTROL:
+			DebugDraw::ToggleDebugMode();
+			break;
+	}
+
 	mario->OnKeyDown(keyCode);
 }
 

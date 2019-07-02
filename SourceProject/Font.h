@@ -11,7 +11,7 @@ public:
 	Font(const Font&) = delete;
 	~Font();
 
-	static void AddCustomFonts();
+	static void LoadCustomFonts(const Json::Value& root);
 
 	void AdjustFont(UINT size, LPCSTR font);
 	void DrawStringWithin(const std::string& str, const RectF& area, D3DCOLOR color, DWORD format = DT_CENTER) const;

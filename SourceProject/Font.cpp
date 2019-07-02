@@ -1,7 +1,4 @@
 #include "pch.h"
-#include "Font.h"
-#include "Game.h"
-#include "enums.h"
 
 Font::Font(UINT size, LPCSTR font) : spriteHandler( Game::Instance().GetSpriteHandler() )
 {
@@ -17,11 +14,12 @@ Font::~Font()
 	}
 }
 
-void Font::AddCustomFonts()
+void Font::LoadCustomFonts(const Json::Value& root)
 {
-	for (UINT i = 0; i < CustomFonts::nFonts; i++)
+	const auto& customFontsJson = root["customfonts"];
+	for (const auto& customFontJson : customFontsJson)
 	{
-		assert( AddFontResourceEx(CustomFonts::fonts[i], FR_PRIVATE, NULL) );
+		assert( AddFontResourceEx(customFontJson.asCString(), FR_PRIVATE, NULL) );
 	}
 }
 

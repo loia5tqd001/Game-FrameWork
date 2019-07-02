@@ -1,6 +1,4 @@
 #pragma once
-#include "enums.h"
-#include "Sprite.h"
 
 class Sprites 
 {

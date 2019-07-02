@@ -1,5 +1,4 @@
 #pragma once
-#include "AbstractScene.h"
 
 class TransitionScene : public AbstractScene
 {

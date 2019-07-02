@@ -1,15 +1,14 @@
 #pragma once
 
-
-
 enum class TextureId
 {
-	Bbox     = 0,
-	Mario    = 1,
-	Misc     = 2,
-	Enemy    = 3,
-	Map      = 4,
-	Greeting = 5,
+	Bbox        = 0,
+	Mario       = 1,
+	Misc        = 2,
+	Enemy       = 3,
+	Map         = 4,
+	Greeting    = 5,
+	KeyCodeFont = 6,
 	Count
 };
 
@@ -33,10 +32,11 @@ enum class SoundId
 	MarioJump,
 	MarioMusic,
 	Greeting,
+	Cursor,
 	Count
 };
 
-enum class TextId
+enum class TextId // Considered to be removed
 {
 	CharA = 'A', // 65
 	CharB = 'B', 
@@ -111,15 +111,6 @@ enum class Scene
 	Demo,
 	Intro,
 	GamePlay,
-};
-
-struct CustomFonts
-{
-	static constexpr unsigned int nFonts = 1;
-	static constexpr char* fonts[] =
-	{
-		"Resources\\Fonts\\prstartk.ttf"
-	};
 };
 
 

@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Sprite.h"
-#include "Game.h"
 
 Sprite::Sprite(Sprite&& other) noexcept :
 	texture( std::move(other.texture) ),

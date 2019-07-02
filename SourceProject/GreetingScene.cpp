@@ -1,9 +1,5 @@
 #include "pch.h"
 #include "GreetingScene.h"
-#include "Window.h"
-#include "SceneManager.h"
-#include "Sounds.h"
-#include "Textures.h"
 
 GreetingScene::GreetingScene()
 {
@@ -37,6 +33,7 @@ void GreetingScene::OnKeyDown(BYTE keyCode)
 {
 	switch (keyCode)
 	{
+		case VK_ESCAPE:
 		case VK_RETURN:
 		case VK_SPACE:
 			Sounds::StopAt(SoundId::Greeting);

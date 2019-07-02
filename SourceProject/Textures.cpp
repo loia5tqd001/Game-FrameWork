@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Textures.h"
-#include "Game.h"
 
 std::unordered_map<TextureId, LPDIRECT3DTEXTURE9> Textures::textureDictionary;
 

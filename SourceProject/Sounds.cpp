@@ -1,8 +1,4 @@
 #include "pch.h"
-#include "Sounds.h"
-#include "Textures.h"
-#include "Window.h"
-#include "Game.h"
 
 bool                                Sounds::isMute            = false;
 float                               Sounds::liVolume          = 1.0f ;
@@ -39,6 +35,7 @@ void Sounds::AddSoundToDict(SoundId id, const Json::Value& root)
 	}
 
 	soundDictionary.emplace(id, *waveSound);
+	assert(soundDictionary.count(id) == 1);
 }
 
 bool Sounds::CheckHoldingVolume()
@@ -97,7 +94,7 @@ void Sounds::LoadResources(const Json::Value& root)
 {
 	if (dsound.Initialize(Window::Instance().GetHWnd(), DSSCL_PRIORITY) != DS_OK)
 		ThrowMyException("Init CSoundManager failed");
-
+		
 	if (dsound.SetPrimaryBufferFormat(2, 22050, 16) != DS_OK)
 		ThrowMyException("Set primary buffer format for CSoundManager failed");
 
@@ -157,9 +154,9 @@ void Sounds::Draw()
 	const auto colorFullPart = isMute ? Colors::DimRed : Colors::DimBlue;
 	const auto colorNumber   = isMute ? Colors::DimRed : Colors::White;
 
-	Game::Instance().Draw(bgArea    , Colors::DimGray); // gray background of displaying volume
-	Game::Instance().Draw(volBarArea, Colors::White  ); // white background of displaying volume bar
-	Game::Instance().Draw(fullPart  , colorFullPart  ); // display how full volume bar
+	Game::Instance().DrawSolidRect(bgArea    , Colors::DimGray); // gray background of displaying volume
+	Game::Instance().DrawSolidRect(volBarArea, Colors::White  ); // white background of displaying volume bar
+	Game::Instance().DrawSolidRect(fullPart  , colorFullPart  ); // display how full volume bar
 
 	fontDraw.DrawStringWithin( std::to_string(int(liVolume * 100)), bgNumberArea, colorNumber ); // area of displaying volume number
 }

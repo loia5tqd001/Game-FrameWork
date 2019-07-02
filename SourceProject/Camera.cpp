@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "Camera.h"
 
 void Camera::MoveTo(const Vector2 & newPos)
 {

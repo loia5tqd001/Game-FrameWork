@@ -1,6 +1,4 @@
 #pragma once
-#include "GameObject.h"
-#include "Animation.h"
 
 class VisibleObject : public GameObject
 {

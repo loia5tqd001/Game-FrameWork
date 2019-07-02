@@ -1,5 +1,4 @@
 #pragma once
-#include "GameObject.h"
 
 struct CollisionEvent
 {
@@ -11,7 +10,6 @@ struct CollisionEvent
 
 	operator bool() const { return pCoObj != nullptr; }
 };
-
 
 struct CollisionDetector
 {

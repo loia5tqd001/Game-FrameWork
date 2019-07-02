@@ -180,6 +180,8 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="KeyCodeFonts.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="TransitionScene.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -218,6 +220,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="KeyCodeFonts.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="TransitionScene.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DebugOut.h" />

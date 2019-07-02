@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "AbstractScene.h"
 
 // Learn more about jsoncpp: https://github.com/open-source-parsers/jsoncpp
 Json::Value AbstractScene::GetRootJson(LPCSTR jsonPath)

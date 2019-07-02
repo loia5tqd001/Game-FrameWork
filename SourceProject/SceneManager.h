@@ -1,16 +1,15 @@
 #pragma once
-#include "AbstractScene.h"
-#include "enums.h"
 
 class SceneManager
 {
 private:
 	std::unique_ptr<AbstractScene> curScene;
-
-private:
-	void ToggleMuteMode() const;
+	Settings& settingScene = Settings::Instance();
 
 public:
+	void ToggleMuteMode() const;
+	void ToggleSettingScene() const;
+
 	void LoadResources();
 	void SetScene(Scene scene);
 	void Update(float dt);

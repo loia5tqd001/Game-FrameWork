@@ -1,7 +1,4 @@
 #include "pch.h"
-#include "Animation.h"
-#include "Sprites.h"
-
 
 Animation::Animation(SpriteId spriteId, float holdTime) :
 	sprite(Sprites::Get(spriteId)),

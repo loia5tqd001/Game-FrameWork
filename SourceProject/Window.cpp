@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Window.h"
-#include "SceneManager.h"
 
 LRESULT Window::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

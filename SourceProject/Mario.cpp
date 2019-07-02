@@ -1,13 +1,8 @@
 #include "pch.h"
 #include "Mario.h"
-#include "Collision.h"
-#include "Window.h"
-#include "Camera.h"
-
-#include "Sounds.h"
-#include "Texts.h"
-
 #include "Goomba.h"
+
+static auto& setting = Settings::Instance();
 
 Mario::Mario(const Vector2 & spawnPos) : 
 	VisibleObject(State::MarioWalking, spawnPos)
@@ -28,13 +23,13 @@ void Mario::OnKeyDown(BYTE keyCode)
 {
 	switch (keyCode)
 	{
-		case VK_SPACE:
-			SetState(State::MarioJump);
-			break;
-
-		case 'Q':
+		case VK_TAB:
 			OnFlashing(false);
 			break;
+	}
+
+	if (keyCode == setting.Get(KeyControls::Jump)) {
+		SetState(State::MarioJump);
 	}
 }
 
@@ -42,12 +37,12 @@ void Mario::ProcessInput()
 {
 	static const Window& wnd = Window::Instance();
 
-	if (wnd.IsKeyPressed(VK_LEFT)) 
+	if (wnd.IsKeyPressed( setting.Get(KeyControls::Left) )) 
 	{
 		nx = -std::abs(nx);
 		SetState(State::MarioWalking);
 	}
-	else if (wnd.IsKeyPressed(VK_RIGHT)) 
+	else if (wnd.IsKeyPressed( setting.Get(KeyControls::Right) )) 
 	{
 		nx = std::abs(nx);
 		SetState(State::MarioWalking);

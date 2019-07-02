@@ -1,6 +1,4 @@
 #pragma once
-#include "AbstractScene.h"
-#include "Sprite.h"
 
 class GreetingScene : public AbstractScene
 {

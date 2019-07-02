@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "Texts.h"
-#include "Game.h"
 
 LPDIRECT3DTEXTURE9               Texts::texture;
 std::unordered_map<TextId, Rect> Texts::textDictionary;
