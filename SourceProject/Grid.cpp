@@ -43,7 +43,7 @@ auto Grid::LoadObjects(const Json::Value& root)
 				break;
 
 			default:
-				ThrowMyException("Read unknown type objects");
+				ThrowMyException("Object id:", objId, "can't find class id:", classId);
 				break;
 		}
 

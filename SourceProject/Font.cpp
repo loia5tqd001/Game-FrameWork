@@ -19,7 +19,10 @@ void Font::LoadCustomFonts(const Json::Value& root)
 	const auto& customFontsJson = root["customfonts"];
 	for (const auto& customFontJson : customFontsJson)
 	{
-		assert( AddFontResourceEx(customFontJson.asCString(), FR_PRIVATE, NULL) );
+		if( FAILED( AddFontResourceEx(customFontJson.asCString(), FR_PRIVATE, NULL) ))
+		{
+			ThrowMyException("Failed adding custom font:", customFontJson.asCString());
+		}
 	}
 }
 
