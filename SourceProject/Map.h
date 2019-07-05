@@ -22,7 +22,8 @@ public:
 	void LoadResources(const Json::Value& root);
 	void Render() const;
 
-	UINT GetMapWidth () const { return width  * tileSize; }
-	UINT GetMapHeight() const { return height * tileSize; }
-	UINT GetTileSize () const { return          tileSize; }
+	inline RectF GetWorldBoundary() const { return { 0.0f, 0.0f, GetMapWidth(), GetMapHeight() }; }
+	inline UINT  GetMapWidth     () const { return width  * tileSize; }
+	inline UINT  GetMapHeight    () const { return height * tileSize; }
+	inline UINT  GetTileSize     () const { return          tileSize; }
 };

@@ -7,52 +7,46 @@ Grid::Grid(const Json::Value& root)
 	LoadResources(root);
 }
 
-auto Grid::LoadObjects(const Json::Value& root)
+auto Grid::LoadObjects(const Json::Value& grid)
 {
-	std::unordered_map<UINT, GameObject*> staticObjects;
-	std::unordered_map<UINT, GameObject*> movingObjects;
+	std::vector<GameObject*> staticObjects;
+	std::vector<GameObject*> movingObjects;
 
-	const Json::Value& jsonObjects = root["objects"];
+	const Json::Value& jsonObjects = grid["objects"];
+	objectHolder.reserve( jsonObjects.size() );
 
-	const UINT nObjects = jsonObjects[0].asUInt();
-	assert(nObjects == jsonObjects.size() - 1);
-
-	objectHolder.reserve(nObjects);
-
-	for (UINT i = 1; i <= nObjects; i++)
+	for (const auto& jsonObj : jsonObjects)
 	{
-		const Json::Value& obj = jsonObjects[i];
-		const UINT  objId    = obj[0].asUInt ();
-		const UINT  classId  = obj[1].asUInt ();
-		const bool  isStatic = obj[2].asBool ();
-		const float x        = obj[3].asFloat();
-		const float y        = obj[4].asFloat();
-		const UINT  width    = obj[5].asInt  ();
-		const UINT  height   = obj[6].asInt  ();
-		const float vx       = obj[7].asFloat();
-		const float vy       = obj[8].asFloat();
-		const float nx       = obj[9].asFloat();
+		const UINT  classId  = jsonObj[0].asUInt ();
+		const bool  isStatic = jsonObj[1].asBool ();
+		const float x        = jsonObj[2].asFloat();
+		const float y        = jsonObj[3].asFloat();
+		const UINT  width    = jsonObj[4].asInt  ();
+		const UINT  height   = jsonObj[5].asInt  ();
+		const float vx       = jsonObj[6].asFloat();
+		const float vy       = jsonObj[7].asFloat();
+		const float nx       = jsonObj[8].asFloat();
 
 		static std::unique_ptr<GameObject> object;
 		switch ((ClassId)classId)
 		{
 			case ClassId::Block:
-				object = std::make_unique<Block>( Vector2(x, y), width, height );
+				object = std::make_unique<Block>( Vector2{x, y}, width, height );
 				break;
 
 			case ClassId::Goomba:
-				object = std::make_unique<Goomba>( Vector2(x, y), Vector2(vx, 0.0f) );
+				object = std::make_unique<Goomba>( Vector2{x, y}, Vector2{vx, 0.0f} );
 				break;
 
 			default:
-				ThrowMyException("Object id:", objId, "can't find class id:", classId);
+				ThrowMyException("Can't find class id:", classId);
 				break;
 		}
 
-		if (isStatic) staticObjects.emplace(objId, object.get());
-		else          movingObjects.emplace(objId, object.get());
+		if (isStatic) staticObjects.emplace_back( object.get() );
+		else          movingObjects.emplace_back( object.get() );
 
-		objectHolder.emplace_back(std::move(object));
+		objectHolder.emplace_back( std::move(object) );
 	}
 
 	return std::make_pair(staticObjects, movingObjects);
@@ -60,42 +54,43 @@ auto Grid::LoadObjects(const Json::Value& root)
 
 void Grid::LoadResources(const Json::Value& root)
 {		
-	const auto mapObjects = LoadObjects(root);
-
 	const Json::Value& grid = root["grid"];
 	cellSize = grid["cellsize"].asUInt();
 	width    = grid["width"   ].asUInt();
 	height   = grid["height"  ].asUInt();
 
-	const Json::Value& cellsData = grid["cells"];
-	assert(cellsData.size() == width * height);
-
 	cells.resize(width * height);
-	for (UINT i = 0; i < width * height; i++)
+	for (UINT x = 0; x < width; x++)
+	for (UINT y = 0; y < height; y++)
 	{
-		const float x = float(i / height) * cellSize;
-		const float y = float(i % height) * cellSize;
-		cells[i].boundingBox = { x, y, cellSize, cellSize };
+		cells[x * height + y].boundingBox = { float(x * cellSize), float(y * cellSize), cellSize, cellSize };
+	}
 
-		const Json::Value& jsonCell = cellsData[i];
-		const Json::Value& statics  = jsonCell [0];
-		const Json::Value& movings  = jsonCell [1];
+	const auto [staticObjs, movingObjs] = LoadObjects(grid);
 
-		for (UINT j = 0; j < statics.size(); j++)
+	for (const auto& obj : staticObjs)
+	{
+		const auto objBbox = obj->GetBBox();
+		const auto cellsObjectBelong = CalcCollidableArea( objBbox );
+		for (UINT x = cellsObjectBelong.xs; x <= cellsObjectBelong.xe; x++)
+		for (UINT y = cellsObjectBelong.ys; y <= cellsObjectBelong.ye; y++)
 		{
-			UINT objId = statics[j].asUInt();
-			auto obj   = mapObjects.first.at(objId);
-
-			cells[i].staticObjects.emplace( obj );
-			assert(obj->GetBBox().IsIntersect( cells[i].GetBBox() ));
+			auto& cell = cells[x * height + y];
+			assert(objBbox.IsIntersect( cell.GetBBox() ));
+			cell.staticObjects.emplace( obj );
 		}
-		for (UINT j = 0; j < movings.size(); j++)
-		{
-			UINT objId = movings[j].asUInt();
-			auto obj   = mapObjects.second.at(objId);
+	}
 
-			cells[i].movingObjects.emplace( obj );
-			assert(obj->GetBBox().IsIntersect( cells[i].GetBBox() ));
+	for (const auto& obj : movingObjs)
+	{
+		const auto objBbox = obj->GetBBox();
+		const auto cellsObjectBelong = CalcCollidableArea( objBbox );
+		for (UINT x = cellsObjectBelong.xs; x <= cellsObjectBelong.xe; x++)
+		for (UINT y = cellsObjectBelong.ys; y <= cellsObjectBelong.ye; y++)
+		{
+			auto& cell = cells[x * height + y];
+			assert(objBbox.IsIntersect( cell.GetBBox() ));
+			cell.movingObjects.emplace( obj );
 		}
 	}
 }
@@ -103,10 +98,10 @@ void Grid::LoadResources(const Json::Value& root)
 Area Grid::CalcCollidableArea(const RectF& bbox) const
 {
 	return 	{
-		UINT(max(0         , bbox.left   / cellSize)),
-		UINT(min(width  - 1, bbox.right  / cellSize)),
-		UINT(max(0         , bbox.top    / cellSize)),
-		UINT(min(height - 1, bbox.bottom / cellSize))
+		UINT(max(0         ,      bbox.left   / cellSize      )),
+		UINT(min(width  - 1, ceil(bbox.right  / cellSize) - 1 )),
+		UINT(max(0         ,      bbox.top    / cellSize      )),
+		UINT(min(height - 1, ceil(bbox.bottom / cellSize) - 1 ))
 	};
 }
 

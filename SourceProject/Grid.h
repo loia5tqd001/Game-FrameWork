@@ -23,16 +23,13 @@ private:
 	Area CalcCollidableArea(const RectF& bbox) const;
 	Area GetVicinityAreaOfViewPort() const;
 
-	auto LoadObjects(const Json::Value& root);
+	auto LoadObjects(const Json::Value& grid);
 	void LoadResources(const Json::Value& root);
 	void RemoveDestroyedObjects();
 	void RecalculateObjectsInViewPort();
 
 public:
 	Grid(const Json::Value& root);
-	RectF GetOverallBbox  () const { return { 0.0f, 0.0f, width * cellSize, height * cellSize }; }
-	UINT  GetWidthInPixel () const { return width  * cellSize; }
-	UINT  GetHeightInPixel() const { return height * cellSize; }
 
 	void UpdateCells(); // NOTE: This grid will not update objects being too far away from viewport
 	void RenderCells() const;
