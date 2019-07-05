@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Brick.h"
 #include "Goomba.h"
+#include "Block.h"
 
 Grid::Grid(const Json::Value& root)
 {
@@ -27,18 +27,20 @@ auto Grid::LoadObjects(const Json::Value& root)
 		const bool  isStatic = obj[2].asBool ();
 		const float x        = obj[3].asFloat();
 		const float y        = obj[4].asFloat();
-		const float vx       = obj[5].asFloat();
-		const float vy       = obj[6].asFloat();
-		const float nx       = obj[7].asFloat();
+		const UINT  width    = obj[5].asInt  ();
+		const UINT  height   = obj[6].asInt  ();
+		const float vx       = obj[7].asFloat();
+		const float vy       = obj[8].asFloat();
+		const float nx       = obj[9].asFloat();
 
 		static std::unique_ptr<GameObject> object;
-		switch ((ObjectType)classId)
+		switch ((ClassId)classId)
 		{
-			case ObjectType::Brick:
-				object = std::make_unique<Brick>( Vector2(x, y) );
+			case ClassId::Block:
+				object = std::make_unique<Block>( Vector2(x, y), width, height );
 				break;
 
-			case ObjectType::Goomba:
+			case ClassId::Goomba:
 				object = std::make_unique<Goomba>( Vector2(x, y), Vector2(vx, 0.0f) );
 				break;
 
@@ -238,7 +240,7 @@ void Grid::RenderCells() const
 
 		DebugDraw::DrawRectOutLine( cellBbox, Colors::DimGray ); // cells outline
 
-		DebugDraw::DrawSolidRect( cellBbox.Clone().Trim(0, 0, 115, 123), Colors::DimGray ); // background for string
+		DebugDraw::DrawSolidRect( { cellBbox.GetTopLeft(), 45, 37 }, Colors::DimGray ); // background for string
 
 		const Vector2 cellDrawPosition = cellBbox.GetTopLeft() + Vector2{ 2.5f, 0.5f };
 

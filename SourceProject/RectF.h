@@ -9,6 +9,7 @@ struct RectF
 	RectF(                                         ) : left(0.0f), top(0.0f), right(0.0f), bottom(0.0f) {}
 	RectF(float l, float t, float r   , float b    ) : left(l   ), top(t   ), right(r   ), bottom(b   ) { assert(top <= bottom); }
 	RectF(float x, float y, UINT width, UINT height) : RectF(x, y, x + width, y + height              ) {}
+	RectF(const Vector2 tl, UINT width, UINT height) : RectF( tl.x, tl.y, width, height               ) {}
 
 	operator Rect      () const { return { left, top, right, bottom }              ; } 
 	Vector2  GetTopLeft() const { return { left, top }                             ; }

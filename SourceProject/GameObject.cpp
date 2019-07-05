@@ -11,6 +11,13 @@ void GameObject::GetDxDy(float dt, float& dx, float& dy) const
 	dy = vel.y * dt;
 }
 
+void GameObject::ClampWithin(const RectF& theBox)
+{
+	const auto objBBox = GetBBox();
+	Utils::Clamp(pos.x, theBox.left, theBox.right - objBBox.GetWidth());
+	Utils::Clamp(pos.y, theBox.top, theBox.bottom - objBBox.GetHeight());
+}
+
 Vector2 GameObject::GetVelocity() const
 {
 	return vel;
@@ -19,6 +26,6 @@ Vector2 GameObject::GetVelocity() const
 GameObject::GameObject(Vector2 pos, Vector2 vel) : 
 	pos(pos),
 	vel(vel),
-	bboxColor(Colors::MyChineseBrown)
+	bboxColor(Colors::DimGray)
 {
 }

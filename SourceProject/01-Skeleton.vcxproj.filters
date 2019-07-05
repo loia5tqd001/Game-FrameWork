@@ -170,9 +170,6 @@
     <ClInclude Include="Window.h">
       <Filter>Framework\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Development\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Development\Objects</Filter>
     </ClInclude>
@@ -238,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="KeyCodeFonts.h">
       <Filter>Framework\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Development\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -44,6 +44,6 @@ void Font::DrawStringWithin(const std::string& str, const RectF& area, D3DCOLOR 
 void Font::DrawString(const std::string& str, const Vector2& pos, D3DCOLOR color) const
 {
 	static Rect rect;
-	SetRect(&rect, (int)pos.x, (int)pos.y, 0, 0);
+	SetRect(&rect, int(pos.x + 0.5f), int(pos.y + 0.5f), 0, 0);
 	fontDraw->DrawText(spriteHandler, str.c_str(), -1, &rect, DT_NOCLIP, color);
 }

@@ -1,7 +1,6 @@
 #include "pch.h"
 
-Map::Map(const Json::Value & root) :
-	texture( Textures::Get(TextureId::Map) )
+Map::Map(const Json::Value & root) 
 {
 	LoadResources(root);
 }
@@ -9,11 +8,13 @@ Map::Map(const Json::Value & root) :
 void Map::LoadResources(const Json::Value& root)
 {
 	const Json::Value&   tileMap = root["map"];
-	const UINT columns = tileMap["columns" ].asUInt();
-	          tileSize = tileMap["tilesize"].asUInt();
-	          height   = tileMap["height"  ].asUInt();
-	          width    = tileMap["width"   ].asUInt();
+	const UINT textureId = tileMap["texture-id"].asUInt();
+	const UINT columns   = tileMap["columns"   ].asUInt();
+	           tileSize  = tileMap["tilesize"  ].asUInt();
+	           height    = tileMap["height"    ].asUInt();
+	           width     = tileMap["width"     ].asUInt();
 
+	texture = Textures::Get( (TextureId)textureId );
 	tiles.reserve(height * width);
 
 	const Json::Value& data = tileMap["data"];

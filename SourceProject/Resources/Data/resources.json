@@ -5,7 +5,7 @@
 	[ 1, "Resources\\Textures\\mario.png"      , [255,255,255] ],
 	[ 2, "Resources\\Textures\\misc.png"       , [176,224,248] ],
 	[ 3, "Resources\\Textures\\enemies.png"    , [3  ,26 ,110] ],
-	[ 4, "Resources\\Textures\\Map1_bank.png"  , 0             ],
+	[ 4, "Resources\\Textures\\map1-1_bank.png", 0             ],
 	[ 5, "Resources\\Textures\\remember.png"   , 0             ],
 	[ 6, "Resources\\Textures\\keycodefont.png", [0  ,0  ,0  ] ]
   ],

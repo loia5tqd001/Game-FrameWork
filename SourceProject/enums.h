@@ -6,7 +6,7 @@ enum class TextureId
 	Mario       = 1,
 	Misc        = 2,
 	Enemy       = 3,
-	Map         = 4,
+	Map11       = 4,
 	Greeting    = 5,
 	KeyCodeFont = 6,
 	Count
@@ -80,10 +80,10 @@ enum class TextId // Considered to be removed
 	Count
 };
 
-enum class ObjectType
+enum class ClassId
 {
 	Mario,
-	Brick,
+	Block,
 	Goomba,
 	Count
 };

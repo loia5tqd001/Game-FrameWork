@@ -15,8 +15,8 @@ Json::Value AbstractScene::GetRootJson(LPCSTR jsonPath)
 
 	if (!reader.parse(jsonFile, root))
 	{
-		LPCSTR msg = reader.getFormattedErrorMessages().c_str();
-		ThrowMyException("Parse json file failed:", msg);
+		const auto msg = reader.getFormattedErrorMessages();
+		ThrowMyException("Parse json file failed:", msg.c_str());
 	}
 
 	return root;

@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "DemoScene.h"
-#include "Brick.h"
-#include "Goomba.h"
 
 static auto& cam = Camera::Instance();
 
@@ -29,7 +27,9 @@ void DemoScene::Update(float dt)
 	mario->Update(dt, grid->GetObjectsInViewPort());
 
 	cam.CenterTo( mario->GetBBox().GetCenter() );
-	cam.ClampWithin({ 0.0f, 0.0f, grid->GetWidthInPixel(), grid->GetHeightInPixel() });
+	const auto worldBoundary = grid->GetOverallBbox();
+	cam.ClampWithin( worldBoundary );
+	mario->ClampWithin( worldBoundary );
 
 	for (auto& obj : grid->GetObjectsInViewPort())
 	{
