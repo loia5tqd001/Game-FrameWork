@@ -24,9 +24,9 @@
   },
 
   "grid": { 
-		"cellsize": 80,
-		"width": 45,
-		"height": 3,  
+		"cellsize": 120,
+		"width": 30,
+		"height": 2,  
 		"objects": [
 			// classId[0], isStatic[1], x[2], y[3], width[4], height[5], vx[6], vy[7], nx[8] 
 			[ 2, 0,  200, 194,   -1, -1,  -50,  0,  1],	// -1 indicates unused value

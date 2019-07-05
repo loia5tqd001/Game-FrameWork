@@ -7,9 +7,6 @@
     <Filter Include="Development">
       <UniqueIdentifier>{e552e2e3-ef9f-4ec3-b2e0-d32668f39cb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Header">
-      <UniqueIdentifier>{0e80a15f-cafe-4123-b301-48c8f04954da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\_ThirdParty">
       <UniqueIdentifier>{24cb7110-3619-4716-bba6-03607fca019e}</UniqueIdentifier>
     </Filter>
@@ -28,29 +25,20 @@
     <Filter Include="Development\Manager">
       <UniqueIdentifier>{91d35982-a90a-4d1c-9b6b-c9f02a5235d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Source">
-      <UniqueIdentifier>{c4bffbd0-d6eb-41c8-91f6-dae3b812ff13}</UniqueIdentifier>
+    <Filter Include="Framework\ResourceManagers">
+      <UniqueIdentifier>{c7481584-ff8b-4a74-83c5-b5775ef315b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\ResourceComponents">
+      <UniqueIdentifier>{f411ea0c-66f5-4c3c-a94d-bc40b0869dd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\BaseObjects">
+      <UniqueIdentifier>{87b46ef5-c3d6-43c5-a66d-27918b3079c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameControllers">
+      <UniqueIdentifier>{aaf61b66-f7e6-4011-ade9-c1274136799a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>Main</Filter>
     </ClCompile>
@@ -59,12 +47,6 @@
     </ClCompile>
     <ClCompile Include="..\Dependencies\JsonCpp\jsoncpp.cpp">
       <Filter>Framework\_ThirdParty</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Development\Objects</Filter>
@@ -78,32 +60,11 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Development\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractScene.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Development\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="DebugDraw.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="InvisibleObject.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="VisibleObject.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Sounds.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\Dependencies\DirectX SDK\Sound Util\dsutil.cpp">
       <Filter>Framework\_ThirdParty</Filter>
-    </ClCompile>
-    <ClCompile Include="Texts.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Development\Manager</Filter>
@@ -111,38 +72,65 @@
     <ClCompile Include="GreetingScene.cpp">
       <Filter>Development\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Framework\Source</Filter>
-    </ClCompile>
     <ClCompile Include="TransitionScene.cpp">
       <Filter>Development\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyCodeFonts.cpp">
-      <Filter>Framework\Source</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Development\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sounds.cpp">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Texts.cpp">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyCodeFonts.cpp">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="VisibleObject.cpp">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="InvisibleObject.cpp">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractScene.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Framework\GameControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collision.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -163,12 +151,6 @@
     </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Framework\_MyUtils</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractScene.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Development\Objects</Filter>
@@ -191,38 +173,14 @@
     <ClInclude Include="Random.h">
       <Filter>Framework\_MyUtils</Filter>
     </ClInclude>
-    <ClInclude Include="DebugDraw.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="VisibleObject.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="InvisibleObject.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Sounds.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Framework\_MyUtils</Filter>
-    </ClInclude>
-    <ClInclude Include="Texts.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Development\Manager</Filter>
     </ClInclude>
     <ClInclude Include="GreetingScene.h">
       <Filter>Development\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Framework\Header</Filter>
     </ClInclude>
     <ClInclude Include="TransitionScene.h">
       <Filter>Development\Scenes</Filter>
@@ -233,11 +191,59 @@
     <ClInclude Include="Settings.h">
       <Filter>Development\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="KeyCodeFonts.h">
-      <Filter>Framework\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>Development\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Texts.h">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sounds.h">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyCodeFonts.h">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Framework\ResourceManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\ResourceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="InvisibleObject.h">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="VisibleObject.h">
+      <Filter>Framework\BaseObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractScene.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\GameControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Framework\GameControllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -48,9 +48,9 @@
 #include "GameObject.h"
 #include "VisibleObject.h"
 #include "InvisibleObject.h"
-#include "Collision.h"
 
 // === Managers ===
+#include "Collision.h"
 #include "Window.h"
 #include "Game.h"
 #include "Camera.h"

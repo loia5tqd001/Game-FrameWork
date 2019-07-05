@@ -15,6 +15,7 @@ void Map::LoadResources(const Json::Value& root)
 	           width     = tileMap["width"     ].asUInt();
 
 	texture = Textures::Get( (TextureId)textureId );
+	worldBoundary = { 0.0f, 0.0f, width * tileSize, height * tileSize };
 	tiles.reserve(height * width);
 
 	const Json::Value& data = tileMap["data"];

@@ -103,7 +103,7 @@ void Game::InitDirectDevice()
 void Game::Render()
 {
 	d3ddv->BeginScene();
-	d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(200, 200, 200)); // TODO: When having texture background, color background is needless
+	d3ddv->ColorFill(backBuffer, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	sceneManager.Draw();

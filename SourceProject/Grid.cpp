@@ -185,6 +185,7 @@ void Grid::UpdateCells()
 	for (UINT y = 0; y < height; y++)
 	{
 		Cell& cell = cells[x * height + y];
+		if (cell.movingObjects.size() == 0) continue;
 
 		Utils::RemoveIf(cell.movingObjects, [&](auto& o)
 		{
@@ -196,7 +197,7 @@ void Grid::UpdateCells()
 			if (oBbox.IsNone()) return false; 
 
 			// Always reupdate objects on screen even on the case they move to new cell when haven't totally left old cell
-			// Objects offscreen should be updated when totally leave their old cell
+			// Objects offscreen should be updated when totally left their old cell
 			if (oBbox.IsIntersect( cam.GetBBox() ) || !oBbox.IsIntersect( cell.GetBBox() ))
 			{
 				shouldBeUpdatedObjects.emplace(o);	
@@ -233,9 +234,9 @@ void Grid::RenderCells() const
 		const Cell& cell      = cells[cellIndex] ;
 		const RectF cellBbox  = cell.GetBBox()   ;
 
-		DebugDraw::DrawRectOutLine( cellBbox, Colors::DimGray ); // cells outline
+		DebugDraw::DrawRectOutLine( cellBbox, Colors::LightGray ); // cells outline
 
-		DebugDraw::DrawSolidRect( { cellBbox.GetTopLeft(), 45, 37 }, Colors::DimGray ); // background for string
+		DebugDraw::DrawSolidRect( { cellBbox.GetTopLeft(), 45, 37 }, Colors::LightGray ); // background for string
 
 		const Vector2 cellDrawPosition = cellBbox.GetTopLeft() + Vector2{ 2.5f, 0.5f };
 

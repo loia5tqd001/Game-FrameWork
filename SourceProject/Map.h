@@ -13,6 +13,7 @@ class Map
 private:
 	LPDIRECT3DTEXTURE9 texture;
 	UINT height, width, tileSize;
+	RectF worldBoundary;
 	std::vector<Tile> tiles;
 
 public:
@@ -22,7 +23,7 @@ public:
 	void LoadResources(const Json::Value& root);
 	void Render() const;
 
-	inline RectF GetWorldBoundary() const { return { 0.0f, 0.0f, GetMapWidth(), GetMapHeight() }; }
+	inline RectF GetWorldBoundary() const { return worldBoundary; }
 	inline UINT  GetMapWidth     () const { return width  * tileSize; }
 	inline UINT  GetMapHeight    () const { return height * tileSize; }
 	inline UINT  GetTileSize     () const { return          tileSize; }
