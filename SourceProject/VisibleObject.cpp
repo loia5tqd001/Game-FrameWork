@@ -25,7 +25,7 @@ RectF VisibleObject::GetBBox() const
 {
 	assert(animations.count(curState) == 1);
 	const auto animationFrame = animations.at(curState).GetFrameSize();
-	return { pos.x, pos.y, animationFrame.GetWidth(), animationFrame.GetHeight() };
+	return { pos, animationFrame.GetWidth(), animationFrame.GetHeight() };
 }
 
 void VisibleObject::Render() const

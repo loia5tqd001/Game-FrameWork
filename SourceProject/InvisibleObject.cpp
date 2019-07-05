@@ -14,7 +14,7 @@ State InvisibleObject::GetState() const
 
 RectF InvisibleObject::GetBBox() const
 {
-	return { pos.x, pos.y, width, height };
+	return { pos, width, height };
 }
 
 void InvisibleObject::Render() const

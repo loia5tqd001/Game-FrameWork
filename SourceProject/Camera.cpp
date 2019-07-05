@@ -25,7 +25,7 @@ void Camera::ClampWithin(const RectF& theBox)
 
 const RectF Camera::GetBBox() const
 {
-	return { pos.x, pos.y, width, height };
+	return { pos, width, height };
 }
 
 Vector2 Camera::GetPositionInViewPort(const Vector2 & objPos) const

@@ -30,5 +30,6 @@ public:
 	}
 
 	#define ThrowMyException(...) MyException::Throw(__LINE__, __func__, __FILE__, __VA_ARGS__)
+	#define AssertUnreachable assert( false )
+	#define AssertMessage(expr, msg) if (!(expr)) ThrowMyException(msg)
 };
-
