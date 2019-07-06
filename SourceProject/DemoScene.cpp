@@ -24,7 +24,7 @@ void DemoScene::Update(float dt)
 {
 	grid->UpdateCells();
 
-	mario->Update(dt, grid->GetObjectsNear( mario.get() ));
+	mario->Update(dt, grid->GetObjectsInViewPort());
 
 	cam.CenterTo( mario->GetBBox().GetCenter() );
 	cam.ClampWithin( map->GetWorldBoundary() );

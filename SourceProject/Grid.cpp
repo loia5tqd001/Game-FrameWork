@@ -136,22 +136,61 @@ std::vector<GameObject*> Grid::GetObjectsNear(GameObject* objectInInterest) cons
 	return { result.begin(), result.end() };
 }
 
-Area Grid::GetVicinityAreaOfViewPort() const
+void Grid::UpdateCells()
 {
-	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
-	area.xs = max(0    , (int)area.xs - 2); // expand considering region by (2,1) cells
-	area.xe = min(width  - 1, area.xe + 2);
-	area.ys = max(0    , (int)area.ys - 1); 
-	area.ye = min(height - 1, area.ye + 1); 
-	return area;
+	// recalculate viewPortArea every frame
+	viewPortArea = CalcCollidableArea( Camera::Instance().GetBBox() );
+
+	std::unordered_set<GameObject*> shouldBeUpdatedObjects;
+	bool hasDestroyedObject = false;
+
+	for (UINT x = viewPortArea.xs; x <= viewPortArea.xe; x++)
+		for (UINT y = viewPortArea.ys; y <= viewPortArea.ye; y++)
+		{
+			Cell& cell = cells[x * height + y];
+			if (cell.movingObjects.size() == 0) continue;
+
+			Utils::RemoveIf(cell.movingObjects, [&](auto& o)
+			{
+				static Camera& cam = Camera::Instance();
+				const RectF oBbox = o->GetBBox();
+
+				if (o->GetState() == State::Destroyed) hasDestroyedObject = true;
+
+				// objects IsNone are either Destroyed or Die and won't be moving, so no need to care updating
+				// NOTE: but if game has objects flying around after died we should rewrite this
+				if (oBbox.IsNone()) return false; 
+
+				// Objects offscreen should be updated when totally left their old cell
+				if ( !oBbox.IsIntersect(cell.GetBBox()) )
+				{
+					shouldBeUpdatedObjects.emplace(o);	
+					return true;
+				}
+
+				return false;
+			});
+		}
+
+	for (auto& obj : shouldBeUpdatedObjects)
+	{
+		Area area = CalcCollidableArea( obj->GetBBox() );
+
+		for (UINT x = area.xs; x <= area.xe; x++)
+			for (UINT y = area.ys; y <= area.ye; y++)
+			{
+				cells[x * height + y].movingObjects.emplace( obj );
+			}
+	}
+
+	if (hasDestroyedObject) RemoveDestroyedObjects();
+	RecalculateObjectsInViewPort();
 }
 
 void Grid::RemoveDestroyedObjects()
 {
-	Area area = GetVicinityAreaOfViewPort();
-
-	for (UINT x = area.xs; x <= area.xe; x++)
-	for (UINT y = area.ys; y <= area.ye; y++)
+	for (UINT x = viewPortArea.xs; x <= viewPortArea.xe; x++)
+	for (UINT y = viewPortArea.ys; y <= viewPortArea.ye; y++)
 	{
 		Cell& cell = cells[x * height + y];
 		Utils::RemoveIf(cell.movingObjects, [](auto o) { return o->GetState() == State::Destroyed;} );
@@ -164,10 +203,8 @@ void Grid::RecalculateObjectsInViewPort()
 {
 	std::unordered_set<GameObject*> result;
 
-	Area area = GetVicinityAreaOfViewPort();
-
-	for (UINT x = area.xs; x <= area.xe; x++)
-	for (UINT y = area.ys; y <= area.ye; y++)
+	for (UINT x = viewPortArea.xs; x <= viewPortArea.xe; x++)
+	for (UINT y = viewPortArea.ys; y <= viewPortArea.ye; y++)
 	{
 		const Cell& cell = cells[x * height + y];
 		result.insert(cell.staticObjects.begin(), cell.staticObjects.end());
@@ -177,58 +214,10 @@ void Grid::RecalculateObjectsInViewPort()
 	curObjectsInViewPort = { result.begin(), result.end() };
 }
 
-void Grid::UpdateCells()
-{
-	std::unordered_set<GameObject*> shouldBeUpdatedObjects;
-
-	for (UINT x = 0; x < width; x++)
-	for (UINT y = 0; y < height; y++)
-	{
-		Cell& cell = cells[x * height + y];
-		if (cell.movingObjects.size() == 0) continue;
-
-		Utils::RemoveIf(cell.movingObjects, [&](auto& o)
-		{
-			static Camera& cam = Camera::Instance();
-			const RectF oBbox = o->GetBBox();
-
-			// objects IsNone are either Destroyed or Die and won't be moving, so no need to care updating
-			// NOTE: but if game has objects flying around after died we should rewrite this
-			if (oBbox.IsNone()) return false; 
-
-			// Always reupdate objects on screen even on the case they move to new cell when haven't totally left old cell
-			// Objects offscreen should be updated when totally left their old cell
-			if (oBbox.IsIntersect( cam.GetBBox() ) || !oBbox.IsIntersect( cell.GetBBox() ))
-			{
-				shouldBeUpdatedObjects.emplace(o);	
-				return true;
-			}
-			
-			return false;
-		});
-	}
-
-	for (auto& obj : shouldBeUpdatedObjects)
-	{
-		Area area = CalcCollidableArea( obj->GetBBox() );
-
-		for (UINT x = area.xs; x <= area.xe; x++)
-		for (UINT y = area.ys; y <= area.ye; y++)
-		{
-			cells[x * height + y].movingObjects.emplace( obj );
-		}
-	}
-	
-	RemoveDestroyedObjects();
-	RecalculateObjectsInViewPort();
-}
-
 void Grid::RenderCells() const
 {
-	Area area = CalcCollidableArea( Camera::Instance().GetBBox() );
-
-	for (UINT x = area.xs; x <= area.xe; x++)
-	for (UINT y = area.ys; y <= area.ye; y++)
+	for (UINT x = viewPortArea.xs; x <= viewPortArea.xe; x++)
+	for (UINT y = viewPortArea.ys; y <= viewPortArea.ye; y++)
 	{
 		const UINT  cellIndex = x * height + y   ;
 		const Cell& cell      = cells[cellIndex] ;

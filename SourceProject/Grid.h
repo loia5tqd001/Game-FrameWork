@@ -8,7 +8,7 @@ struct Cell
 	const RectF& GetBBox() const { return boundingBox; }
 };
 
-struct Area { UINT xs, xe, ys, ye; };
+struct Area { UINT xs = 0, xe = 0, ys = 0, ye = 0; };
 
 class Grid 
 {
@@ -17,11 +17,11 @@ private:
 	std::vector<Cell> cells;
 	std::vector<std::unique_ptr<GameObject>> objectHolder; // responsible for deleting objects, use this to avoid using slow and complicated shared_ptr
 	std::vector<GameObject*> curObjectsInViewPort; // being recalculated every frame 
+	Area viewPortArea;
 
 private:
 	Grid(const Grid&) = delete;
 	Area CalcCollidableArea(const RectF& bbox) const;
-	Area GetVicinityAreaOfViewPort() const;
 
 	auto LoadObjects(const Json::Value& grid);
 	void LoadResources(const Json::Value& root);
