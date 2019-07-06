@@ -15,7 +15,8 @@ public:
 	virtual SoundId GetBgMusic() const { return SoundId::Count; } // invalid music
 	bool HasMusic() const { return GetBgMusic() != SoundId::Count; }
 
-	void TogglePause() { isPause = !isPause; }
+	void SetPause(bool ispause);
+	void TogglePause() { SetPause(!isPause); }
 	inline bool IsPause() const { return isPause; }
 
 	virtual void LoadResources () = 0;

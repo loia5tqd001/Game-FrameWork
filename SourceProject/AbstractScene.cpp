@@ -21,3 +21,14 @@ Json::Value AbstractScene::GetRootJson(LPCSTR jsonPath)
 
 	return root;
 }
+
+void AbstractScene::SetPause(bool ispause)
+{
+	isPause = ispause;
+
+	if (HasMusic()) // handle music for current main scene
+	{
+		if (isPause) Sounds::StopAt(GetBgMusic());
+		else         Sounds::PlayLoop(GetBgMusic());
+	}
+}

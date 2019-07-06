@@ -3,6 +3,12 @@
 static auto& wnd = Window::Instance();
 static auto& sceneManager = SceneManager::Instance();
 
+Game& Game::Instance()
+{ 
+	static Game instance; 
+	return instance; 
+}
+
 Game::~Game()
 {
 	if (spriteHandler != NULL) spriteHandler->Release();
@@ -13,7 +19,7 @@ Game::~Game()
 
 void Game::FillColor(D3DCOLOR color) const
 {
-	d3ddv->ColorFill(backBuffer, NULL, color); 
+	DrawSolidRect( { 0.0f, 0.0f, wnd.GetWidth(), wnd.GetHeight() }, color );
 }
 
 void Game::DrawSolidRect(const RectF& area, D3DCOLOR color) const
@@ -55,12 +61,6 @@ void Game::Draw(Vector2 pos, LPDIRECT3DTEXTURE9 texture, Rect portion, Vector2 v
 	//Draw function: https://docs.microsoft.com/en-us/windows/desktop/direct3d9/id3dxsprite--draw
 	spriteHandler->Draw(texture, &portion, NULL, &rasPos, color);
 	spriteHandler->SetTransform(&oldMt);
-}
-
-Game& Game::Instance()
-{ 
-	static Game instance; 
-	return instance; 
 }
 
 void Game::InitGame()

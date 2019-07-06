@@ -15,14 +15,6 @@ void SceneManager::ToggleSettingScene() const
 {
 	curScene->TogglePause();
 	settingScene.SetOpening( curScene->IsPause() );
-
-	if (curScene->HasMusic()) // handle music for current main scene
-	{
-		if (!curScene->IsPause())
-			Sounds::PlayLoop(curScene->GetBgMusic());
-		else 
-			Sounds::StopAt(curScene->GetBgMusic());
-	}
 }
 
 void SceneManager::LoadResources()

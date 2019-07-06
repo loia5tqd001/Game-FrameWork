@@ -10,5 +10,5 @@ void TransitionScene::Update(float dt)
 
 void TransitionScene::Draw()
 {
-	Game::Instance().FillColor(0); // 0: black
+	Game::Instance().FillColor(Colors::Black); 
 }
