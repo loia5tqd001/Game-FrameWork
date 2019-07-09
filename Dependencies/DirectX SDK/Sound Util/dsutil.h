@@ -15,10 +15,10 @@
 #include <dxerr.h>
 
 
-#pragma comment(lib, "dsound.lib")
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "dxerr.lib")
+#pragma comment (lib, "dsound.lib")
+#pragma comment (lib, "dxguid.lib")
+#pragma comment (lib, "winmm.lib")
+#pragma comment (lib, "dxerr.lib")
 
 
 //-----------------------------------------------------------------------------

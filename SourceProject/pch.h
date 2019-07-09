@@ -1,7 +1,6 @@
 #pragma once
 
 // === Winapi, directx ===
-#include <Windows.h>
 #include <d3dx9.h>
 
 // === Stl library ===
@@ -12,7 +11,6 @@
 #include <fstream>
 #include <memory>
 #include <optional>
-#include <any>
 
 // === STL containers ===
 #include <vector>

@@ -55,7 +55,8 @@
 #include "d3dx9shape.h"
 #include "d3dx9anim.h"
 
-
+#pragma comment (lib, "d3d9.lib")
+#pragma comment (lib, "d3dx9.lib")
 
 // Errors
 #define _FACDD  0x876

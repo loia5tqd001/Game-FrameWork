@@ -1,5 +1,4 @@
 #pragma once
-#include <exception>
 
 // Custom exception class for more information debuging
 class MyException : public std::exception
@@ -29,7 +28,7 @@ public:
 		throw MyException(ss.str().c_str(), line, func, file);
 	}
 
-	#define ThrowMyException(...) MyException::Throw(__LINE__, __func__, __FILE__, __VA_ARGS__)
-	#define AssertUnreachable assert( false )
-	#define AssertMessage(expr, msg) if (!(expr)) ThrowMyException(msg)
+	#define ThrowMyException(...)      MyException::Throw(__LINE__, __func__, __FILE__, __VA_ARGS__)
+	#define AssertUnreachable          assert( false )
+	#define AssertMessage(expr, msg)   if ( !(expr) ) ThrowMyException(msg)
 };
