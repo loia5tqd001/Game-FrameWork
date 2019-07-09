@@ -29,7 +29,10 @@ void Mario::OnKeyDown(BYTE keyCode)
 	}
 
 	if (keyCode == setting.Get(KeyControls::Jump)) {
-		SetState(State::MarioJump);
+		if (_isJumping == false) {
+			SetState(State::MarioJump);
+			_isJumping = true;
+		}
 	}
 }
 
@@ -56,6 +59,7 @@ void Mario::HandleNoCollisions(float dt)
 {
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;
+	_isJumping = true; //mario is falling, cant't jump
 }
 
 void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects)
@@ -73,7 +77,7 @@ void Mario::HandleCollisions(float dt, const std::vector<GameObject*>& coObjects
 	pos.y += min_ty * vel.y * dt;
 
 	if (nx != 0.0f) vel.x = 0.0f;
-	if (ny != 0.0f) vel.y = 0.0f;
+	if (ny != 0.0f) { vel.y = 0.0f; _isJumping = false; }
 
 	// Collision logic with Goombas
 	for (UINT i = 0; i < coEvents.size(); i++)
