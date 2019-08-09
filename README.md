@@ -18,7 +18,7 @@ Có vẻ là 10 điểm thầy Dũng \
 https://github.com/catrom/Castlevania \
 9 điểm thầy Dũng - làm trong vài ngày qua môn \
 https://github.com/PhanVinhLong/GameDevIntro \
-10 điểm thầy Dũng - Được thầy Dũng mời về công ty làm nhưng bận học nên từ chối \
+10 điểm thầy Dũng - Best project of all \
 https://github.com/NearHuscarl/Castlevania
 
 
